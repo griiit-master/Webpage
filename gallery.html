@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Tumaini Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Gallery Filter Buttons ───────────────────────
+      Used to filter photos by category (e.g. Events, Schools)
+      These styles are specific to this page only.
+    ─────────────────────────────────────────────────── */
+    .gallery-filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .filter-btn {
+      padding: 10px 24px;
+      border: 2px solid rgba(26,107,58,0.2);
+      background: white;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--dark);
+      transition: all 0.2s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    /* ── Gallery grid items ──────────────────────────
+      Each item has a fixed height and shows the image covering it.
+      Tall items use .tall class to span 2 rows.
+    ─────────────────────────────────────────────────── */
+    .gallery-masonry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 240px;
+      gap: 16px;
+    }
+    .gallery-masonry .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--green-pale);
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+    .gallery-masonry .gallery-item.tall {
+      grid-row: span 2; /* Makes some photos taller — more visual variety */
+    }
+    .gallery-masonry .gallery-item.wide {
+      grid-column: span 2;
+    }
+    .gallery-masonry .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .gallery-masonry .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    /* Placeholder when no image file exists yet */
+    .img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #e8f5ee, #c5e8d5);
+      color: var(--green); font-size: 2rem; gap: 8px;
+    }
+    .img-placeholder span {
+      font-size: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--mid);
+    }
+
+    @media (max-width: 700px) {
+      .gallery-masonry {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 180px;
+      }
+      .gallery-masonry .gallery-item.tall { grid-row: span 1; }
+      .gallery-masonry .gallery-item.wide { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-placeholder"></div>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-tag" style="background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.9);">Our Impact in Pictures</span>
+      <h1>Photo Gallery</h1>
+      <p>Moments captured from our programs, events, and communities across Kenya.</p>
+    </div>
+  </section>
+
+  <section style="padding: var(--section-padding);">
+    <div class="container">
+
+      <!-- =============================================
+        GALLERY FILTER BUTTONS
+        To add a new category:
+        1. Add a new .filter-btn with data-filter="yourcategory"
+        2. Add data-category="yourcategory" to each related .gallery-item
+      ============================================= -->
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">All Photos</button>
+        <button class="filter-btn" data-filter="community">Community</button>
+        <button class="filter-btn" data-filter="scholarships">Scholarships</button>
+        <button class="filter-btn" data-filter="health">Health</button>
+        <button class="filter-btn" data-filter="events">Events</button>
+        <button class="filter-btn" data-filter="training">Training</button>
+      </div>
+
+      <!-- =============================================
+        GALLERY GRID
+        HOW TO ADD PHOTOS:
+        1. Put your image file in: assets/images/
+        2. Copy a .gallery-item block below
+        3. Set src="your-image-filename.jpg"
+        4. Set alt="Descriptive caption"
+        5. Set data-category to match one of the filter buttons
+        6. Add class "tall" to make it span 2 rows (taller)
+        7. Add class "wide" to span 2 columns (wider)
+      ============================================= -->
+      <div class="gallery-masonry" id="gallery-grid">
+
+        <!-- COMMUNITY photos -->
+        <div class="gallery-item tall" data-category="community">
+          <!-- Replace src with your actual image -->
+          <img src="../assets/images/community1.jpg" alt="Community meeting in Kibera"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🏘️<span>Community Meeting</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="scholarships">
+          <img src="../assets/images/scholarship1.jpg" alt="Scholarship award ceremony"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🎓<span>Scholarship Award</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="health">
+          <img src="../assets/images/health1.jpg" alt="Medical outreach camp"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🏥<span>Health Outreach</span></div>'" />
+        </div>
+
+        <div class="gallery-item wide" data-category="events">
+          <img src="../assets/images/event1.jpg" alt="Annual gala dinner 2023"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🎉<span>Annual Gala</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="training">
+          <img src="../assets/images/training1.jpg" alt="Vocational skills training session"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>💼<span>Skills Training</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="community">
+          <img src="../assets/images/community2.jpg" alt="Food distribution day"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🍱<span>Food Distribution</span></div>'" />
+        </div>
+
+        <div class="gallery-item tall" data-category="scholarships">
+          <img src="../assets/images/scholarship2.jpg" alt="Students receiving school supplies"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>📚<span>School Supplies</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="health">
+          <img src="../assets/images/health2.jpg" alt="Health awareness workshop"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>💊<span>Health Workshop</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="training">
+          <img src="../assets/images/training2.jpg" alt="Women's sewing and tailoring class"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🧵<span>Tailoring Class</span></div>'" />
+        </div>
+
+        <div class="gallery-item wide" data-category="community">
+          <img src="../assets/images/community3.jpg" alt="Tree planting environmental campaign"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🌱<span>Tree Planting</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="events">
+          <img src="../assets/images/event2.jpg" alt="Volunteer day with youth group"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🙋<span>Volunteer Day</span></div>'" />
+        </div>
+
+        <div class="gallery-item" data-category="scholarships">
+          <img src="../assets/images/scholarship3.jpg" alt="Scholarship students mentoring session"
+               onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🌟<span>Mentoring</span></div>'" />
+        </div>
+
+        <!-- Copy a .gallery-item block above to add more photos -->
+
+      </div><!-- end gallery-masonry -->
+    </div>
+  </section>
+
+  <!-- UPLOAD CALL TO ACTION -->
+  <section style="padding: 64px 0; background: var(--green-pale); text-align:center;">
+    <div class="container">
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:12px;">Have Photos to Share?</h3>
+      <p style="color:var(--mid); margin-bottom:28px;">If you've attended our events or volunteered with us, send us your photos — we'd love to feature them!</p>
+      <a href="contact.html" class="btn btn-primary">Send Us Photos</a>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script src="main.js"></script>
+
+  <script>
+    /* =============================================
+      GALLERY FILTER LOGIC
+      Filters photos by category when filter buttons are clicked.
+      You don't need to edit this script.
+    ============================================= */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        /* Update active button */
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        galleryItems.forEach(item => {
+          const category = item.dataset.category;
+          /* Show item if it matches filter or if "all" is selected */
+          if (filter === 'all' || category === filter) {
+            item.style.display = '';
+            item.style.opacity = '1';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
