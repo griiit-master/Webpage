@@ -23,17 +23,17 @@
   Change colors here to re-theme the entire site.
 ============================================= */
 :root {
-  /* PRIMARY COLORS */
-  --green: #1a6b3a;          /* Main brand green — Kenya-inspired */
-  --green-light: #27a358;    /* Lighter green for hover states */
-  --green-pale: #e8f5ee;     /* Very light green background tint */
-  --red: #c0392b;            /* Accent red — also Kenya-inspired */
-  --gold: #d4a017;           /* Gold accent for highlights */
+  /* PRIMARY COLORS — Beautiful Blue Palette */
+  --green: #1a4f8a;          /* Deep royal blue — main brand color */
+  --green-light: #2872c8;    /* Bright blue for hover states */
+  --green-pale: #e8f1fb;     /* Very light blue background tint */
+  --red: #e05c2a;            /* Warm orange accent for contrast */
+  --gold: #f0b429;           /* Amber/gold accent for highlights */
 
   /* NEUTRAL COLORS */
-  --dark: #0f1f17;           /* Near-black for text */
-  --mid: #4a5e52;            /* Medium gray-green for secondary text */
-  --light: #f7faf8;          /* Off-white background */
+  --dark: #0d1b2e;           /* Deep navy near-black for text */
+  --mid: #4a6080;            /* Muted blue-gray for secondary text */
+  --light: #f4f7fc;          /* Cool off-white background */
   --white: #ffffff;
 
   /* TYPOGRAPHY */
@@ -45,8 +45,8 @@
   --container-max: 1200px;
 
   /* EFFECTS */
-  --shadow: 0 4px 24px rgba(26, 107, 58, 0.12);
-  --shadow-hover: 0 8px 40px rgba(26, 107, 58, 0.22);
+  --shadow: 0 4px 24px rgba(26, 79, 138, 0.12);
+  --shadow-hover: 0 8px 40px rgba(26, 79, 138, 0.24);
   --radius: 12px;
   --transition: all 0.3s ease;
 }
@@ -319,8 +319,8 @@ a {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(15,31,23,0.85) 0%,
-    rgba(26,107,58,0.6) 100%
+    rgba(13,27,46,0.88) 0%,
+    rgba(26,79,138,0.65) 100%
   );
 }
 
@@ -335,7 +335,7 @@ a {
 .hero-tag {
   display: inline-block;
   background: rgba(255,255,255,0.15);
-  color: #a8e6c0;
+  color: #a8c8f0;
   border: 1px solid rgba(255,255,255,0.2);
   padding: 6px 16px;
   border-radius: 50px;
@@ -560,7 +560,7 @@ a {
   The call-to-action strip (green background).
 ============================================= */
 .cta-banner {
-  background: linear-gradient(135deg, var(--green) 0%, #0d4a28 100%);
+  background: linear-gradient(135deg, var(--green) 0%, #0d2a5c 100%);
   padding: 80px 0;
   position: relative;
   overflow: hidden;
@@ -790,7 +790,7 @@ a {
 .team-photo-placeholder {
   width: 100%;
   height: 260px;
-  background: linear-gradient(135deg, var(--green-pale), #c5e8d5);
+  background: linear-gradient(135deg, var(--green-pale), #b0cef5);
   display: flex;
   align-items: center;
   justify-content: center;
