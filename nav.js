@@ -25,7 +25,7 @@ const navLinks = [
   { label: "Gallery",   href: getPath("gallery.html") },
   { label: "Contact",   href: getPath("contact.html") },
 
-{ label: "Donate",      href: getPath("donate.html") },
+
 
 
 ];
@@ -88,7 +88,7 @@ function renderNav() {
       <ul class="nav-links" id="navLinks">
         ${linksHTML}
         <!-- Donate button — always last in menu -->
-        <li><a href="${getPath('pages/donate.html')}" class="nav-donate-btn">Donate</a></li>
+        <li><a href="${getPath('donate.html')}" class="nav-donate-btn">Donate</a></li>
       </ul>
 
       <!-- Mobile hamburger button -->
