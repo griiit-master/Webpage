@@ -319,6 +319,42 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
 .orm{color:var(--dim2);font-size:.7rem}
 .oid2{font-family:monospace;font-size:.68rem;color:var(--dim2);margin-top:5px}
 
+/* COIN LOGO IMAGES in dropdown */
+.coin-logo{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.coin-logo svg{width:28px;height:28px}
+
+/* PROMO CODE BOX */
+.promo-row{display:flex;gap:8px;margin-bottom:14px}
+.promo-input{
+  flex:1;background:var(--ink3);border:1px solid var(--line2);
+  border-radius:10px;padding:11px 14px;color:var(--white);
+  font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;
+  transition:border-color .2s;text-transform:uppercase;letter-spacing:1px;
+}
+.promo-input::placeholder{text-transform:none;letter-spacing:0;color:var(--dim2)}
+.promo-input:focus{border-color:rgba(42,171,238,.5)}
+.promo-input.valid{border-color:#22c55e!important;color:#4ade80}
+.promo-input.invalid{border-color:#ef4444!important}
+.promo-btn{
+  background:var(--tg3);border:1px solid rgba(42,171,238,.25);color:var(--tg2);
+  padding:11px 16px;border-radius:10px;font-family:'Outfit',sans-serif;
+  font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.promo-btn:hover{background:var(--tg);color:#fff}
+.promo-result{font-size:.76rem;margin-top:-8px;margin-bottom:10px;display:none;padding:8px 12px;border-radius:8px}
+.promo-result.ok{display:block;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#4ade80}
+.promo-result.err{display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);color:#f87171}
+
+/* discount shown on amount card */
+.discount-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
+.discount-label{color:#4ade80;font-size:.75rem}
+.discount-val{color:#4ade80;font-size:.82rem;font-weight:600}
+.original-price{text-decoration:line-through;color:var(--dim2);font-size:.75rem;margin-left:6px}
+
+/* SELECTOR HEADER */
+.pay-select-header{font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
+.pay-select-hint{font-size:.76rem;color:var(--dim2);margin-bottom:12px;line-height:1.5}
+
 .full{width:100%}.mt12{margin-top:12px}.mt16{margin-top:16px}
 
 /* WHATSAPP FLOATING BUTTON */
@@ -542,22 +578,74 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
   <div class="m">
     <div class="drag"></div>
     <button class="mc" onclick="closeOv('orderOv')">✕</button>
-    <div class="mt2">Complete Order</div>
-    <div class="ms">Enter your details to proceed to crypto payment.</div>
-    <div class="chip"><div class="chi" id="ci">⭐</div><div><div class="chn" id="cn">—</div><div class="chp" id="cp">—</div></div></div>
+    <div class="mt2">Complete Your Order</div>
+    <div class="ms">Fill in your details — we'll deliver straight to your account.</div>
+
+    <!-- Service chip -->
+    <div class="chip">
+      <div class="chi" id="ci">⭐</div>
+      <div>
+        <div class="chn" id="cn">—</div>
+        <div class="chp" id="cp">—</div>
+      </div>
+    </div>
+
+    <!-- Email — receipt only -->
     <div class="f">
-      <label>Email Address <span style="color:var(--dim2);font-weight:400;text-transform:none;letter-spacing:0">(receipt only)</span></label>
-      <input type="email" id="em" placeholder="you@example.com"/>
-      <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">We only use this to send your payment receipt. Nothing else.</div>
+      <label style="display:flex;align-items:center;gap:6px">
+        📧 Email Address
+        <span style="background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.2);color:var(--tg2);font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.4px;font-family:'Outfit',sans-serif">Receipt only</span>
+      </label>
+      <input type="email" id="em" placeholder="you@example.com" style="margin-top:6px"/>
+      <div style="font-size:.72rem;color:var(--dim2);margin-top:5px;line-height:1.5">
+        We send your payment confirmation here. We will never share or spam your email.
+      </div>
     </div>
-    <div class="f" style="margin-top:4px">
-      <label>Telegram Username or Phone Number</label>
-      <input type="text" id="un" placeholder="@username or +1 234 567 8900" oninput="onUname(this)"/>
-      <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">Include country code if using phone number, e.g. <strong style="color:var(--tg2)">+1 234 567 8900</strong></div>
+
+    <!-- Toggle: Username vs Phone -->
+    <div class="f" style="margin-top:2px">
+      <label>Telegram Account</label>
+      <div style="display:flex;gap:0;margin:6px 0 10px;border:1px solid var(--line2);border-radius:10px;overflow:hidden">
+        <button id="tabUser" onclick="switchTab('user')"
+          style="flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">
+          @Username
+        </button>
+        <button id="tabPhone" onclick="switchTab('phone')"
+          style="flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">
+          📞 Phone Number
+        </button>
+      </div>
+
+      <!-- Username input -->
+      <div id="inputUser">
+        <input type="text" id="un" placeholder="@yourusername" oninput="onUname(this)"/>
+        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">Enter your Telegram @username exactly as it appears on your profile.</div>
+      </div>
+
+      <!-- Phone input -->
+      <div id="inputPhone" style="display:none">
+        <input type="tel" id="ph" placeholder="+1 234 567 8900" oninput="onUname(this)"/>
+        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">
+          <strong style="color:var(--tg2)">Must include country code</strong> — e.g. +44 for UK, +1 for US, +234 for Nigeria.
+        </div>
+      </div>
     </div>
+
+    <!-- Warning -->
     <div class="uname-warn" id="uwarn">
-      ⚠️ <strong>Double-check your details.</strong> We deliver directly to <span id="uprv">your account</span> — a wrong username or number <strong>cannot be reversed</strong> after payment.
+      ⚠️ <strong>Double-check your details.</strong> We deliver directly to <span id="uprv">your account</span> — a wrong entry <strong>cannot be reversed</strong> after payment.
     </div>
+
+    <!-- Promo code — only shown for Unfreeze -->
+    <div id="promoSection" style="display:none;margin-bottom:14px">
+      <div style="font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:7px">🎟 Promo Code</div>
+      <div class="promo-row">
+        <input class="promo-input" id="promoInputOrder" placeholder="Enter promo code" maxlength="20"/>
+        <button class="promo-btn" onclick="applyPromoOrder()">Apply</button>
+      </div>
+      <div class="promo-result" id="promoResultOrder"></div>
+    </div>
+
     <button class="btn-tg full mt12" onclick="proceed()">Continue to Payment →</button>
   </div>
 </div>
@@ -579,19 +667,44 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     </div>
 
     <!-- POLYMARKET PILLS -->
+    <div class="pay-select-header">Choose how you want to pay</div>
+    <div class="pay-select-hint">Select any token below, then pick your preferred network. Tap to change.</div>
     <div class="selector-row">
       <div class="selector-pill" id="tokPill" onclick="toggleDrop('tokDrop','tokPill')">
-        <span class="pill-icon" id="tokIcon">₮</span>
+        <span class="pill-icon" id="tokIcon">
+          <svg viewBox="0 0 32 32" style="width:22px;height:22px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg>
+        </span>
         <span class="pill-label" id="tokLabel">USDT</span>
         <span class="pill-arrow">▾</span>
         <div class="drop-list" id="tokDrop">
-          <div class="drop-item chosen" onclick="selTok(event,'USDT','₮')"><span class="d-icon">₮</span><div><div class="d-main">USDT</div><div class="d-sub">Tether</div></div><span class="d-check">✓</span></div>
-          <div class="drop-item" onclick="selTok(event,'USDC','◎')"><span class="d-icon">◎</span><div><div class="d-main">USDC</div><div class="d-sub">USD Coin</div></div><span class="d-check">✓</span></div>
-          <div class="drop-item" onclick="selTok(event,'BTC','₿')"><span class="d-icon">₿</span><div><div class="d-main">BTC</div><div class="d-sub">Bitcoin</div></div><span class="d-check">✓</span></div>
-          <div class="drop-item" onclick="selTok(event,'ETH','Ξ')"><span class="d-icon">Ξ</span><div><div class="d-main">ETH</div><div class="d-sub">Ethereum</div></div><span class="d-check">✓</span></div>
-          <div class="drop-item" onclick="selTok(event,'BNB','◈')"><span class="d-icon">◈</span><div><div class="d-main">BNB</div><div class="d-sub">BNB Chain</div></div><span class="d-check">✓</span></div>
-          <div class="drop-item" onclick="selTok(event,'TON','💎')"><span class="d-icon">💎</span><div><div class="d-main">TON</div><div class="d-sub">Toncoin</div></div><span class="d-check">✓</span></div>
-          <div class="drop-item" onclick="selTok(event,'LTC','Ł')"><span class="d-icon">Ł</span><div><div class="d-main">LTC</div><div class="d-sub">Litecoin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item chosen" onclick="selTok(event,'USDT')">
+            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg></span>
+            <div><div class="d-main">USDT</div><div class="d-sub">Tether</div></div><span class="d-check">✓</span>
+          </div>
+          <div class="drop-item" onclick="selTok(event,'USDC')">
+            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5zM15.5 9v2.084c-1.617.376-2.834 1.83-2.834 3.566 0 1.737 1.217 3.19 2.834 3.566V20h1v-1.784c1.617-.376 2.834-1.83 2.834-3.566 0-1.737-1.217-3.19-2.834-3.566V9h-1zm0 3.166v4.918c-.963-.34-1.668-1.245-1.668-2.334 0-1.09.705-1.994 1.668-2.334v-.25-.334zm1 0v.584c.963.34 1.668 1.245 1.668 2.334 0 1.09-.705 1.994-1.668 2.334v-4.918l-.001-.334z" fill="#fff"/></svg></span>
+            <div><div class="d-main">USDC</div><div class="d-sub">USD Coin</div></div><span class="d-check">✓</span>
+          </div>
+          <div class="drop-item" onclick="selTok(event,'BTC')">
+            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427zm-3.783 5.303c-.511 2.054-3.97.944-5.09.665l.909-3.643c1.12.28 4.71.833 4.181 2.978zm.512-5.332c-.467 1.873-3.349.921-4.284.688l.823-3.302c.935.233 3.946.667 3.461 2.614z" fill="#fff"/></svg></span>
+            <div><div class="d-main">BTC</div><div class="d-sub">Bitcoin</div></div><span class="d-check">✓</span>
+          </div>
+          <div class="drop-item" onclick="selTok(event,'ETH')">
+            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M16.498 20.573l7.497-4.353-7.497-3.348z" fill="#fff" opacity=".2"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg></span>
+            <div><div class="d-main">ETH</div><div class="d-sub">Ethereum</div></div><span class="d-check">✓</span>
+          </div>
+          <div class="drop-item" onclick="selTok(event,'BNB')">
+            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144-.002-.003 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16zm-3.188-.002h.002L16 13.706l-1.71 1.71-.197.197-.393.393.002.002-.002.003L16 18.294l2.294-2.294.002-.002-.004-.002z" fill="#fff"/></svg></span>
+            <div><div class="d-main">BNB</div><div class="d-sub">BNB Chain</div></div><span class="d-check">✓</span>
+          </div>
+          <div class="drop-item" onclick="selTok(event,'TON')">
+            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44h-.19z" fill="#fff"/></svg></span>
+            <div><div class="d-main">TON</div><div class="d-sub">Toncoin</div></div><span class="d-check">✓</span>
+          </div>
+          <div class="drop-item" onclick="selTok(event,'LTC')">
+            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg></span>
+            <div><div class="d-main">LTC</div><div class="d-sub">Litecoin</div></div><span class="d-check">✓</span>
+          </div>
         </div>
       </div>
 
@@ -608,12 +721,21 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     <div class="amtcard">
       <div class="amtr"><span class="amtl">Amount to send</span><span class="amtv" id="pamtv">—</span></div>
       <div class="amtu" id="pamtu">Fetching rate…</div>
+      <div class="discount-row" id="discountRow" style="display:none">
+        <span class="discount-label">🎉 FLASH20 applied (20% off)</span>
+        <span class="discount-val" id="discountVal"></span>
+      </div>
     </div>
 
     <div class="acard">
       <div class="albl">Deposit Address</div>
       <div class="aval" id="paddr">—</div>
       <div class="aact"><button class="cbtn" onclick="copyA()">📋 Copy Address</button></div>
+    </div>
+
+    <!-- PROMO NOTE if discount already applied -->
+    <div id="promoAppliedNote" style="display:none;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);border-radius:9px;padding:9px 13px;margin-bottom:14px;font-size:.76rem;color:#4ade80">
+      🎉 <strong>FLASH20 applied</strong> — 20% discount is reflected in the amount above.
     </div>
 
     <button class="btn-tg full" onclick="confirmPay()">✅ I Have Made Payment</button>
@@ -768,10 +890,20 @@ function toggleDrop(did,pid){
 }
 
 // ── TOKEN SELECT ─────────────────────────────────────────────────────
-function selTok(e,tok,icon){
+const TOK_ICONS = {
+  USDT:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg>',
+  USDC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5zM15.5 9v2.084c-1.617.376-2.834 1.83-2.834 3.566 0 1.737 1.217 3.19 2.834 3.566V20h1v-1.784c1.617-.376 2.834-1.83 2.834-3.566 0-1.737-1.217-3.19-2.834-3.566V9h-1zm0 3.166v4.918c-.963-.34-1.668-1.245-1.668-2.334 0-1.09.705-1.994 1.668-2.334zm1 0v.584c.963.34 1.668 1.245 1.668 2.334 0 1.09-.705 1.994-1.668 2.334v-4.918z" fill="#fff"/></svg>',
+  BTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427zm-3.783 5.303c-.511 2.054-3.97.944-5.09.665l.909-3.643c1.12.28 4.71.833 4.181 2.978zm.512-5.332c-.467 1.873-3.349.921-4.284.688l.823-3.302c.935.233 3.946.667 3.461 2.614z" fill="#fff"/></svg>',
+  ETH:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M16.498 20.573l7.497-4.353-7.497-3.348z" fill="#fff" opacity=".2"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg>',
+  BNB:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144-.002-.003 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16zm-3.188-.002h.002L16 13.706l-1.71 1.71-.197.197-.393.393.002.002-.002.003L16 18.294l2.294-2.294.002-.002-.004-.002z" fill="#fff"/></svg>',
+  TON:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44h-.19z" fill="#fff"/></svg>',
+  LTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg>',
+};
+
+function selTok(e,tok){
   e.stopPropagation();
   curTok=tok; curChain=CHAINS[tok][0];
-  document.getElementById('tokIcon').textContent=icon;
+  document.getElementById('tokIcon').innerHTML = TOK_ICONS[tok] || tok;
   document.getElementById('tokLabel').textContent=tok;
   document.querySelectorAll('#tokDrop .drop-item').forEach(el=>el.classList.toggle('chosen',el.querySelector('.d-main').textContent===tok));
   renderNetDrop(); updateAmt(); updateAddr(); updateRateBar();
@@ -800,14 +932,22 @@ function selNet(e,id){
   document.getElementById('netPill').classList.remove('active-drop');
 }
 
-// ── AMOUNT (uses live rates) ──────────────────────────────────────────
+// ── AMOUNT (uses live rates + discount) ──────────────────────────────
 function updateAmt(){
-  const price = parseFloat(svc.price || '13.20');
+  const basePrice = parseFloat(svc.price || '13.20');
+  const discounted = basePrice * (1 - activeDiscount);
   const rate  = liveRates[curTok] || FALLBACK[curTok] || 1;
-  const cryptoAmt = price * rate;
+  const cryptoAmt = discounted * rate;
   const decimals  = curTok==='BTC'?8 : curTok==='ETH'?6 : curTok==='LTC'?6 : 4;
   document.getElementById('pamtv').textContent = cryptoAmt.toFixed(decimals)+' '+curTok;
-  document.getElementById('pamtu').textContent = '≈ $'+price.toFixed(2)+' USD'+(ratesFetched ? ' · Live rate' : ' · Estimated');
+  document.getElementById('pamtu').textContent = '≈ $'+discounted.toFixed(2)+' USD'+(activeDiscount>0?' (was $'+basePrice.toFixed(2)+')':'')+(ratesFetched?' · Live rate':' · Estimated');
+  if(activeDiscount > 0){
+    const saved = (basePrice * activeDiscount * rate).toFixed(decimals);
+    document.getElementById('discountVal').textContent = '−'+saved+' '+curTok;
+    document.getElementById('discountRow').style.display = 'flex';
+  } else {
+    document.getElementById('discountRow').style.display = 'none';
+  }
 }
 
 function updateAddr(){
@@ -837,19 +977,52 @@ function startTimer(){
 // ── USERNAME WARNING ──────────────────────────────────────────────────
 function onUname(inp){
   const v=inp.value.trim(),w=document.getElementById('uwarn'),pv=document.getElementById('uprv');
-  if(v.length>=3){pv.textContent=v.startsWith('@')?v:'@'+v;w.classList.add('show');inp.classList.add('warn-b')}
-  else{w.classList.remove('show');inp.classList.remove('warn-b')}
+  if(v.length>=2){
+    pv.textContent = v.startsWith('@') ? v : v.startsWith('+') ? v : '@'+v;
+    w.classList.add('show'); inp.classList.add('warn-b');
+  } else { w.classList.remove('show'); inp.classList.remove('warn-b') }
+}
+
+// ── TAB SWITCH ────────────────────────────────────────────────────────
+let activeTab='user';
+function switchTab(tab){
+  activeTab=tab;
+  const u=tab==='user';
+  document.getElementById('tabUser').style.cssText  = u ? 'flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s' : 'flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s';
+  document.getElementById('tabPhone').style.cssText = u ? 'flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s' : 'flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s';
+  document.getElementById('inputUser').style.display  = u ? 'block' : 'none';
+  document.getElementById('inputPhone').style.display = u ? 'none'  : 'block';
+  document.getElementById('uwarn').classList.remove('show');
+}
+
+// ── PROMO CODE (Unfreeze only) ────────────────────────────────────────
+const PROMOS = {'FLASH20':0.20};
+let activeDiscount = 0;
+function applyPromoOrder(){
+  const code = document.getElementById('promoInputOrder').value.trim().toUpperCase();
+  const res  = document.getElementById('promoResultOrder');
+  const inp  = document.getElementById('promoInputOrder');
+  if(PROMOS[code]!==undefined){
+    activeDiscount = PROMOS[code];
+    inp.classList.add('valid'); inp.classList.remove('invalid');
+    res.className='promo-result ok';
+    res.textContent='🎉 '+(activeDiscount*100)+'% off applied! Discount shown at payment.';
+  } else {
+    activeDiscount=0;
+    inp.classList.add('invalid'); inp.classList.remove('valid');
+    res.className='promo-result err';
+    res.textContent='✕ Invalid promo code. Please try again.';
+  }
 }
 
 // ── PREMIUM PICKER ────────────────────────────────────────────────────
 function openPremiumPicker(){openOv('premiumOv')}
 
 // ── VIP SERVICES → WhatsApp ───────────────────────────────────────────
-// Replace 1234567890 with your real WhatsApp number
-const WA_NUMBER = '1234567890';
-function openVIP(service, icon, price){
-  const msg = encodeURIComponent(`Hi, I'm interested in the ${service} service (${price}). Please assist me.`);
-  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+const WA_NUMBER = '1234567890'; // ← replace with your real number
+function openVIP(service,icon,price){
+  const msg=encodeURIComponent(`Hi, I'm interested in the ${service} service (${price}). Please assist me.`);
+  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
 }
 
 // ── OPEN ORDER FORM ───────────────────────────────────────────────────
@@ -860,31 +1033,51 @@ function openOrder(name,variant,icon,price,type){
   document.getElementById('cp').textContent='$'+parseFloat(price).toFixed(2);
   document.getElementById('em').value='';
   document.getElementById('un').value='';
+  document.getElementById('ph').value='';
   document.getElementById('uwarn').classList.remove('show');
   document.getElementById('un').classList.remove('warn-b');
+  document.getElementById('ph').classList.remove('warn-b');
+  // reset to username tab
+  switchTab('user');
+  // reset promo
+  activeDiscount=0;
+  document.getElementById('promoInputOrder').value='';
+  document.getElementById('promoInputOrder').classList.remove('valid','invalid');
+  document.getElementById('promoResultOrder').className='promo-result';
+  document.getElementById('promoResultOrder').textContent='';
+  // show promo ONLY for Unfreeze
+  document.getElementById('promoSection').style.display = type==='unfreeze' ? 'block' : 'none';
   closeOv('premiumOv'); openOv('orderOv');
 }
 
 // ── PROCEED TO PAYMENT ────────────────────────────────────────────────
 function proceed(){
-  const em=document.getElementById('em').value.trim();
-  const un=document.getElementById('un').value.trim();
+  const em = document.getElementById('em').value.trim();
+  const accountVal = activeTab==='user'
+    ? document.getElementById('un').value.trim()
+    : document.getElementById('ph').value.trim();
   if(!em||!em.includes('@')){alert('Please enter a valid email address.');return}
-  if(!un){alert('Please enter your Telegram username.');return}
-  svc.email=em; svc.user=un;
+  if(!accountVal){
+    alert(activeTab==='user'?'Please enter your Telegram username.':'Please enter your phone number with country code.');return;
+  }
+  if(activeTab==='phone'&&!accountVal.startsWith('+')){
+    alert('Phone number must start with your country code.\nExample: +1 234 567 8900 (US), +44 7911 123456 (UK)');return;
+  }
+  svc.email=em; svc.user=accountVal;
   closeOv('orderOv'); initPay();
 }
 
 // ── INIT PAYMENT ──────────────────────────────────────────────────────
 function initPay(){
   curTok='USDT'; curChain=CHAINS.USDT[0];
-  document.getElementById('tokIcon').textContent='₮';
+  document.getElementById('tokIcon').innerHTML=TOK_ICONS['USDT'];
   document.getElementById('tokLabel').textContent='USDT';
   document.querySelectorAll('#tokDrop .drop-item').forEach((el,i)=>el.classList.toggle('chosen',i===0));
   renderNetDrop(); updateAmt(); updateAddr(); updateRateBar();
-  // fetch fresh rates every time payment opens
-  fetchRates();
-  startTimer(); openOv('payOv');
+  // show "discount applied" note if promo was used
+  const note=document.getElementById('promoAppliedNote');
+  if(note) note.style.display = activeDiscount>0 ? 'block' : 'none';
+  fetchRates(); startTimer(); openOv('payOv');
 }
 
 // ── CONFIRM PAYMENT ───────────────────────────────────────────────────
