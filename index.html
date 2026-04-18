@@ -545,7 +545,8 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     <div class="fl">
       <a href="#services">Services</a><a href="#faq">FAQ</a>
       <a href="https://wa.me/1234567890" target="_blank">Support</a>
-      <a href="#">Terms</a><a href="#">Privacy</a>
+      <a href="#" onclick="openOv('termsOv');return false">Terms</a>
+      <a href="#" onclick="openOv('privacyOv');return false">Privacy</a>
     </div>
     <div class="fc">© 2025 TGStar.me</div>
   </div>
@@ -782,6 +783,88 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
       Chat on WhatsApp
     </a>
     <div style="text-align:center;margin-top:10px;color:var(--dim2);font-size:.74rem">Tap to open WhatsApp</div>
+  </div>
+</div>
+
+<!-- TERMS OF SERVICE -->
+<div class="ov" id="termsOv">
+  <div class="m" style="max-width:520px">
+    <div class="drag"></div>
+    <button class="mc" onclick="closeOv('termsOv')">✕</button>
+    <div class="mt2">Terms of Service</div>
+    <div class="ms">Last updated: January 2025</div>
+    <div style="color:var(--dim2);font-size:.82rem;line-height:1.8;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">1. Service Agreement</div>
+        By placing an order on TGStar.me, you agree to these terms. All services are provided as-is. You must be 18 years or older to use this platform.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">2. Payments</div>
+        All payments are made in cryptocurrency and are non-reversible once sent on-chain. You are responsible for sending the correct amount to the correct address and network. TGStar.me is not liable for funds lost due to incorrect network selection.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Delivery</div>
+        Delivery times are estimates. Stars and Premium are typically delivered within minutes of confirmation. VIP services (Unfreeze, Unban) may take up to 24 hours. We will communicate delays via the email provided at checkout.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Refunds</div>
+        All sales are final once an order is initiated. If we are unable to fulfil your order, a full crypto refund will be issued to the sending address. Contact support with your Order ID.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Account Information</div>
+        You are solely responsible for providing the correct Telegram username or phone number. We cannot reverse deliveries made to incorrectly entered accounts.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">6. Prohibited Use</div>
+        You may not use our services for any unlawful purpose. We reserve the right to refuse service to anyone at our discretion.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">7. Changes</div>
+        We reserve the right to update these terms at any time. Continued use of the platform constitutes acceptance of the revised terms.
+      </div>
+    </div>
+    <button class="btn-o full mt16" onclick="closeOv('termsOv')">Close</button>
+  </div>
+</div>
+
+<!-- PRIVACY POLICY -->
+<div class="ov" id="privacyOv">
+  <div class="m" style="max-width:520px">
+    <div class="drag"></div>
+    <button class="mc" onclick="closeOv('privacyOv')">✕</button>
+    <div class="mt2">Privacy Policy</div>
+    <div class="ms">Last updated: January 2025</div>
+    <div style="color:var(--dim2);font-size:.82rem;line-height:1.8;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">1. Information We Collect</div>
+        We collect only what is necessary to process your order: your email address (for receipt delivery) and your Telegram username or phone number (for service delivery). We do not collect passwords, payment card details, or personal identification documents.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">2. How We Use Your Information</div>
+        Your email is used exclusively to send your payment receipt and order updates. Your Telegram username or phone number is used solely to deliver the service you purchased. We do not use your information for marketing without consent.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Data Sharing</div>
+        We do not sell, trade, or rent your personal information to third parties. Your data is never shared with advertisers or external platforms.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Crypto Transactions</div>
+        Blockchain transactions are public by nature. We do not store your wallet address beyond what is needed to verify payment. We do not link wallet addresses to personal identities.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Cookies</div>
+        This website uses minimal local storage to save your order history in your browser. No tracking cookies or third-party analytics are used.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">6. Data Retention</div>
+        Order records are retained for up to 90 days for dispute resolution purposes, then deleted. You may request deletion at any time by contacting support.
+      </div>
+      <div>
+        <div style="color:var(--white);font-weight:600;margin-bottom:4px">7. Contact</div>
+        For any privacy concerns or data deletion requests, contact us via WhatsApp support.
+      </div>
+    </div>
+    <button class="btn-o full mt16" onclick="closeOv('privacyOv')">Close</button>
   </div>
 </div>
 
@@ -1064,6 +1147,31 @@ function proceed(){
     alert('Phone number must start with your country code.\nExample: +1 234 567 8900 (US), +44 7911 123456 (UK)');return;
   }
   svc.email=em; svc.user=accountVal;
+
+  // Generate order ID early so it's included in the submission
+  svc.orderId = '#TGS-' + Math.floor(100000 + Math.random() * 900000);
+
+  // ── Submit to Formspree (sends email to you instantly)
+  const promoUsed = activeDiscount > 0 ? 'FLASH20 (20% off)' : 'None';
+  const finalPrice = (parseFloat(svc.price) * (1 - activeDiscount)).toFixed(2);
+
+  fetch('https://formspree.io/f/xrerkevb', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify({
+      _subject:      '🔔 New TGStar Order — ' + svc.name,
+      order_id:      svc.orderId,
+      service:       svc.name + ' — ' + svc.variant,
+      price:         '$' + finalPrice + (activeDiscount > 0 ? ' (was $' + parseFloat(svc.price).toFixed(2) + ')' : ''),
+      customer_email: em,
+      telegram_account: accountVal,
+      account_type:  activeTab === 'user' ? 'Username' : 'Phone Number',
+      promo_code:    promoUsed,
+      submitted_at:  new Date().toLocaleString(),
+      status:        'Pending Payment'
+    })
+  }).catch(()=>{}); // silent fail — don't block the user flow
+
   closeOv('orderOv'); initPay();
 }
 
@@ -1083,10 +1191,34 @@ function initPay(){
 // ── CONFIRM PAYMENT ───────────────────────────────────────────────────
 function confirmPay(){
   clearInterval(timerI);
-  const id='#TGS-'+Math.floor(100000+Math.random()*900000);
-  orders.unshift({id,service:svc.name,variant:svc.variant,price:'$'+parseFloat(svc.price).toFixed(2),user:svc.user,status:'Pending',time:new Date().toLocaleString()});
+  // reuse the ID generated when order was submitted
+  const id = svc.orderId || ('#TGS-' + Math.floor(100000 + Math.random() * 900000));
+
+  // Notify you that payment was claimed
+  fetch('https://formspree.io/f/xrerkevb', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify({
+      _subject:        '💰 Payment Claimed — ' + id,
+      order_id:        id,
+      service:         svc.name + ' — ' + svc.variant,
+      customer_email:  svc.email,
+      telegram_account: svc.user,
+      token:           curTok,
+      network:         curChain?.l || '—',
+      address_used:    curChain?.a || '—',
+      amount:          document.getElementById('pamtv').textContent,
+      status:          '⏳ Customer clicked "I Have Made Payment" — verify on blockchain'
+    })
+  }).catch(()=>{});
+
+  orders.unshift({
+    id, service:svc.name, variant:svc.variant,
+    price:'$'+parseFloat(svc.price).toFixed(2),
+    user:svc.user, status:'Pending', time:new Date().toLocaleString()
+  });
   try{localStorage.setItem('tgs',JSON.stringify(orders))}catch(e){}
-  document.getElementById('oidv').textContent=id;
+  document.getElementById('oidv').textContent = id;
   closeOv('payOv'); openOv('confOv');
 }
 
