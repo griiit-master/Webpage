@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TGStar Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#07070f;--ink2:#0f0f1c;--ink3:#161628;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.13);
+  --tg:#2AABEE;--tg2:#54C0F7;--tg3:rgba(42,171,238,.12);
+  --white:#e8f4ff;--dim:#3d5a7a;--dim2:#7a9bb8;
+  --green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--purple:#a855f7;
+}
+html,body{height:100%;background:var(--ink);color:var(--white);font-family:'Outfit',sans-serif}
+
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.login-box{background:var(--ink2);border:1px solid var(--line2);border-radius:20px;
+  padding:36px;width:100%;max-width:380px;text-align:center}
+.login-logo{font-size:2rem;margin-bottom:8px}
+.login-title{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.login-sub{color:var(--dim2);font-size:.82rem;margin-bottom:28px}
+.login-input{width:100%;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;
+  padding:12px 16px;color:var(--white);font-size:.9rem;font-family:'Outfit',sans-serif;
+  outline:none;margin-bottom:12px;transition:border-color .2s}
+.login-input:focus{border-color:var(--tg)}
+.login-btn{width:100%;background:var(--tg);color:#fff;border:none;border-radius:10px;
+  padding:13px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;
+  transition:all .2s;margin-top:4px}
+.login-btn:hover{background:var(--tg2)}
+.login-err{color:#f87171;font-size:.78rem;margin-top:8px;display:none}
+
+/* DASHBOARD */
+.dash{display:none;min-height:100vh;flex-direction:column}
+.topbar{background:var(--ink2);border-bottom:1px solid var(--line);
+  padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50}
+.topbar-logo{font-weight:800;font-size:1rem;color:var(--tg)}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-status{font-size:.75rem;color:var(--dim2)}
+.logout-btn{background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--dim2);
+  padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.78rem;font-family:'Outfit',sans-serif;
+  transition:all .2s}
+.logout-btn:hover{color:var(--white);border-color:var(--line2)}
+
+.main{flex:1;padding:20px;max-width:1200px;margin:0 auto;width:100%}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+@media(min-width:640px){.stats-row{grid-template-columns:repeat(4,1fr)}}
+.stat-card{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:16px}
+.stat-label{font-size:.7rem;color:var(--dim2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.stat-val{font-size:1.6rem;font-weight:800;line-height:1}
+.stat-val.blue{color:var(--tg2)}
+.stat-val.green{color:var(--green)}
+.stat-val.yellow{color:var(--yellow)}
+.stat-val.red{color:var(--red)}
+
+/* CONTROLS */
+.controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.search-input{flex:1;min-width:180px;background:var(--ink2);border:1px solid var(--line2);
+  border-radius:10px;padding:10px 14px;color:var(--white);font-size:.85rem;
+  font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--tg)}
+.search-input::placeholder{color:var(--dim2)}
+.filter-sel{background:var(--ink2);border:1px solid var(--line2);border-radius:10px;
+  padding:10px 14px;color:var(--white);font-size:.82rem;font-family:'Outfit',sans-serif;
+  outline:none;cursor:pointer;-webkit-appearance:none}
+.refresh-btn{background:var(--tg3);border:1px solid rgba(42,171,238,.25);color:var(--tg2);
+  padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;
+  font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+.refresh-btn:hover{background:var(--tg);color:#fff}
+
+/* TABLE */
+.table-wrap{background:var(--ink2);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.table-head{display:none}
+@media(min-width:800px){
+  .table-head{display:grid;grid-template-columns:140px 1fr 160px 110px 110px 130px 100px;
+    padding:12px 16px;border-bottom:1px solid var(--line);
+    font-size:.68rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2)}
+}
+.order-row{padding:16px;border-bottom:1px solid var(--line);transition:background .15s;cursor:pointer}
+.order-row:last-child{border-bottom:none}
+.order-row:hover{background:rgba(255,255,255,.02)}
+@media(min-width:800px){
+  .order-row{display:grid;grid-template-columns:140px 1fr 160px 110px 110px 130px 100px;
+    align-items:center;padding:14px 16px;cursor:default}
+}
+.cell{font-size:.82rem;margin-bottom:4px}
+.cell:last-child{margin-bottom:0}
+@media(min-width:800px){.cell{margin-bottom:0}}
+.cell-label{font-size:.68rem;color:var(--dim2);text-transform:uppercase;letter-spacing:.4px;
+  display:block;margin-bottom:2px}
+@media(min-width:800px){.cell-label{display:none}}
+.order-id{font-family:monospace;font-size:.75rem;color:var(--tg2);font-weight:600}
+.customer-name{font-weight:600;font-size:.85rem}
+.customer-email{font-size:.72rem;color:var(--dim2);margin-top:2px}
+.customer-account{font-size:.72rem;color:var(--dim2)}
+.service-name{font-weight:500;font-size:.82rem}
+.service-variant{font-size:.72rem;color:var(--dim2);margin-top:2px}
+.price-val{font-weight:700;color:var(--tg2)}
+.promo-badge{display:inline-block;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.25);
+  color:#c084fc;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:99px;margin-left:4px}
+
+/* STATUS BADGE */
+.status-badge{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:700;
+  padding:4px 10px;border-radius:99px;white-space:nowrap}
+.s-pending{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--yellow)}
+.s-confirmed{background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.25);color:var(--tg2)}
+.s-delivered{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+.s-failed{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+
+/* ACTION BUTTONS */
+.action-wrap{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+@media(min-width:800px){.action-wrap{margin-top:0}}
+.act-btn{font-size:.7rem;font-weight:600;padding:5px 10px;border-radius:7px;
+  border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+.act-confirm{background:rgba(42,171,238,.15);color:var(--tg2)}
+.act-confirm:hover{background:var(--tg);color:#fff}
+.act-deliver{background:rgba(34,197,94,.12);color:var(--green)}
+.act-deliver:hover{background:var(--green);color:#000}
+.act-email{background:rgba(168,85,247,.12);color:#c084fc}
+.act-email:hover{background:#a855f7;color:#fff}
+.act-fail{background:rgba(239,68,68,.08);color:var(--red)}
+.act-fail:hover{background:var(--red);color:#fff}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:48px 20px;color:var(--dim2)}
+.empty-icon{font-size:2.5rem;margin-bottom:12px}
+.empty-text{font-size:.88rem}
+
+/* LOADING */
+.loading-row{text-align:center;padding:32px;color:var(--dim2);font-size:.85rem}
+
+/* EMAIL MODAL */
+.modal-backdrop{display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,.72);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.open{display:flex}
+.modal-box{background:var(--ink2);border:1px solid var(--line2);border-radius:18px;
+  padding:28px;width:100%;max-width:460px;position:relative}
+.modal-title{font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.modal-sub{color:var(--dim2);font-size:.8rem;margin-bottom:20px}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--line);border:none;
+  color:var(--dim2);width:28px;height:28px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .2s}
+.modal-close:hover{background:var(--line2);color:var(--white)}
+.modal-label{font-size:.7rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--dim2);margin-bottom:5px;display:block}
+.modal-input{width:100%;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;
+  padding:11px 14px;color:var(--white);font-size:.85rem;font-family:'Outfit',sans-serif;
+  outline:none;margin-bottom:14px;transition:border-color .2s}
+.modal-input:focus{border-color:var(--tg)}
+.modal-textarea{width:100%;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;
+  padding:11px 14px;color:var(--white);font-size:.85rem;font-family:'Outfit',sans-serif;
+  outline:none;margin-bottom:14px;resize:vertical;min-height:100px;transition:border-color .2s}
+.modal-textarea:focus{border-color:var(--tg)}
+.modal-send{width:100%;background:var(--tg);color:#fff;border:none;border-radius:10px;
+  padding:12px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;
+  transition:all .2s}
+.modal-send:hover{background:var(--tg2)}
+.modal-send:disabled{opacity:.5;cursor:not-allowed}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink3);border:1px solid var(--line2);border-radius:10px;
+  padding:10px 20px;font-size:.82rem;font-weight:500;z-index:999;
+  opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:rgba(34,197,94,.3);color:var(--green)}
+.toast.err{border-color:rgba(239,68,68,.3);color:var(--red)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">✈</div>
+    <div class="login-title">TGStar Admin</div>
+    <div class="login-sub">Sign in to manage your orders</div>
+    <input class="login-input" type="password" id="loginPass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dash">
+  <div class="topbar">
+    <div class="topbar-logo">✈ TGStar Admin</div>
+    <div class="topbar-right">
+      <span class="topbar-status" id="lastRefresh"></span>
+      <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-val blue" id="stTotal">—</div></div>
+      <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val yellow" id="stPending">—</div></div>
+      <div class="stat-card"><div class="stat-label">Confirmed</div><div class="stat-val blue" id="stConfirmed">—</div></div>
+      <div class="stat-card"><div class="stat-label">Delivered</div><div class="stat-val green" id="stDelivered">—</div></div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <input class="search-input" id="searchInput" placeholder="🔍 Search by name, email, order ID…" oninput="filterOrders()"/>
+      <select class="filter-sel" id="filterStatus" onchange="filterOrders()">
+        <option value="">All Statuses</option>
+        <option value="Pending Payment">Pending Payment</option>
+        <option value="Payment Confirmed">Payment Confirmed</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Failed">Failed</option>
+      </select>
+      <button class="refresh-btn" onclick="loadOrders()">↻ Refresh</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <div class="table-head">
+        <div>Order ID</div>
+        <div>Customer</div>
+        <div>Service</div>
+        <div>Price</div>
+        <div>Payment</div>
+        <div>Status</div>
+        <div>Actions</div>
+      </div>
+      <div id="ordersBody">
+        <div class="loading-row">Loading orders…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL MODAL -->
+<div class="modal-backdrop" id="emailModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeEmailModal()">✕</button>
+    <div class="modal-title">📧 Send Email</div>
+    <div class="modal-sub" id="emailModalSub">Sending to customer</div>
+    <label class="modal-label">To</label>
+    <input class="modal-input" id="emailTo" readonly/>
+    <label class="modal-label">Subject</label>
+    <input class="modal-input" id="emailSubject"/>
+    <label class="modal-label">Message</label>
+    <textarea class="modal-textarea" id="emailBody"></textarea>
+    <button class="modal-send" id="emailSendBtn" onclick="sendEmail()">Send Email</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────
+const SUPABASE_URL  = 'https://rlxiybhykwrdlyuapntr.supabase.co';
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJseGl5Ymh5a3dyZGx5dWFwbnRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzgxOTYsImV4cCI6MjA5MjExNDE5Nn0.n_MOyjue5PIHvOHd0nmpp6R2LoJdb0Av84x9HXTsw4Y';
+const RESEND_KEY    = 're_GWMoqmTv_FRiHExrNNzzTezHS8GL2JTji';
+const ADMIN_PASS    = 'TGStar2025!'; // ← change this to your own password
+const FROM_EMAIL    = 'orders@tgstar.me'; // ← update when you add a domain in Resend
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let allOrders = [];
+let emailTargetOrder = null;
+
+// ── DB HELPERS ────────────────────────────────────────────────────────
+async function dbFetch(path, opts={}){
+  const r = await fetch(SUPABASE_URL+'/rest/v1/'+path, {
+    headers:{
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer '+SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts.prefer || 'return=representation',
+      ...opts.headers
+    }, ...opts
+  });
+  if(!r.ok){ const t=await r.text(); throw new Error(t); }
+  const txt = await r.text();
+  return txt ? JSON.parse(txt) : null;
+}
+
+// ── LOGIN ─────────────────────────────────────────────────────────────
+function doLogin(){
+  const p = document.getElementById('loginPass').value;
+  if(p === ADMIN_PASS){
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('dash').style.display = 'flex';
+    sessionStorage.setItem('tgs_admin','1');
+    loadOrders();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+function doLogout(){
+  sessionStorage.removeItem('tgs_admin');
+  location.reload();
+}
+// Auto-login if session active
+if(sessionStorage.getItem('tgs_admin')){
+  document.getElementById('loginWrap').style.display='none';
+  document.getElementById('dash').style.display='flex';
+  loadOrders();
+}
+
+// ── LOAD ORDERS ───────────────────────────────────────────────────────
+async function loadOrders(){
+  document.getElementById('ordersBody').innerHTML='<div class="loading-row">Loading orders…</div>';
+  try{
+    const data = await dbFetch('orders?select=*&order=created_at.desc');
+    allOrders = data || [];
+    updateStats();
+    filterOrders();
+    document.getElementById('lastRefresh').textContent = 'Updated '+new Date().toLocaleTimeString();
+  } catch(e){
+    document.getElementById('ordersBody').innerHTML='<div class="loading-row" style="color:#f87171">Failed to load orders. Check Supabase setup.</div>';
+  }
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────
+function updateStats(){
+  document.getElementById('stTotal').textContent     = allOrders.length;
+  document.getElementById('stPending').textContent   = allOrders.filter(o=>o.status==='Pending Payment').length;
+  document.getElementById('stConfirmed').textContent = allOrders.filter(o=>o.status==='Payment Confirmed').length;
+  document.getElementById('stDelivered').textContent = allOrders.filter(o=>o.status==='Delivered').length;
+}
+
+// ── FILTER ────────────────────────────────────────────────────────────
+function filterOrders(){
+  const q  = document.getElementById('searchInput').value.toLowerCase();
+  const st = document.getElementById('filterStatus').value;
+  const filtered = allOrders.filter(o=>{
+    const matchQ  = !q || [o.order_id,o.customer_email,o.telegram_account,o.service].join(' ').toLowerCase().includes(q);
+    const matchSt = !st || o.status===st;
+    return matchQ && matchSt;
+  });
+  renderOrders(filtered);
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────
+function renderOrders(orders){
+  if(!orders.length){
+    document.getElementById('ordersBody').innerHTML=`
+      <div class="empty"><div class="empty-icon">📭</div><div class="empty-text">No orders found.</div></div>`;
+    return;
+  }
+  document.getElementById('ordersBody').innerHTML = orders.map(o=>`
+    <div class="order-row">
+      <div class="cell">
+        <span class="cell-label">Order ID</span>
+        <span class="order-id">${o.order_id}</span><br>
+        <span style="font-size:.68rem;color:var(--dim2)">${new Date(o.created_at).toLocaleDateString()}</span>
+      </div>
+      <div class="cell">
+        <span class="cell-label">Customer</span>
+        <div class="customer-name">${o.telegram_account}</div>
+        <div class="customer-email">${o.customer_email}</div>
+        <div class="customer-account" style="font-size:.68rem;color:var(--dim)">${o.account_type}</div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">Service</span>
+        <div class="service-name">${o.service}</div>
+        <div class="service-variant">${o.variant}</div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">Price</span>
+        <div class="price-val">${o.price}${o.promo_code&&o.promo_code!=='None'?'<span class="promo-badge">'+o.promo_code+'</span>':''}</div>
+        <div style="font-size:.68rem;color:var(--dim2);margin-top:2px">${o.crypto_amount||'—'}</div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">Network</span>
+        <div style="font-size:.8rem">${o.token||'—'}</div>
+        <div style="font-size:.68rem;color:var(--dim2)">${o.network||'—'}</div>
+      </div>
+      <div class="cell">
+        <span class="cell-label">Status</span>
+        <span class="status-badge ${statusClass(o.status)}">${statusIcon(o.status)} ${o.status}</span>
+      </div>
+      <div class="cell">
+        <div class="action-wrap">
+          ${o.status==='Pending Payment'?`<button class="act-btn act-confirm" onclick="updateStatus('${o.id}','Payment Confirmed','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')">✓ Confirm</button>`:''}
+          ${o.status==='Payment Confirmed'?`<button class="act-btn act-deliver" onclick="updateStatus('${o.id}','Delivered','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')">🚀 Deliver</button>`:''}
+          <button class="act-btn act-email" onclick="openEmailModal('${o.id}')">📧 Email</button>
+          ${o.status!=='Failed'?`<button class="act-btn act-fail" onclick="updateStatus('${o.id}','Failed','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')">✕</button>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function statusClass(s){
+  if(s==='Pending Payment') return 's-pending';
+  if(s==='Payment Confirmed') return 's-confirmed';
+  if(s==='Delivered') return 's-delivered';
+  return 's-failed';
+}
+function statusIcon(s){
+  if(s==='Pending Payment') return '⏳';
+  if(s==='Payment Confirmed') return '✅';
+  if(s==='Delivered') return '🚀';
+  return '✕';
+}
+
+// ── UPDATE STATUS ─────────────────────────────────────────────────────
+async function updateStatus(id, newStatus, orderId, email, account, service){
+  try{
+    await dbFetch('orders?id=eq.'+id, {
+      method:'PATCH', prefer:'return=minimal',
+      body: JSON.stringify({status: newStatus})
+    });
+    // Auto-send email on Confirm and Deliver
+    if(newStatus==='Payment Confirmed'){
+      await sendAutoEmail(email, orderId, account, service,
+        '✅ Payment Confirmed — '+orderId,
+        `Hi,\n\nGreat news! We have confirmed your payment for:\n\nService: ${service}\nOrder ID: ${orderId}\nAccount: ${account}\n\nWe are now processing your order. You will receive another update once it has been delivered.\n\nThank you for choosing TGStar!\n\nTGStar Support`
+      );
+    }
+    if(newStatus==='Delivered'){
+      await sendAutoEmail(email, orderId, account, service,
+        '🚀 Order Delivered — '+orderId,
+        `Hi,\n\nYour order has been successfully delivered!\n\nService: ${service}\nOrder ID: ${orderId}\nAccount: ${account}\n\nIf you have any questions or need further assistance, please contact us on WhatsApp.\n\nThank you for choosing TGStar!\n\nTGStar Support`
+      );
+    }
+    showToast('Status updated to "'+newStatus+'"','ok');
+    loadOrders();
+  } catch(e){
+    showToast('Failed to update status','err');
+  }
+}
+
+// ── AUTO EMAIL ────────────────────────────────────────────────────────
+async function sendAutoEmail(toEmail, orderId, account, service, subject, body){
+  try{
+    await fetch('https://api.resend.com/emails',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+RESEND_KEY,'Content-Type':'application/json'},
+      body: JSON.stringify({
+        from: 'TGStar <onboarding@resend.dev>',
+        to: [toEmail],
+        subject: subject,
+        text: body
+      })
+    });
+  } catch(e){ console.log('Email send failed',e) }
+}
+
+// ── MANUAL EMAIL MODAL ────────────────────────────────────────────────
+function openEmailModal(orderId){
+  const o = allOrders.find(x=>x.id===orderId);
+  if(!o) return;
+  emailTargetOrder = o;
+  document.getElementById('emailModalSub').textContent = 'To: '+o.customer_email;
+  document.getElementById('emailTo').value = o.customer_email;
+  document.getElementById('emailSubject').value = 'Re: Your TGStar Order '+o.order_id;
+  document.getElementById('emailBody').value =
+`Hi,\n\nThank you for your order with TGStar.\n\nOrder ID: ${o.order_id}\nService: ${o.service} — ${o.variant}\nAccount: ${o.telegram_account}\n\n[Write your message here]\n\nTGStar Support`;
+  document.getElementById('emailModal').classList.add('open');
+}
+function closeEmailModal(){
+  document.getElementById('emailModal').classList.remove('open');
+  emailTargetOrder = null;
+}
+
+async function sendEmail(){
+  const to      = document.getElementById('emailTo').value.trim();
+  const subject = document.getElementById('emailSubject').value.trim();
+  const body    = document.getElementById('emailBody').value.trim();
+  if(!subject||!body){ showToast('Subject and message are required','err'); return; }
+  const btn = document.getElementById('emailSendBtn');
+  btn.disabled=true; btn.textContent='Sending…';
+  try{
+    const r = await fetch('https://api.resend.com/emails',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+RESEND_KEY,'Content-Type':'application/json'},
+      body: JSON.stringify({
+        from:'TGStar <onboarding@resend.dev>',
+        to:[to], subject, text:body
+      })
+    });
+    if(!r.ok) throw new Error();
+    showToast('Email sent successfully ✓','ok');
+    closeEmailModal();
+  } catch(e){
+    showToast('Failed to send email','err');
+  } finally{ btn.disabled=false; btn.textContent='Send Email'; }
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────
+function showToast(msg, type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+(type==='ok'?'ok':'err');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// Close modal on backdrop click
+document.getElementById('emailModal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('emailModal')) closeEmailModal();
+});
+
+// Auto-refresh every 60 seconds
+setInterval(()=>{ if(sessionStorage.getItem('tgs_admin')) loadOrders(); }, 60000);
+</script>
+</body>
+</html>
