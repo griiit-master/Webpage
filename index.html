@@ -319,88 +319,11 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
 .orm{color:var(--dim2);font-size:.7rem}
 .oid2{font-family:monospace;font-size:.68rem;color:var(--dim2);margin-top:5px}
 
-/* COIN LOGO IMAGES in dropdown */
-.coin-logo{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem}
-.coin-logo svg{width:28px;height:28px}
-
-/* PROMO CODE BOX */
-.promo-row{display:flex;gap:8px;margin-bottom:14px}
-.promo-input{
-  flex:1;background:var(--ink3);border:1px solid var(--line2);
-  border-radius:10px;padding:11px 14px;color:var(--white);
-  font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;
-  transition:border-color .2s;text-transform:uppercase;letter-spacing:1px;
-}
-.promo-input::placeholder{text-transform:none;letter-spacing:0;color:var(--dim2)}
-.promo-input:focus{border-color:rgba(42,171,238,.5)}
-.promo-input.valid{border-color:#22c55e!important;color:#4ade80}
-.promo-input.invalid{border-color:#ef4444!important}
-.promo-btn{
-  background:var(--tg3);border:1px solid rgba(42,171,238,.25);color:var(--tg2);
-  padding:11px 16px;border-radius:10px;font-family:'Outfit',sans-serif;
-  font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;
-}
-.promo-btn:hover{background:var(--tg);color:#fff}
-.promo-result{font-size:.76rem;margin-top:-8px;margin-bottom:10px;display:none;padding:8px 12px;border-radius:8px}
-.promo-result.ok{display:block;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#4ade80}
-.promo-result.err{display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);color:#f87171}
-
-/* discount shown on amount card */
-.discount-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
-.discount-label{color:#4ade80;font-size:.75rem}
-.discount-val{color:#4ade80;font-size:.82rem;font-weight:600}
-.original-price{text-decoration:line-through;color:var(--dim2);font-size:.75rem;margin-left:6px}
-
-/* SELECTOR HEADER */
-.pay-select-header{font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
-.pay-select-hint{font-size:.76rem;color:var(--dim2);margin-bottom:12px;line-height:1.5}
-
 .full{width:100%}.mt12{margin-top:12px}.mt16{margin-top:16px}
-
-/* WHATSAPP FLOATING BUTTON */
-.wa-float{
-  position:fixed;bottom:90px;right:18px;z-index:150;
-  width:54px;height:54px;border-radius:50%;
-  background:#25D366;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(37,211,102,.45), 0 2px 8px rgba(0,0,0,.3);
-  cursor:pointer;text-decoration:none;
-  animation:waPop .5s .8s cubic-bezier(.16,1,.3,1) both;
-  transition:transform .2s, box-shadow .2s;
-}
-.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.55)}
-.wa-float:active{transform:scale(.96)}
-.wa-float svg{width:28px;height:28px;fill:#fff}
-.wa-tooltip{
-  position:absolute;right:62px;top:50%;transform:translateY(-50%);
-  background:rgba(7,7,15,.92);border:1px solid var(--line2);
-  color:var(--white);font-size:.75rem;font-weight:500;
-  padding:6px 12px;border-radius:8px;white-space:nowrap;
-  opacity:0;pointer-events:none;transition:opacity .2s;
-  font-family:'Outfit',sans-serif;
-}
-.wa-float:hover .wa-tooltip{opacity:1}
-@keyframes waPop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-
-/* WHATSAPP BUTTON in modals */
-.btn-wa{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  background:#25D366;color:#fff;font-family:'Outfit',sans-serif;
-  font-weight:700;font-size:.9rem;padding:14px;border-radius:12px;
-  border:none;cursor:pointer;text-decoration:none;width:100%;
-  transition:all .2s;box-shadow:0 4px 16px rgba(37,211,102,.3);
-}
-.btn-wa:hover{background:#1ebe5d;transform:translateY(-1px);box-shadow:0 6px 22px rgba(37,211,102,.4)}
 </style>
 </head>
 <body>
 <div class="amb"><div class="a1"></div><div class="a2"></div></div>
-
-<!-- FLOATING WHATSAPP BUTTON — replace 1234567890 with your real number (country code, no + or spaces) -->
-<a class="wa-float" href="https://wa.me/1234567890?text=Hi%2C%20I%20need%20help%20with%20a%20TGStar%20service." target="_blank" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  <span class="wa-tooltip">Chat with us on WhatsApp</span>
-</a>
 
 <!-- NAV -->
 <nav>
@@ -477,13 +400,13 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
         <div class="sc-tags"><span class="tg-tag tg-blue">Account Recovery</span><span class="tg-tag tg-dim">VIP Only</span></div>
         <button class="sc-btn">Recover Account</button>
       </div>
-      <div class="sc" onclick="openVIP('Recover Channel','📢','$49.99')">
+      <div class="sc" onclick="openOrder('Recover Channel','Channel Restoration','📢','49.99','recoverch')">
         <div class="vip-tag">VIP 👑</div>
         <div class="sc-top"><div class="sc-icon">📢</div><div class="sc-price">$49.99<small>vip service</small></div></div>
         <div class="sc-name">Recover Channel</div>
-        <div class="sc-desc">Lost access to your Telegram channel? Our VIP team restores ownership and admin rights fast. Contact us to get started.</div>
-        <div class="sc-tags"><span class="tg-tag tg-blue">Channel Recovery</span><span class="tg-tag tg-dim">Contact Support</span></div>
-        <button class="sc-btn">Contact Support →</button>
+        <div class="sc-desc">Lost access to your Telegram channel? Our VIP team restores ownership and admin rights fast.</div>
+        <div class="sc-tags"><span class="tg-tag tg-blue">Channel Recovery</span><span class="tg-tag tg-dim">VIP Only</span></div>
+        <button class="sc-btn">Recover Channel</button>
       </div>
     </div>
   </div>
@@ -544,9 +467,8 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     </a>
     <div class="fl">
       <a href="#services">Services</a><a href="#faq">FAQ</a>
-      <a href="https://wa.me/1234567890" target="_blank">Support</a>
-      <a href="#" onclick="openOv('termsOv');return false">Terms</a>
-      <a href="#" onclick="openOv('privacyOv');return false">Privacy</a>
+      <a href="https://t.me/tgstarsupport" target="_blank">Support</a>
+      <a href="#">Terms</a><a href="#">Privacy</a>
     </div>
     <div class="fc">© 2025 TGStar.me</div>
   </div>
@@ -556,7 +478,7 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
 <div class="bb">
   <button class="bb-b on" onclick="openOv('ordersOv')"><span class="bi">📋</span>Orders</button>
   <button class="bb-b" onclick="g('services')"><span class="bi">✦</span>New Order</button>
-  <button class="bb-b" onclick="window.open('https://wa.me/1234567890?text=Hi%2C%20I%20need%20help%20with%20a%20TGStar%20service.','_blank')"><span class="bi">💬</span>Support</button>
+  <button class="bb-b" onclick="openOv('supportOv')"><span class="bi">💬</span>Support</button>
 </div>
 
 <!-- PREMIUM PICKER -->
@@ -579,74 +501,17 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
   <div class="m">
     <div class="drag"></div>
     <button class="mc" onclick="closeOv('orderOv')">✕</button>
-    <div class="mt2">Complete Your Order</div>
-    <div class="ms">Fill in your details — we'll deliver straight to your account.</div>
-
-    <!-- Service chip -->
-    <div class="chip">
-      <div class="chi" id="ci">⭐</div>
-      <div>
-        <div class="chn" id="cn">—</div>
-        <div class="chp" id="cp">—</div>
-      </div>
-    </div>
-
-    <!-- Email — receipt only -->
+    <div class="mt2">Complete Order</div>
+    <div class="ms">Enter your details to proceed to crypto payment.</div>
+    <div class="chip"><div class="chi" id="ci">⭐</div><div><div class="chn" id="cn">—</div><div class="chp" id="cp">—</div></div></div>
+    <div class="f"><label>Email Address</label><input type="email" id="em" placeholder="you@example.com"/></div>
     <div class="f">
-      <label style="display:flex;align-items:center;gap:6px">
-        📧 Email Address
-        <span style="background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.2);color:var(--tg2);font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.4px;font-family:'Outfit',sans-serif">Receipt only</span>
-      </label>
-      <input type="email" id="em" placeholder="you@example.com" style="margin-top:6px"/>
-      <div style="font-size:.72rem;color:var(--dim2);margin-top:5px;line-height:1.5">
-        We send your payment confirmation here. We will never share or spam your email.
-      </div>
+      <label>Telegram Username</label>
+      <input type="text" id="un" placeholder="@yourusername" oninput="onUname(this)"/>
     </div>
-
-    <!-- Toggle: Username vs Phone -->
-    <div class="f" style="margin-top:2px">
-      <label>Telegram Account</label>
-      <div style="display:flex;gap:0;margin:6px 0 10px;border:1px solid var(--line2);border-radius:10px;overflow:hidden">
-        <button id="tabUser" onclick="switchTab('user')"
-          style="flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">
-          @Username
-        </button>
-        <button id="tabPhone" onclick="switchTab('phone')"
-          style="flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">
-          📞 Phone Number
-        </button>
-      </div>
-
-      <!-- Username input -->
-      <div id="inputUser">
-        <input type="text" id="un" placeholder="@yourusername" oninput="onUname(this)"/>
-        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">Enter your Telegram @username exactly as it appears on your profile.</div>
-      </div>
-
-      <!-- Phone input -->
-      <div id="inputPhone" style="display:none">
-        <input type="tel" id="ph" placeholder="+1 234 567 8900" oninput="onUname(this)"/>
-        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">
-          <strong style="color:var(--tg2)">Must include country code</strong> — e.g. +44 for UK, +1 for US, +234 for Nigeria.
-        </div>
-      </div>
-    </div>
-
-    <!-- Warning -->
     <div class="uname-warn" id="uwarn">
-      ⚠️ <strong>Double-check your details.</strong> We deliver directly to <span id="uprv">your account</span> — a wrong entry <strong>cannot be reversed</strong> after payment.
+      ⚠️ <strong>Double-check your username.</strong> We deliver directly to <span id="uprv">@yourusername</span> — a wrong username <strong>cannot be reversed</strong> after payment.
     </div>
-
-    <!-- Promo code — only shown for Unfreeze -->
-    <div id="promoSection" style="display:none;margin-bottom:14px">
-      <div style="font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:7px">🎟 Promo Code</div>
-      <div class="promo-row">
-        <input class="promo-input" id="promoInputOrder" placeholder="Enter promo code" maxlength="20"/>
-        <button class="promo-btn" onclick="applyPromoOrder()">Apply</button>
-      </div>
-      <div class="promo-result" id="promoResultOrder"></div>
-    </div>
-
     <button class="btn-tg full mt12" onclick="proceed()">Continue to Payment →</button>
   </div>
 </div>
@@ -668,44 +533,19 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     </div>
 
     <!-- POLYMARKET PILLS -->
-    <div class="pay-select-header">Choose how you want to pay</div>
-    <div class="pay-select-hint">Select any token below, then pick your preferred network. Tap to change.</div>
     <div class="selector-row">
       <div class="selector-pill" id="tokPill" onclick="toggleDrop('tokDrop','tokPill')">
-        <span class="pill-icon" id="tokIcon">
-          <svg viewBox="0 0 32 32" style="width:22px;height:22px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg>
-        </span>
+        <span class="pill-icon" id="tokIcon">₮</span>
         <span class="pill-label" id="tokLabel">USDT</span>
         <span class="pill-arrow">▾</span>
         <div class="drop-list" id="tokDrop">
-          <div class="drop-item chosen" onclick="selTok(event,'USDT')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg></span>
-            <div><div class="d-main">USDT</div><div class="d-sub">Tether</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'USDC')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5zM15.5 9v2.084c-1.617.376-2.834 1.83-2.834 3.566 0 1.737 1.217 3.19 2.834 3.566V20h1v-1.784c1.617-.376 2.834-1.83 2.834-3.566 0-1.737-1.217-3.19-2.834-3.566V9h-1zm0 3.166v4.918c-.963-.34-1.668-1.245-1.668-2.334 0-1.09.705-1.994 1.668-2.334v-.25-.334zm1 0v.584c.963.34 1.668 1.245 1.668 2.334 0 1.09-.705 1.994-1.668 2.334v-4.918l-.001-.334z" fill="#fff"/></svg></span>
-            <div><div class="d-main">USDC</div><div class="d-sub">USD Coin</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'BTC')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427zm-3.783 5.303c-.511 2.054-3.97.944-5.09.665l.909-3.643c1.12.28 4.71.833 4.181 2.978zm.512-5.332c-.467 1.873-3.349.921-4.284.688l.823-3.302c.935.233 3.946.667 3.461 2.614z" fill="#fff"/></svg></span>
-            <div><div class="d-main">BTC</div><div class="d-sub">Bitcoin</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'ETH')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M16.498 20.573l7.497-4.353-7.497-3.348z" fill="#fff" opacity=".2"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg></span>
-            <div><div class="d-main">ETH</div><div class="d-sub">Ethereum</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'BNB')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144-.002-.003 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16zm-3.188-.002h.002L16 13.706l-1.71 1.71-.197.197-.393.393.002.002-.002.003L16 18.294l2.294-2.294.002-.002-.004-.002z" fill="#fff"/></svg></span>
-            <div><div class="d-main">BNB</div><div class="d-sub">BNB Chain</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'TON')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44h-.19z" fill="#fff"/></svg></span>
-            <div><div class="d-main">TON</div><div class="d-sub">Toncoin</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'LTC')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg></span>
-            <div><div class="d-main">LTC</div><div class="d-sub">Litecoin</div></div><span class="d-check">✓</span>
-          </div>
+          <div class="drop-item chosen" onclick="selTok(event,'USDT','₮')"><span class="d-icon">₮</span><div><div class="d-main">USDT</div><div class="d-sub">Tether</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'USDC','◎')"><span class="d-icon">◎</span><div><div class="d-main">USDC</div><div class="d-sub">USD Coin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'BTC','₿')"><span class="d-icon">₿</span><div><div class="d-main">BTC</div><div class="d-sub">Bitcoin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'ETH','Ξ')"><span class="d-icon">Ξ</span><div><div class="d-main">ETH</div><div class="d-sub">Ethereum</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'BNB','◈')"><span class="d-icon">◈</span><div><div class="d-main">BNB</div><div class="d-sub">BNB Chain</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'TON','💎')"><span class="d-icon">💎</span><div><div class="d-main">TON</div><div class="d-sub">Toncoin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'LTC','Ł')"><span class="d-icon">Ł</span><div><div class="d-main">LTC</div><div class="d-sub">Litecoin</div></div><span class="d-check">✓</span></div>
         </div>
       </div>
 
@@ -722,21 +562,12 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     <div class="amtcard">
       <div class="amtr"><span class="amtl">Amount to send</span><span class="amtv" id="pamtv">—</span></div>
       <div class="amtu" id="pamtu">Fetching rate…</div>
-      <div class="discount-row" id="discountRow" style="display:none">
-        <span class="discount-label">🎉 FLASH20 applied (20% off)</span>
-        <span class="discount-val" id="discountVal"></span>
-      </div>
     </div>
 
     <div class="acard">
       <div class="albl">Deposit Address</div>
       <div class="aval" id="paddr">—</div>
       <div class="aact"><button class="cbtn" onclick="copyA()">📋 Copy Address</button></div>
-    </div>
-
-    <!-- PROMO NOTE if discount already applied -->
-    <div id="promoAppliedNote" style="display:none;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);border-radius:9px;padding:9px 13px;margin-bottom:14px;font-size:.76rem;color:#4ade80">
-      🎉 <strong>FLASH20 applied</strong> — 20% discount is reflected in the amount above.
     </div>
 
     <button class="btn-tg full" onclick="confirmPay()">✅ I Have Made Payment</button>
@@ -753,7 +584,7 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
       <div class="cd">Your transaction is awaiting blockchain confirmation. This usually takes <strong>5–15 minutes</strong>. A receipt will be sent to your email once confirmed.</div>
       <div class="oidb"><div class="oidl">Order ID</div><div class="oidv" id="oidv">#TGS-000000</div></div>
       <p style="color:var(--dim2);font-size:.72rem;margin-bottom:14px">Save this ID to track or dispute your order.</p>
-      <a href="https://wa.me/1234567890?text=Hi%2C%20my%20Order%20ID%20is%20TGS-%20and%20I%20have%20an%20inquiry." target="_blank" class="sl2">💬 For inquiries — contact Support on WhatsApp</a>
+      <a href="https://t.me/tgstarsupport" target="_blank" class="sl2">💬 For inquiries — contact Support</a>
     </div>
     <button class="btn-o full mt16" onclick="closeOv('confOv')">Close</button>
   </div>
@@ -776,95 +607,9 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     <div class="drag"></div>
     <button class="mc" onclick="closeOv('supportOv')">✕</button>
     <div class="mt2">Support</div>
-    <div class="ms">Our team is available 24/7 on WhatsApp. Average response under 5 minutes.</div>
-    <!-- Replace 1234567890 with your real WhatsApp number -->
-    <a href="https://wa.me/1234567890?text=Hi%2C%20I%20need%20help%20with%20a%20TGStar%20service." target="_blank" class="btn-wa" style="margin-top:6px">
-      <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#fff;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Chat on WhatsApp
-    </a>
-    <div style="text-align:center;margin-top:10px;color:var(--dim2);font-size:.74rem">Tap to open WhatsApp</div>
-  </div>
-</div>
-
-<!-- TERMS OF SERVICE -->
-<div class="ov" id="termsOv">
-  <div class="m" style="max-width:520px">
-    <div class="drag"></div>
-    <button class="mc" onclick="closeOv('termsOv')">✕</button>
-    <div class="mt2">Terms of Service</div>
-    <div class="ms">Last updated: January 2025</div>
-    <div style="color:var(--dim2);font-size:.82rem;line-height:1.8;display:flex;flex-direction:column;gap:14px">
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">1. Service Agreement</div>
-        By placing an order on TGStar.me, you agree to these terms. All services are provided as-is. You must be 18 years or older to use this platform.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">2. Payments</div>
-        All payments are made in cryptocurrency and are non-reversible once sent on-chain. You are responsible for sending the correct amount to the correct address and network. TGStar.me is not liable for funds lost due to incorrect network selection.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Delivery</div>
-        Delivery times are estimates. Stars and Premium are typically delivered within minutes of confirmation. VIP services (Unfreeze, Unban) may take up to 24 hours. We will communicate delays via the email provided at checkout.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Refunds</div>
-        All sales are final once an order is initiated. If we are unable to fulfil your order, a full crypto refund will be issued to the sending address. Contact support with your Order ID.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Account Information</div>
-        You are solely responsible for providing the correct Telegram username or phone number. We cannot reverse deliveries made to incorrectly entered accounts.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">6. Prohibited Use</div>
-        You may not use our services for any unlawful purpose. We reserve the right to refuse service to anyone at our discretion.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">7. Changes</div>
-        We reserve the right to update these terms at any time. Continued use of the platform constitutes acceptance of the revised terms.
-      </div>
-    </div>
-    <button class="btn-o full mt16" onclick="closeOv('termsOv')">Close</button>
-  </div>
-</div>
-
-<!-- PRIVACY POLICY -->
-<div class="ov" id="privacyOv">
-  <div class="m" style="max-width:520px">
-    <div class="drag"></div>
-    <button class="mc" onclick="closeOv('privacyOv')">✕</button>
-    <div class="mt2">Privacy Policy</div>
-    <div class="ms">Last updated: January 2025</div>
-    <div style="color:var(--dim2);font-size:.82rem;line-height:1.8;display:flex;flex-direction:column;gap:14px">
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">1. Information We Collect</div>
-        We collect only what is necessary to process your order: your email address (for receipt delivery) and your Telegram username or phone number (for service delivery). We do not collect passwords, payment card details, or personal identification documents.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">2. How We Use Your Information</div>
-        Your email is used exclusively to send your payment receipt and order updates. Your Telegram username or phone number is used solely to deliver the service you purchased. We do not use your information for marketing without consent.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Data Sharing</div>
-        We do not sell, trade, or rent your personal information to third parties. Your data is never shared with advertisers or external platforms.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Crypto Transactions</div>
-        Blockchain transactions are public by nature. We do not store your wallet address beyond what is needed to verify payment. We do not link wallet addresses to personal identities.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Cookies</div>
-        This website uses minimal local storage to save your order history in your browser. No tracking cookies or third-party analytics are used.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">6. Data Retention</div>
-        Order records are retained for up to 90 days for dispute resolution purposes, then deleted. You may request deletion at any time by contacting support.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">7. Contact</div>
-        For any privacy concerns or data deletion requests, contact us via WhatsApp support.
-      </div>
-    </div>
-    <button class="btn-o full mt16" onclick="closeOv('privacyOv')">Close</button>
+    <div class="ms">Our team is online 24/7. Average response under 5 minutes.</div>
+    <a href="https://t.me/tgstarsupport" target="_blank" class="btn-tg full" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:12px;font-size:.9rem;font-weight:700;margin-top:6px">Open Telegram Support →</a>
+    <div style="text-align:center;margin-top:10px;color:var(--dim2);font-size:.74rem">@tgstarsupport</div>
   </div>
 </div>
 
@@ -973,20 +718,10 @@ function toggleDrop(did,pid){
 }
 
 // ── TOKEN SELECT ─────────────────────────────────────────────────────
-const TOK_ICONS = {
-  USDT:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg>',
-  USDC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5zM15.5 9v2.084c-1.617.376-2.834 1.83-2.834 3.566 0 1.737 1.217 3.19 2.834 3.566V20h1v-1.784c1.617-.376 2.834-1.83 2.834-3.566 0-1.737-1.217-3.19-2.834-3.566V9h-1zm0 3.166v4.918c-.963-.34-1.668-1.245-1.668-2.334 0-1.09.705-1.994 1.668-2.334zm1 0v.584c.963.34 1.668 1.245 1.668 2.334 0 1.09-.705 1.994-1.668 2.334v-4.918z" fill="#fff"/></svg>',
-  BTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427zm-3.783 5.303c-.511 2.054-3.97.944-5.09.665l.909-3.643c1.12.28 4.71.833 4.181 2.978zm.512-5.332c-.467 1.873-3.349.921-4.284.688l.823-3.302c.935.233 3.946.667 3.461 2.614z" fill="#fff"/></svg>',
-  ETH:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M16.498 20.573l7.497-4.353-7.497-3.348z" fill="#fff" opacity=".2"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg>',
-  BNB:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144-.002-.003 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16zm-3.188-.002h.002L16 13.706l-1.71 1.71-.197.197-.393.393.002.002-.002.003L16 18.294l2.294-2.294.002-.002-.004-.002z" fill="#fff"/></svg>',
-  TON:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44h-.19z" fill="#fff"/></svg>',
-  LTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg>',
-};
-
-function selTok(e,tok){
+function selTok(e,tok,icon){
   e.stopPropagation();
   curTok=tok; curChain=CHAINS[tok][0];
-  document.getElementById('tokIcon').innerHTML = TOK_ICONS[tok] || tok;
+  document.getElementById('tokIcon').textContent=icon;
   document.getElementById('tokLabel').textContent=tok;
   document.querySelectorAll('#tokDrop .drop-item').forEach(el=>el.classList.toggle('chosen',el.querySelector('.d-main').textContent===tok));
   renderNetDrop(); updateAmt(); updateAddr(); updateRateBar();
@@ -1015,22 +750,14 @@ function selNet(e,id){
   document.getElementById('netPill').classList.remove('active-drop');
 }
 
-// ── AMOUNT (uses live rates + discount) ──────────────────────────────
+// ── AMOUNT (uses live rates) ──────────────────────────────────────────
 function updateAmt(){
-  const basePrice = parseFloat(svc.price || '13.20');
-  const discounted = basePrice * (1 - activeDiscount);
+  const price = parseFloat(svc.price || '13.20');
   const rate  = liveRates[curTok] || FALLBACK[curTok] || 1;
-  const cryptoAmt = discounted * rate;
+  const cryptoAmt = price * rate;
   const decimals  = curTok==='BTC'?8 : curTok==='ETH'?6 : curTok==='LTC'?6 : 4;
   document.getElementById('pamtv').textContent = cryptoAmt.toFixed(decimals)+' '+curTok;
-  document.getElementById('pamtu').textContent = '≈ $'+discounted.toFixed(2)+' USD'+(activeDiscount>0?' (was $'+basePrice.toFixed(2)+')':'')+(ratesFetched?' · Live rate':' · Estimated');
-  if(activeDiscount > 0){
-    const saved = (basePrice * activeDiscount * rate).toFixed(decimals);
-    document.getElementById('discountVal').textContent = '−'+saved+' '+curTok;
-    document.getElementById('discountRow').style.display = 'flex';
-  } else {
-    document.getElementById('discountRow').style.display = 'none';
-  }
+  document.getElementById('pamtu').textContent = '≈ $'+price.toFixed(2)+' USD'+(ratesFetched ? ' · Live rate' : ' · Estimated');
 }
 
 function updateAddr(){
@@ -1060,53 +787,12 @@ function startTimer(){
 // ── USERNAME WARNING ──────────────────────────────────────────────────
 function onUname(inp){
   const v=inp.value.trim(),w=document.getElementById('uwarn'),pv=document.getElementById('uprv');
-  if(v.length>=2){
-    pv.textContent = v.startsWith('@') ? v : v.startsWith('+') ? v : '@'+v;
-    w.classList.add('show'); inp.classList.add('warn-b');
-  } else { w.classList.remove('show'); inp.classList.remove('warn-b') }
-}
-
-// ── TAB SWITCH ────────────────────────────────────────────────────────
-let activeTab='user';
-function switchTab(tab){
-  activeTab=tab;
-  const u=tab==='user';
-  document.getElementById('tabUser').style.cssText  = u ? 'flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s' : 'flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s';
-  document.getElementById('tabPhone').style.cssText = u ? 'flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s' : 'flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s';
-  document.getElementById('inputUser').style.display  = u ? 'block' : 'none';
-  document.getElementById('inputPhone').style.display = u ? 'none'  : 'block';
-  document.getElementById('uwarn').classList.remove('show');
-}
-
-// ── PROMO CODE (Unfreeze only) ────────────────────────────────────────
-const PROMOS = {'FLASH20':0.20};
-let activeDiscount = 0;
-function applyPromoOrder(){
-  const code = document.getElementById('promoInputOrder').value.trim().toUpperCase();
-  const res  = document.getElementById('promoResultOrder');
-  const inp  = document.getElementById('promoInputOrder');
-  if(PROMOS[code]!==undefined){
-    activeDiscount = PROMOS[code];
-    inp.classList.add('valid'); inp.classList.remove('invalid');
-    res.className='promo-result ok';
-    res.textContent='🎉 '+(activeDiscount*100)+'% off applied! Discount shown at payment.';
-  } else {
-    activeDiscount=0;
-    inp.classList.add('invalid'); inp.classList.remove('valid');
-    res.className='promo-result err';
-    res.textContent='✕ Invalid promo code. Please try again.';
-  }
+  if(v.length>=3){pv.textContent=v.startsWith('@')?v:'@'+v;w.classList.add('show');inp.classList.add('warn-b')}
+  else{w.classList.remove('show');inp.classList.remove('warn-b')}
 }
 
 // ── PREMIUM PICKER ────────────────────────────────────────────────────
 function openPremiumPicker(){openOv('premiumOv')}
-
-// ── VIP SERVICES → WhatsApp ───────────────────────────────────────────
-const WA_NUMBER = '1234567890'; // ← replace with your real number
-function openVIP(service,icon,price){
-  const msg=encodeURIComponent(`Hi, I'm interested in the ${service} service (${price}). Please assist me.`);
-  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
-}
 
 // ── OPEN ORDER FORM ───────────────────────────────────────────────────
 function openOrder(name,variant,icon,price,type){
@@ -1116,109 +802,40 @@ function openOrder(name,variant,icon,price,type){
   document.getElementById('cp').textContent='$'+parseFloat(price).toFixed(2);
   document.getElementById('em').value='';
   document.getElementById('un').value='';
-  document.getElementById('ph').value='';
   document.getElementById('uwarn').classList.remove('show');
   document.getElementById('un').classList.remove('warn-b');
-  document.getElementById('ph').classList.remove('warn-b');
-  // reset to username tab
-  switchTab('user');
-  // reset promo
-  activeDiscount=0;
-  document.getElementById('promoInputOrder').value='';
-  document.getElementById('promoInputOrder').classList.remove('valid','invalid');
-  document.getElementById('promoResultOrder').className='promo-result';
-  document.getElementById('promoResultOrder').textContent='';
-  // show promo ONLY for Unfreeze
-  document.getElementById('promoSection').style.display = type==='unfreeze' ? 'block' : 'none';
   closeOv('premiumOv'); openOv('orderOv');
 }
 
 // ── PROCEED TO PAYMENT ────────────────────────────────────────────────
 function proceed(){
-  const em = document.getElementById('em').value.trim();
-  const accountVal = activeTab==='user'
-    ? document.getElementById('un').value.trim()
-    : document.getElementById('ph').value.trim();
+  const em=document.getElementById('em').value.trim();
+  const un=document.getElementById('un').value.trim();
   if(!em||!em.includes('@')){alert('Please enter a valid email address.');return}
-  if(!accountVal){
-    alert(activeTab==='user'?'Please enter your Telegram username.':'Please enter your phone number with country code.');return;
-  }
-  if(activeTab==='phone'&&!accountVal.startsWith('+')){
-    alert('Phone number must start with your country code.\nExample: +1 234 567 8900 (US), +44 7911 123456 (UK)');return;
-  }
-  svc.email=em; svc.user=accountVal;
-
-  // Generate order ID early so it's included in the submission
-  svc.orderId = '#TGS-' + Math.floor(100000 + Math.random() * 900000);
-
-  // ── Submit to Formspree (sends email to you instantly)
-  const promoUsed = activeDiscount > 0 ? 'FLASH20 (20% off)' : 'None';
-  const finalPrice = (parseFloat(svc.price) * (1 - activeDiscount)).toFixed(2);
-
-  fetch('https://formspree.io/f/xrerkevb', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    body: JSON.stringify({
-      _subject:      '🔔 New TGStar Order — ' + svc.name,
-      order_id:      svc.orderId,
-      service:       svc.name + ' — ' + svc.variant,
-      price:         '$' + finalPrice + (activeDiscount > 0 ? ' (was $' + parseFloat(svc.price).toFixed(2) + ')' : ''),
-      customer_email: em,
-      telegram_account: accountVal,
-      account_type:  activeTab === 'user' ? 'Username' : 'Phone Number',
-      promo_code:    promoUsed,
-      submitted_at:  new Date().toLocaleString(),
-      status:        'Pending Payment'
-    })
-  }).catch(()=>{}); // silent fail — don't block the user flow
-
+  if(!un){alert('Please enter your Telegram username.');return}
+  svc.email=em; svc.user=un;
   closeOv('orderOv'); initPay();
 }
 
 // ── INIT PAYMENT ──────────────────────────────────────────────────────
 function initPay(){
   curTok='USDT'; curChain=CHAINS.USDT[0];
-  document.getElementById('tokIcon').innerHTML=TOK_ICONS['USDT'];
+  document.getElementById('tokIcon').textContent='₮';
   document.getElementById('tokLabel').textContent='USDT';
   document.querySelectorAll('#tokDrop .drop-item').forEach((el,i)=>el.classList.toggle('chosen',i===0));
   renderNetDrop(); updateAmt(); updateAddr(); updateRateBar();
-  // show "discount applied" note if promo was used
-  const note=document.getElementById('promoAppliedNote');
-  if(note) note.style.display = activeDiscount>0 ? 'block' : 'none';
-  fetchRates(); startTimer(); openOv('payOv');
+  // fetch fresh rates every time payment opens
+  fetchRates();
+  startTimer(); openOv('payOv');
 }
 
 // ── CONFIRM PAYMENT ───────────────────────────────────────────────────
 function confirmPay(){
   clearInterval(timerI);
-  // reuse the ID generated when order was submitted
-  const id = svc.orderId || ('#TGS-' + Math.floor(100000 + Math.random() * 900000));
-
-  // Notify you that payment was claimed
-  fetch('https://formspree.io/f/xrerkevb', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    body: JSON.stringify({
-      _subject:        '💰 Payment Claimed — ' + id,
-      order_id:        id,
-      service:         svc.name + ' — ' + svc.variant,
-      customer_email:  svc.email,
-      telegram_account: svc.user,
-      token:           curTok,
-      network:         curChain?.l || '—',
-      address_used:    curChain?.a || '—',
-      amount:          document.getElementById('pamtv').textContent,
-      status:          '⏳ Customer clicked "I Have Made Payment" — verify on blockchain'
-    })
-  }).catch(()=>{});
-
-  orders.unshift({
-    id, service:svc.name, variant:svc.variant,
-    price:'$'+parseFloat(svc.price).toFixed(2),
-    user:svc.user, status:'Pending', time:new Date().toLocaleString()
-  });
+  const id='#TGS-'+Math.floor(100000+Math.random()*900000);
+  orders.unshift({id,service:svc.name,variant:svc.variant,price:'$'+parseFloat(svc.price).toFixed(2),user:svc.user,status:'Pending',time:new Date().toLocaleString()});
   try{localStorage.setItem('tgs',JSON.stringify(orders))}catch(e){}
-  document.getElementById('oidv').textContent = id;
+  document.getElementById('oidv').textContent=id;
   closeOv('payOv'); openOv('confOv');
 }
 
