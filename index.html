@@ -19,87 +19,106 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:998;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity:.02;mix-blend-mode:screen}
 .amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.a1{position:absolute;width:900px;height:900px;border-radius:50%;
-  background:radial-gradient(circle,rgba(42,171,238,.08) 0%,transparent 60%);
-  top:-300px;right:-200px;animation:af 20s ease-in-out infinite}
-.a2{position:absolute;width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(42,171,238,.05) 0%,transparent 60%);
-  bottom:-200px;left:-100px;animation:af 28s ease-in-out infinite reverse}
+.a1{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(42,171,238,.08) 0%,transparent 60%);top:-300px;right:-200px;animation:af 20s ease-in-out infinite}
+.a2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(42,171,238,.05) 0%,transparent 60%);bottom:-200px;left:-100px;animation:af 28s ease-in-out infinite reverse}
 @keyframes af{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:62px;
-  display:flex;align-items:center;justify-content:space-between;padding:0 20px;
-  background:rgba(7,7,15,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--line)}
+/* ── TICKER BAR ── */
+.ticker-wrap{position:relative;z-index:99;background:linear-gradient(90deg,var(--tgdark),var(--tg),var(--tgdark));overflow:hidden;height:34px;display:flex;align-items:center}
+.ticker-track{display:flex;align-items:center;white-space:nowrap;animation:ticker 28s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{display:inline-flex;align-items:center;gap:10px;padding:0 40px;font-size:.78rem;font-weight:500;color:#fff}
+.ticker-item .t-badge{background:rgba(255,255,255,.2);border-radius:99px;padding:2px 8px;font-size:.68rem;font-weight:700;letter-spacing:.5px}
+.ticker-item .t-code{background:rgba(255,255,255,.25);border-radius:5px;padding:1px 7px;font-family:monospace;font-weight:800;letter-spacing:1.5px;cursor:pointer}
+.ticker-item .t-sep{opacity:.4;margin:0 6px}
+
+/* ── AUTH MODAL UPGRADED ── */
+.auth-mode-row{display:flex;background:var(--ink3);border-radius:12px;padding:4px;gap:4px;margin-bottom:20px}
+.auth-mode-btn{flex:1;padding:9px;border:none;border-radius:9px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .22s;color:var(--dim2);background:transparent}
+.auth-mode-btn.active{background:var(--tg);color:#fff;box-shadow:0 2px 10px rgba(42,171,238,.35)}
+.auth-divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--dim2);font-size:.72rem}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--line2)}
+.auth-google{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line2);color:var(--white);border-radius:10px;padding:11px;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;margin-bottom:4px}
+.auth-google:hover{background:rgba(255,255,255,.1);border-color:var(--line2)}
+.auth-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;margin-top:-4px}
+.auth-remember{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--dim2);cursor:pointer}
+.auth-remember input{accent-color:var(--tg);cursor:pointer}
+.auth-forgot{font-size:.75rem;color:var(--tg2);text-decoration:none;cursor:pointer;transition:color .2s}
+.auth-forgot:hover{color:var(--white)}
+.auth-switch{text-align:center;margin-top:12px;font-size:.76rem;color:var(--dim2)}
+.auth-switch a{color:var(--tg2);cursor:pointer;font-weight:600}
+.auth-switch a:hover{color:var(--white)}
+.auth-msg{font-size:.76rem;margin-bottom:12px;padding:9px 12px;border-radius:8px;display:none}
+.auth-msg.err{display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);color:#f87171}
+.auth-msg.ok{display:block;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);color:#4ade80}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(7,7,15,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--line)}
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
-.logo-gem{width:34px;height:34px;border-radius:10px;flex-shrink:0;
-  background:linear-gradient(145deg,var(--tg2) 0%,var(--tgdark) 100%);
-  display:flex;align-items:center;justify-content:center;font-size:1rem;
-  box-shadow:0 0 18px rgba(42,171,238,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.logo-gem{width:34px;height:34px;border-radius:10px;flex-shrink:0;background:linear-gradient(145deg,var(--tg2) 0%,var(--tgdark) 100%);display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 0 18px rgba(42,171,238,.35),inset 0 1px 0 rgba(255,255,255,.25)}
 .logo-word{font-family:'Playfair Display',serif;font-weight:800;font-size:1.12rem;color:var(--white);letter-spacing:-.3px}
 .logo-word b{color:var(--tg)}
 .nav-r{display:flex;align-items:center;gap:8px}
 .nav-a{color:var(--dim2);font-size:.82rem;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:8px;transition:color .2s;display:none}
 .nav-a:hover{color:var(--white)}
 @media(min-width:640px){.nav-a{display:block}}
-.nav-btn{background:var(--tg);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:.8rem;
-  padding:8px 18px;border-radius:10px;border:none;cursor:pointer;letter-spacing:.2px;transition:all .2s;
-  box-shadow:0 4px 16px rgba(42,171,238,.3)}
+.nav-btn{background:var(--tg);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:.8rem;padding:8px 18px;border-radius:10px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(42,171,238,.3)}
 .nav-btn:hover{background:var(--tg2);transform:translateY(-1px)}
+.nav-account{display:flex;align-items:center;gap:8px}
+.nav-avatar{width:30px;height:30px;border-radius:50%;background:var(--tg);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:#fff;cursor:pointer}
+.nav-acct-btn{background:transparent;border:1px solid var(--line2);color:var(--dim2);font-family:'Outfit',sans-serif;font-size:.75rem;padding:5px 10px;border-radius:8px;cursor:pointer;transition:all .2s}
+.nav-acct-btn:hover{color:var(--white)}
 
-/* HERO */
-.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;padding:100px 24px 130px;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(42,171,238,.3);
-  background:rgba(42,171,238,.07);border-radius:99px;padding:5px 14px 5px 10px;
-  font-size:.72rem;font-weight:600;color:var(--tg2);letter-spacing:1px;text-transform:uppercase;
-  margin-bottom:26px;animation:fu .7s ease both;backdrop-filter:blur(12px)}
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar{position:relative;z-index:1;background:linear-gradient(135deg,rgba(42,171,238,.14),rgba(42,171,238,.07));border-bottom:1px solid rgba(42,171,238,.22);padding:9px 20px;text-align:center}
+.ann-inner{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;max-width:1080px;margin:0 auto}
+.ann-badge{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#f87171;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase;flex-shrink:0;animation:blink 2s infinite}
+.ann-text{font-size:.8rem;color:var(--white);font-weight:500}
+.ann-text strong{color:var(--tg2)}
+.ann-code{background:rgba(42,171,238,.15);border:1px solid rgba(42,171,238,.3);color:var(--tg2);font-size:.78rem;font-weight:800;padding:3px 10px;border-radius:6px;font-family:monospace;letter-spacing:1px;cursor:pointer;transition:all .2s}
+.ann-code:hover{background:var(--tg);color:#fff}
+.ann-btn{background:var(--tg);color:#fff;border:none;border-radius:8px;padding:5px 14px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+.ann-btn:hover{background:var(--tg2)}
+
+/* ── HERO ── */
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 130px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(42,171,238,.3);background:rgba(42,171,238,.07);border-radius:99px;padding:5px 14px 5px 10px;font-size:.72rem;font-weight:600;color:var(--tg2);letter-spacing:1px;text-transform:uppercase;margin-bottom:26px;animation:fu .7s ease both;backdrop-filter:blur(12px)}
 .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--tg);animation:blink 2s infinite;flex-shrink:0}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,10vw,6rem);font-weight:900;
-  line-height:.96;letter-spacing:-2.5px;animation:fu .7s .1s ease both;max-width:760px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,10vw,6rem);font-weight:900;line-height:.96;letter-spacing:-2.5px;animation:fu .7s .1s ease both;max-width:760px}
 h1 em{font-style:italic;color:var(--tg)}
-.hero-p{max-width:440px;margin:22px auto 0;color:var(--dim2);font-size:clamp(.88rem,2.5vw,1rem);
-  line-height:1.75;font-weight:300;animation:fu .7s .2s ease both}
+.hero-p{max-width:440px;margin:22px auto 0;color:var(--dim2);font-size:clamp(.88rem,2.5vw,1rem);line-height:1.75;font-weight:300;animation:fu .7s .2s ease both}
 .ctas{margin-top:34px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fu .7s .3s ease both}
-.btn-tg{background:linear-gradient(135deg,var(--tg) 0%,var(--tgdark) 100%);color:#fff;
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:.92rem;padding:14px 30px;
-  border-radius:12px;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(42,171,238,.3);
-  transition:all .25s;white-space:nowrap}
+.btn-tg{background:linear-gradient(135deg,var(--tg) 0%,var(--tgdark) 100%);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:.92rem;padding:14px 30px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(42,171,238,.3);transition:all .25s;white-space:nowrap}
 .btn-tg:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(42,171,238,.4)}
-.btn-o{background:transparent;color:var(--dim2);font-family:'Outfit',sans-serif;font-weight:500;
-  font-size:.92rem;padding:14px 26px;border-radius:12px;border:1px solid var(--line2);
-  cursor:pointer;transition:all .25s;white-space:nowrap}
+.btn-o{background:transparent;color:var(--dim2);font-family:'Outfit',sans-serif;font-weight:500;font-size:.92rem;padding:14px 26px;border-radius:12px;border:1px solid var(--line2);cursor:pointer;transition:all .25s;white-space:nowrap}
 .btn-o:hover{color:var(--white);border-color:rgba(42,171,238,.35)}
 .stats{margin-top:52px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap;animation:fu .7s .42s ease both}
 .stat{text-align:center;padding:0 8px}
 .stat-n{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:var(--tg2);line-height:1}
 .stat-l{font-size:.68rem;color:var(--dim2);text-transform:uppercase;letter-spacing:.8px;margin-top:4px}
-@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* SECTIONS */
+/* ── SECTIONS ── */
 section{position:relative;z-index:1;padding:72px 20px}
 .w{max-width:1080px;margin:0 auto}
 .sl{font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--tg);margin-bottom:8px}
 .st{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;letter-spacing:-1px;margin-bottom:8px}
 .ss{color:var(--dim2);font-size:.88rem;line-height:1.7;max-width:460px}
 
-/* SERVICES */
+/* ── SERVICE CARDS ── */
 #services{background:var(--ink2)}
 .sg{display:grid;grid-template-columns:1fr;gap:12px;margin-top:36px}
 @media(min-width:560px){.sg{grid-template-columns:1fr 1fr}}
 @media(min-width:900px){.sg{grid-template-columns:1fr 1fr 1fr}}
-.sc{background:var(--ink3);border:1px solid var(--line);border-radius:var(--r);
-  padding:22px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
-.sc::before{content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(42,171,238,.05) 0%,transparent 55%);opacity:0;transition:opacity .3s}
+.sc{background:var(--ink3);border:1px solid var(--line);border-radius:var(--r);padding:22px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(42,171,238,.05) 0%,transparent 55%);opacity:0;transition:opacity .3s}
 .sc:hover{border-color:rgba(42,171,238,.35);transform:translateY(-3px);box-shadow:0 18px 52px rgba(0,0,0,.4)}
 .sc:hover::before{opacity:1}
 .sc:active{transform:translateY(0)}
 .sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
-.sc-icon{width:46px;height:46px;border-radius:13px;background:var(--tg3);
-  display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.sc-icon{width:46px;height:46px;border-radius:13px;background:var(--tg3);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
 .sc-price{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:var(--tg2);text-align:right}
 .sc-price small{font-family:'Outfit',sans-serif;font-size:.68rem;color:var(--dim2);font-weight:400;display:block}
 .sc-name{font-weight:600;font-size:.95rem;margin-bottom:5px;line-height:1.3}
@@ -108,15 +127,11 @@ section{position:relative;z-index:1;padding:72px 20px}
 .tg-tag{font-size:.7rem;padding:3px 9px;border-radius:99px;font-weight:500}
 .tg-blue{background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.22);color:var(--tg2)}
 .tg-dim{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--dim2)}
-.sc-btn{width:100%;background:var(--tg3);border:1px solid rgba(42,171,238,.22);color:var(--tg2);
-  padding:10px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;
-  cursor:pointer;transition:all .22s}
+.sc-btn{width:100%;background:var(--tg3);border:1px solid rgba(42,171,238,.22);color:var(--tg2);padding:10px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .22s}
 .sc-btn:hover{background:var(--tg);color:#fff;border-color:var(--tg)}
-.vip-tag{position:absolute;top:14px;right:14px;
-  background:linear-gradient(135deg,var(--tg),var(--tgdark));color:#fff;
-  font-size:.62rem;font-weight:800;padding:2px 9px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase}
+.vip-tag{position:absolute;top:14px;right:14px;background:linear-gradient(135deg,var(--tg),var(--tgdark));color:#fff;font-size:.62rem;font-weight:800;padding:2px 9px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase}
 
-/* HOW */
+/* ── HOW ── */
 #how{background:var(--ink)}
 .how-g{display:grid;grid-template-columns:1fr;gap:0;margin-top:36px;counter-reset:s}
 @media(min-width:560px){.how-g{grid-template-columns:1fr 1fr}}
@@ -125,16 +140,13 @@ section{position:relative;z-index:1;padding:72px 20px}
 .how-s:first-child{border-radius:var(--r) var(--r) 0 0}
 .how-s:last-child{border-radius:0 0 var(--r) var(--r)}
 @media(min-width:900px){.how-s:first-child{border-radius:var(--r) 0 0 var(--r)}.how-s:last-child{border-radius:0 var(--r) var(--r) 0}}
-@media(min-width:560px) and (max-width:899px){
-  .how-s:first-child{border-radius:var(--r) 0 0 0}.how-s:nth-child(2){border-radius:0 var(--r) 0 0}
-  .how-s:nth-child(3){border-radius:0 0 0 var(--r)}.how-s:last-child{border-radius:0 0 var(--r) 0}}
-.how-s::after{content:counter(s);font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;
-  color:rgba(42,171,238,.05);position:absolute;bottom:10px;right:16px;line-height:1}
+@media(min-width:560px) and (max-width:899px){.how-s:first-child{border-radius:var(--r) 0 0 0}.how-s:nth-child(2){border-radius:0 var(--r) 0 0}.how-s:nth-child(3){border-radius:0 0 0 var(--r)}.how-s:last-child{border-radius:0 0 var(--r) 0}}
+.how-s::after{content:counter(s);font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(42,171,238,.05);position:absolute;bottom:10px;right:16px;line-height:1}
 .how-n{font-family:'Playfair Display',serif;font-weight:900;font-size:.78rem;color:var(--tg);margin-bottom:10px;letter-spacing:1px}
 .how-t{font-weight:600;font-size:.9rem;margin-bottom:5px}
 .how-d{color:var(--dim2);font-size:.78rem;line-height:1.65}
 
-/* REVIEWS */
+/* ── REVIEWS ── */
 #reviews{background:var(--ink2)}
 .rg{display:grid;grid-template-columns:1fr;gap:10px;margin-top:36px}
 @media(min-width:560px){.rg{grid-template-columns:1fr 1fr}}
@@ -144,25 +156,21 @@ section{position:relative;z-index:1;padding:72px 20px}
 .rt{color:var(--dim2);font-size:.82rem;line-height:1.7;margin-bottom:14px;font-style:italic}
 .rt::before{content:'\201C';color:var(--tg);font-size:1.4rem;font-family:'Playfair Display',serif;line-height:0;vertical-align:-.28em;margin-right:3px}
 .ra{display:flex;align-items:center;gap:9px}
-.av{width:32px;height:32px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--tg),var(--tgdark));
-  display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:#fff}
+.av{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--tg),var(--tgdark));display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:#fff}
 .an{font-size:.8rem;font-weight:600}.ah{font-size:.7rem;color:var(--dim2)}
 
-/* FAQ */
+/* ── FAQ ── */
 #faq{background:var(--ink)}
 .fq{margin-top:36px;display:flex;flex-direction:column;gap:8px}
 .fi{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r2);overflow:hidden}
-.fq-q{padding:17px 18px;display:flex;justify-content:space-between;align-items:center;
-  cursor:pointer;font-size:.88rem;font-weight:500;transition:color .2s;gap:14px}
+.fq-q{padding:17px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:.88rem;font-weight:500;transition:color .2s;gap:14px}
 .fq-q:hover{color:var(--tg2)}
 .chev{color:var(--dim2);font-size:.65rem;flex-shrink:0;transition:transform .3s}
 .fi.open .chev{transform:rotate(180deg)}
-.fa{max-height:0;overflow:hidden;transition:max-height .32s ease,padding .28s;
-  color:var(--dim2);font-size:.82rem;line-height:1.75;padding:0 18px;font-weight:300}
+.fa{max-height:0;overflow:hidden;transition:max-height .32s ease,padding .28s;color:var(--dim2);font-size:.82rem;line-height:1.75;padding:0 18px;font-weight:300}
 .fi.open .fa{max-height:200px;padding:0 18px 16px}
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid var(--line);padding:28px 20px 110px}
 .fi2{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
 @media(min-width:640px){.fi2{flex-direction:row;justify-content:space-between;text-align:left}}
@@ -171,250 +179,194 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
 .fl a:hover{color:var(--white)}
 .fc{color:var(--dim2);font-size:.72rem}
 
-/* BOTTOM BAR */
-.bb{position:fixed;bottom:0;left:0;right:0;z-index:100;
-  background:rgba(7,7,15,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-top:1px solid var(--line);display:flex;gap:5px;padding:10px 12px;
-  padding-bottom:max(10px,env(safe-area-inset-bottom))}
-.bb-b{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  background:transparent;border:1px solid var(--line);border-radius:11px;
-  color:var(--dim2);padding:9px 4px;cursor:pointer;font-family:'Outfit',sans-serif;
-  font-size:.66rem;font-weight:500;transition:all .2s}
+/* ── WHATSAPP FLOATING ── */
+.wa-float{position:fixed;bottom:90px;right:18px;z-index:150;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45),0 2px 8px rgba(0,0,0,.3);cursor:pointer;text-decoration:none;animation:waPop .5s .8s cubic-bezier(.16,1,.3,1) both;transition:transform .2s,box-shadow .2s}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.55)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+.wa-tooltip{position:absolute;right:62px;top:50%;transform:translateY(-50%);background:rgba(7,7,15,.92);border:1px solid var(--line2);color:var(--white);font-size:.75rem;font-weight:500;padding:6px 12px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;font-family:'Outfit',sans-serif}
+.wa-float:hover .wa-tooltip{opacity:1}
+@keyframes waPop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+
+/* ── BOTTOM BAR ── */
+.bb{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(7,7,15,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--line);display:flex;gap:5px;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.bb-b{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:1px solid var(--line);border-radius:11px;color:var(--dim2);padding:9px 4px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.66rem;font-weight:500;transition:all .2s}
 .bb-b .bi{font-size:1.05rem}
 .bb-b:hover,.bb-b.on{background:var(--tg3);border-color:rgba(42,171,238,.3);color:var(--tg2)}
 
-/* MODALS */
-.ov{display:none;position:fixed;inset:0;z-index:200;
-  background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  align-items:flex-end;justify-content:center}
+/* ── MODALS ── */
+.ov{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);align-items:flex-end;justify-content:center}
 @media(min-width:600px){.ov{align-items:center;padding:20px}}
 .ov.open{display:flex}
-.m{background:var(--ink2);border:1px solid var(--line2);width:100%;max-width:452px;
-  border-radius:var(--r) var(--r) 0 0;padding:6px 22px 28px;max-height:94vh;overflow-y:auto;
-  animation:su .36s cubic-bezier(.16,1,.3,1) both;position:relative}
+.m{background:var(--ink2);border:1px solid var(--line2);width:100%;max-width:452px;border-radius:var(--r) var(--r) 0 0;padding:6px 22px 28px;max-height:94vh;overflow-y:auto;animation:su .36s cubic-bezier(.16,1,.3,1) both;position:relative}
 @media(min-width:600px){.m{border-radius:var(--r);padding:26px;animation:pi .3s cubic-bezier(.16,1,.3,1) both}}
 @keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes pi{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 .drag{width:36px;height:3px;border-radius:2px;background:var(--line2);margin:10px auto 18px;display:block}
 @media(min-width:600px){.drag{display:none}}
-.mc{position:absolute;top:16px;right:16px;background:var(--line);border:none;color:var(--dim2);
-  width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;
-  display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mc{position:absolute;top:16px;right:16px;background:var(--line);border:none;color:var(--dim2);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .mc:hover{background:var(--line2);color:var(--white)}
 .mt2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;margin-bottom:3px;padding-right:36px}
 .ms{color:var(--dim2);font-size:.8rem;line-height:1.6;margin-bottom:20px}
 
-/* FORM */
+/* ── FORM ── */
 .f{margin-bottom:14px}
 .f label{display:block;font-size:.68rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:5px}
-.f input{width:100%;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;
-  padding:12px 14px;color:var(--white);font-size:.88rem;font-family:'Outfit',sans-serif;
-  outline:none;transition:border-color .2s,box-shadow .2s}
+.f input{width:100%;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;color:var(--white);font-size:.88rem;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
 .f input:focus{border-color:rgba(42,171,238,.5);box-shadow:0 0 0 3px rgba(42,171,238,.1)}
 .f input::placeholder{color:var(--dim2)}
 .f input.warn-b{border-color:rgba(255,180,50,.45)!important}
-
-/* USERNAME WARNING */
-.uname-warn{display:none;background:rgba(255,160,40,.06);border:1px solid rgba(255,160,40,.22);
-  border-radius:9px;padding:10px 13px;margin-top:-8px;margin-bottom:14px;
-  font-size:.76rem;color:rgba(255,200,80,.9);line-height:1.55}
+.uname-warn{display:none;background:rgba(255,160,40,.06);border:1px solid rgba(255,160,40,.22);border-radius:9px;padding:10px 13px;margin-top:-8px;margin-bottom:14px;font-size:.76rem;color:rgba(255,200,80,.9);line-height:1.55}
 .uname-warn.show{display:block}
 .uname-warn strong{color:rgba(255,215,100,1)}
+.chip{display:flex;align-items:center;gap:11px;background:var(--tg4);border:1px solid rgba(42,171,238,.15);border-radius:12px;padding:12px 14px;margin-bottom:20px}
+.chi{font-size:1.35rem}.chn{font-weight:600;font-size:.88rem}.chp{color:var(--tg2);font-size:.78rem;margin-top:1px}
 
-/* CHIP */
-.chip{display:flex;align-items:center;gap:11px;background:var(--tg4);
-  border:1px solid rgba(42,171,238,.15);border-radius:12px;padding:12px 14px;margin-bottom:20px}
-.chi{font-size:1.35rem}
-.chn{font-weight:600;font-size:.88rem}
-.chp{color:var(--tg2);font-size:.78rem;margin-top:1px}
+/* ── PROMO ── */
+.promo-row{display:flex;gap:8px;margin-bottom:8px}
+.promo-input{flex:1;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;padding:11px 14px;color:var(--white);font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:1px}
+.promo-input::placeholder{text-transform:none;letter-spacing:0;color:var(--dim2)}
+.promo-input:focus{border-color:rgba(42,171,238,.5)}
+.promo-input.valid{border-color:#22c55e!important;color:#4ade80}
+.promo-input.invalid{border-color:#ef4444!important}
+.promo-btn{background:var(--tg3);border:1px solid rgba(42,171,238,.25);color:var(--tg2);padding:11px 16px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.promo-btn:hover{background:var(--tg);color:#fff}
+.promo-result{font-size:.76rem;margin-bottom:10px;display:none;padding:8px 12px;border-radius:8px}
+.promo-result.ok{display:block;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#4ade80}
+.promo-result.err{display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);color:#f87171}
 
-/* PAYMENT */
+/* ── PAYMENT ── */
 .pay-progress{display:flex;gap:4px;margin-bottom:20px}
 .pp-b{flex:1;height:2px;border-radius:1px;background:var(--line2);transition:background .4s}
 .pp-b.on{background:var(--tg)}
-
-.timer-row{display:flex;align-items:center;justify-content:space-between;
-  background:rgba(42,171,238,.05);border:1px solid rgba(42,171,238,.18);
-  border-radius:10px;padding:11px 15px;margin-bottom:18px}
+.timer-row{display:flex;align-items:center;justify-content:space-between;background:rgba(42,171,238,.05);border:1px solid rgba(42,171,238,.18);border-radius:10px;padding:11px 15px;margin-bottom:18px}
 .tl{font-size:.75rem;color:var(--tg2);font-weight:500}
 .tv{font-family:'Playfair Display',serif;font-weight:800;font-size:1.05rem;color:var(--tg2)}
 .tv.red{color:#ff5f5f!important}
-
-/* RATE INDICATOR */
-.rate-bar{display:flex;align-items:center;justify-content:space-between;
-  background:rgba(255,255,255,.03);border:1px solid var(--line);
-  border-radius:8px;padding:8px 14px;margin-bottom:16px;font-size:.74rem}
+.rate-bar{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:8px 14px;margin-bottom:16px;font-size:.74rem}
 .rate-live{display:flex;align-items:center;gap:5px;color:var(--dim2)}
 .rate-dot{width:5px;height:5px;border-radius:50%;background:#22c55e;animation:blink 2s infinite;flex-shrink:0}
 .rate-dot.loading{background:var(--dim2)}
 .rate-val{color:var(--tg2);font-weight:600}
-
-/* POLYMARKET PILL SELECTORS */
+.pay-select-header{font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:6px}
+.pay-select-hint{font-size:.76rem;color:var(--dim2);margin-bottom:12px;line-height:1.5}
 .selector-row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
-.selector-pill{display:inline-flex;align-items:center;gap:7px;
-  background:var(--ink3);border:1px solid var(--line2);border-radius:99px;
-  padding:9px 14px;cursor:pointer;transition:all .2s;position:relative;
-  user-select:none;font-size:.85rem;font-weight:600}
+.selector-pill{display:inline-flex;align-items:center;gap:7px;background:var(--ink3);border:1px solid var(--line2);border-radius:99px;padding:9px 14px;cursor:pointer;transition:all .2s;position:relative;user-select:none;font-size:.85rem;font-weight:600}
 .selector-pill:hover{border-color:rgba(42,171,238,.4);background:var(--tg3)}
-.selector-pill .pill-icon{font-size:1rem}
 .selector-pill .pill-label{color:var(--white)}
 .selector-pill .pill-arrow{color:var(--dim2);font-size:.6rem;margin-left:2px;transition:transform .2s}
 .selector-pill.active-drop{border-color:var(--tg);background:var(--tg3)}
 .selector-pill.active-drop .pill-arrow{transform:rotate(180deg)}
-
-.drop-list{position:absolute;top:calc(100% + 8px);left:0;min-width:210px;z-index:50;
-  background:var(--ink3);border:1px solid var(--line2);border-radius:16px;overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);display:none}
+.drop-list{position:absolute;top:calc(100% + 8px);left:0;min-width:210px;z-index:50;background:var(--ink3);border:1px solid var(--line2);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);display:none}
 .drop-list.open{display:block;animation:dropIn .2s ease both}
 @keyframes dropIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.drop-item{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;
-  transition:background .15s;font-size:.84rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.drop-item{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;transition:background .15s;font-size:.84rem;border-bottom:1px solid rgba(255,255,255,.05)}
 .drop-item:last-child{border-bottom:none}
 .drop-item:hover{background:rgba(42,171,238,.1)}
 .drop-item.chosen{background:rgba(42,171,238,.13)}
-.drop-item .d-icon{font-size:1.05rem;width:22px;text-align:center;flex-shrink:0}
 .drop-item .d-main{font-weight:600}
 .drop-item .d-sub{font-size:.7rem;color:var(--dim2);margin-top:1px}
 .drop-item .d-check{margin-left:auto;color:var(--tg);font-size:.8rem;display:none;flex-shrink:0}
 .drop-item.chosen .d-check{display:block}
-
-/* AMOUNT + ADDRESS */
+.coin-logo{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.coin-logo svg{width:28px;height:28px}
 .amtcard{background:var(--ink3);border:1px solid var(--line2);border-radius:12px;padding:14px;margin-bottom:13px}
 .amtr{display:flex;justify-content:space-between;align-items:center}
 .amtl{color:var(--dim2);font-size:.78rem}
 .amtv{font-family:'Playfair Display',serif;font-weight:800;font-size:1.05rem;color:var(--tg2)}
 .amtu{color:var(--dim2);font-size:.7rem;margin-top:3px;text-align:right}
+.discount-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
+.discount-label{color:#4ade80;font-size:.75rem}
+.discount-val{color:#4ade80;font-size:.82rem;font-weight:600}
 .acard{background:var(--ink3);border:1px solid var(--line2);border-radius:12px;padding:15px;margin-bottom:13px}
 .albl{font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--dim2);margin-bottom:7px;font-weight:600}
 .aval{font-family:monospace;font-size:.76rem;color:var(--tg2);word-break:break-all;line-height:1.6}
 .aact{margin-top:10px}
-.cbtn{background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.22);color:var(--tg2);
-  padding:8px 14px;border-radius:8px;font-size:.76rem;font-weight:600;cursor:pointer;
-  font-family:'Outfit',sans-serif;transition:all .2s}
+.cbtn{background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.22);color:var(--tg2);padding:8px 14px;border-radius:8px;font-size:.76rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
 .cbtn:hover{background:var(--tg);color:#fff}
-.warn-note{background:rgba(255,150,50,.04);border:1px solid rgba(255,150,50,.14);
-  border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:.74rem;color:rgba(255,185,80,.8);line-height:1.55}
+.warn-note{background:rgba(255,150,50,.04);border:1px solid rgba(255,150,50,.14);border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:.74rem;color:rgba(255,185,80,.8);line-height:1.55}
 
-/* CONFIRMATION */
+/* ── CONFIRMATION ── */
 .cw{text-align:center;padding:8px 0 10px}
-.cring{width:76px;height:76px;border-radius:50%;margin:0 auto 18px;
-  background:rgba(42,171,238,.07);border:1.5px solid rgba(42,171,238,.22);
-  display:flex;align-items:center;justify-content:center;font-size:2rem;
-  animation:rp 2s ease-in-out infinite}
+.cring{width:76px;height:76px;border-radius:50%;margin:0 auto 18px;background:rgba(42,171,238,.07);border:1.5px solid rgba(42,171,238,.22);display:flex;align-items:center;justify-content:center;font-size:2rem;animation:rp 2s ease-in-out infinite}
 @keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(42,171,238,.25)}50%{box-shadow:0 0 0 14px rgba(42,171,238,0)}}
 .ct{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;margin-bottom:7px}
 .cd{color:var(--dim2);font-size:.82rem;line-height:1.7;margin-bottom:18px;max-width:300px;margin-left:auto;margin-right:auto}
 .oidb{background:var(--ink3);border:1px solid var(--line2);border-radius:11px;padding:13px 16px;margin-bottom:16px}
-.oidl{font-size:.66px;text-transform:uppercase;letter-spacing:.5px;color:var(--dim2);margin-bottom:3px;font-weight:600;font-size:.66rem}
+.oidl{font-size:.66rem;text-transform:uppercase;letter-spacing:.5px;color:var(--dim2);margin-bottom:3px;font-weight:600}
 .oidv{font-family:monospace;font-size:.88rem;color:var(--white);font-weight:600}
 .sl2{display:inline-flex;align-items:center;gap:5px;color:var(--tg);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s}
 .sl2:hover{color:var(--tg2)}
 
-/* ORDERS */
+/* ── ORDERS ── */
 .or{background:var(--ink3);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:8px}
 .ort{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px}
 .orn{font-weight:600;font-size:.85rem;line-height:1.3}
-.ost{font-size:.65rem;font-weight:700;padding:2px 9px;border-radius:99px;flex-shrink:0;
-  background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.22);color:var(--tg2)}
 .orm{color:var(--dim2);font-size:.7rem}
 .oid2{font-family:monospace;font-size:.68rem;color:var(--dim2);margin-top:5px}
+.status-pill{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:99px}
+.sp-pending{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:#fbbf24}
+.sp-confirmed{background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.25);color:var(--tg2)}
+.sp-delivered{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:#4ade80}
+.sp-failed{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#f87171}
 
-/* COIN LOGO IMAGES in dropdown */
-.coin-logo{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem}
-.coin-logo svg{width:28px;height:28px}
+/* ── AUTH ── */
+.auth-tabs{display:flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.auth-tab{flex:1;padding:10px;background:transparent;border:none;color:var(--dim2);font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.auth-tab.active{background:var(--tg);color:#fff}
+.auth-msg{font-size:.76rem;margin-bottom:10px;padding:8px 12px;border-radius:8px;display:none}
+.auth-msg.err{display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);color:#f87171}
+.auth-msg.ok{display:block;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);color:#4ade80}
 
-/* PROMO CODE BOX */
-.promo-row{display:flex;gap:8px;margin-bottom:14px}
-.promo-input{
-  flex:1;background:var(--ink3);border:1px solid var(--line2);
-  border-radius:10px;padding:11px 14px;color:var(--white);
-  font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;
-  transition:border-color .2s;text-transform:uppercase;letter-spacing:1px;
-}
-.promo-input::placeholder{text-transform:none;letter-spacing:0;color:var(--dim2)}
-.promo-input:focus{border-color:rgba(42,171,238,.5)}
-.promo-input.valid{border-color:#22c55e!important;color:#4ade80}
-.promo-input.invalid{border-color:#ef4444!important}
-.promo-btn{
-  background:var(--tg3);border:1px solid rgba(42,171,238,.25);color:var(--tg2);
-  padding:11px 16px;border-radius:10px;font-family:'Outfit',sans-serif;
-  font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;
-}
-.promo-btn:hover{background:var(--tg);color:#fff}
-.promo-result{font-size:.76rem;margin-top:-8px;margin-bottom:10px;display:none;padding:8px 12px;border-radius:8px}
-.promo-result.ok{display:block;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#4ade80}
-.promo-result.err{display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);color:#f87171}
-
-/* discount shown on amount card */
-.discount-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
-.discount-label{color:#4ade80;font-size:.75rem}
-.discount-val{color:#4ade80;font-size:.82rem;font-weight:600}
-.original-price{text-decoration:line-through;color:var(--dim2);font-size:.75rem;margin-left:6px}
-
-/* SELECTOR HEADER */
-.pay-select-header{font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
-.pay-select-hint{font-size:.76rem;color:var(--dim2);margin-bottom:12px;line-height:1.5}
-
+/* ── WHATSAPP BUTTON ── */
+.btn-wa{display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;padding:14px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;width:100%;transition:all .2s;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+.btn-wa:hover{background:#1ebe5d;transform:translateY(-1px)}
 .full{width:100%}.mt12{margin-top:12px}.mt16{margin-top:16px}
-
-/* WHATSAPP FLOATING BUTTON */
-.wa-float{
-  position:fixed;bottom:90px;right:18px;z-index:150;
-  width:54px;height:54px;border-radius:50%;
-  background:#25D366;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(37,211,102,.45), 0 2px 8px rgba(0,0,0,.3);
-  cursor:pointer;text-decoration:none;
-  animation:waPop .5s .8s cubic-bezier(.16,1,.3,1) both;
-  transition:transform .2s, box-shadow .2s;
-}
-.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.55)}
-.wa-float:active{transform:scale(.96)}
-.wa-float svg{width:28px;height:28px;fill:#fff}
-.wa-tooltip{
-  position:absolute;right:62px;top:50%;transform:translateY(-50%);
-  background:rgba(7,7,15,.92);border:1px solid var(--line2);
-  color:var(--white);font-size:.75rem;font-weight:500;
-  padding:6px 12px;border-radius:8px;white-space:nowrap;
-  opacity:0;pointer-events:none;transition:opacity .2s;
-  font-family:'Outfit',sans-serif;
-}
-.wa-float:hover .wa-tooltip{opacity:1}
-@keyframes waPop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-
-/* WHATSAPP BUTTON in modals */
-.btn-wa{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  background:#25D366;color:#fff;font-family:'Outfit',sans-serif;
-  font-weight:700;font-size:.9rem;padding:14px;border-radius:12px;
-  border:none;cursor:pointer;text-decoration:none;width:100%;
-  transition:all .2s;box-shadow:0 4px 16px rgba(37,211,102,.3);
-}
-.btn-wa:hover{background:#1ebe5d;transform:translateY(-1px);box-shadow:0 6px 22px rgba(37,211,102,.4)}
 </style>
 </head>
 <body>
 <div class="amb"><div class="a1"></div><div class="a2"></div></div>
 
-<!-- FLOATING WHATSAPP BUTTON — replace 1234567890 with your real number (country code, no + or spaces) -->
-<a class="wa-float" href="https://wa.me/1234567890?text=Hi%2C%20I%20need%20help%20with%20a%20TGStar%20service." target="_blank" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  <span class="wa-tooltip">Chat with us on WhatsApp</span>
+<!-- TICKER BAR -->
+<div class="ticker-wrap" style="margin-top:62px">
+  <div class="ticker-track">
+    <!-- repeated twice for seamless loop -->
+    <span class="ticker-item"><span class="t-badge">🔓 NEW</span> Telegram Unfreeze now available! Use promo code <span class="t-code" onclick="copyCode(this,'FLASH20')">FLASH20</span> to get 20% OFF <span class="t-sep">✦</span></span>
+    <span class="ticker-item">Account frozen or banned? We restore full access fast — paid with crypto, 100% private <span class="t-sep">✦</span></span>
+    <span class="ticker-item"><span class="t-badge">⭐ STARS</span> Boost your Telegram with 2,500 or 10,000 Stars — delivered in minutes <span class="t-sep">✦</span></span>
+    <span class="ticker-item"><span class="t-badge">💎 PREMIUM</span> Get Telegram Premium — 3, 6 or 12 month plans, paid with crypto <span class="t-sep">✦</span></span>
+    <span class="ticker-item"><span class="t-badge">🔓 NEW</span> Telegram Unfreeze now available! Use promo code <span class="t-code" onclick="copyCode(this,'FLASH20')">FLASH20</span> to get 20% OFF <span class="t-sep">✦</span></span>
+    <span class="ticker-item">Account frozen or banned? We restore full access fast — paid with crypto, 100% private <span class="t-sep">✦</span></span>
+    <span class="ticker-item"><span class="t-badge">⭐ STARS</span> Boost your Telegram with 2,500 or 10,000 Stars — delivered in minutes <span class="t-sep">✦</span></span>
+    <span class="ticker-item"><span class="t-badge">💎 PREMIUM</span> Get Telegram Premium — 3, 6 or 12 month plans, paid with crypto <span class="t-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- FLOATING WHATSAPP — replace 1234567890 with your number -->
+<a class="wa-float" href="https://wa.me/1234567890?text=Hi%2C%20I%20need%20help%20with%20a%20TGStar%20service." target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="wa-tooltip">Chat on WhatsApp</span>
 </a>
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="#">
-    <div class="logo-gem">✈</div>
-    <div class="logo-word">TG<b>Star</b></div>
-  </a>
+  <a class="logo" href="#"><div class="logo-gem">✈</div><div class="logo-word">TG<b>Star</b></div></a>
   <div class="nav-r">
     <a class="nav-a" href="#services">Services</a>
     <a class="nav-a" href="#reviews">Reviews</a>
     <a class="nav-a" href="#faq">FAQ</a>
-    <button class="nav-btn" onclick="g('services')">Get Started</button>
+    <div id="navAuth"><button class="nav-btn" onclick="openOv('authOv')">Sign In</button></div>
   </div>
 </nav>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">
+  <div class="ann-inner">
+    <span class="ann-badge">🔓 New</span>
+    <span class="ann-text">Account Unfreeze now available! Get <strong>20% OFF</strong> with code</span>
+    <span class="ann-code" onclick="copyCode(this,'FLASH20')">FLASH20</span>
+    <button class="ann-btn" onclick="openOrder('Telegram Unfreeze','Account Restoration','🔓','29.99','unfreeze')">Unfreeze Now →</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -481,7 +433,7 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
         <div class="vip-tag">VIP 👑</div>
         <div class="sc-top"><div class="sc-icon">📢</div><div class="sc-price">$49.99<small>vip service</small></div></div>
         <div class="sc-name">Recover Channel</div>
-        <div class="sc-desc">Lost access to your Telegram channel? Our VIP team restores ownership and admin rights fast. Contact us to get started.</div>
+        <div class="sc-desc">Lost access to your Telegram channel? Our VIP team restores ownership and admin rights fast.</div>
         <div class="sc-tags"><span class="tg-tag tg-blue">Channel Recovery</span><span class="tg-tag tg-dim">Contact Support</span></div>
         <button class="sc-btn">Contact Support →</button>
       </div>
@@ -489,7 +441,7 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
   </div>
 </section>
 
-<!-- HOW -->
+<!-- HOW IT WORKS -->
 <section id="how">
   <div class="w">
     <p class="sl">The Process</p>
@@ -526,22 +478,19 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     <p class="sl">Questions</p>
     <h2 class="st">FAQ</h2>
     <div class="fq">
-      <div class="fi"><div class="fq-q" onclick="faq(this)">Is this service safe and legitimate?<span class="chev">▾</span></div><div class="fa">Yes. We never ask for your password. All services use official Telegram delivery methods. 12,000+ customers, 99.8% success rate.</div></div>
-      <div class="fi"><div class="fq-q" onclick="faq(this)">Which tokens and chains do you support?<span class="chev">▾</span></div><div class="fa">We support USDT, USDC, BTC, ETH, BNB, TON, LTC and more. Networks include BSC (BEP20), Tron (TRC20), Ethereum (ERC20), Solana (SPL), TON Network, and Bitcoin.</div></div>
-      <div class="fi"><div class="fq-q" onclick="faq(this)">How fast is delivery?<span class="chev">▾</span></div><div class="fa">Stars and Premium are delivered within 1–5 minutes after blockchain confirmation. Unfreeze/Unban/Channel Recovery take up to 24 hours with email updates throughout.</div></div>
-      <div class="fi"><div class="fq-q" onclick="faq(this)">What if the 15-minute timer expires?<span class="chev">▾</span></div><div class="fa">If you sent payment but the timer expired, contact support with your Order ID and transaction hash. We track all incoming payments and process within the hour.</div></div>
-      <div class="fi"><div class="fq-q" onclick="faq(this)">Do you offer refunds?<span class="chev">▾</span></div><div class="fa">All sales are final once initiated. If we fail to deliver, we issue a full crypto refund. Contact support with your Order ID.</div></div>
-      <div class="fi"><div class="fq-q" onclick="faq(this)">How does VIP Channel Recovery work?<span class="chev">▾</span></div><div class="fa">Our VIP team escalates your channel ownership case through exclusive Telegram appeal channels. We handle hacked and banned channels. We advise you before starting.</div></div>
+      <div class="fi"><div class="fq-q" onclick="faqT(this)">Is this service safe and legitimate?<span class="chev">▾</span></div><div class="fa">Yes. We never ask for your password. All services use official Telegram delivery methods. 12,000+ customers, 99.8% success rate.</div></div>
+      <div class="fi"><div class="fq-q" onclick="faqT(this)">Which tokens and chains do you support?<span class="chev">▾</span></div><div class="fa">We support USDT, USDC, BTC, ETH, BNB, TON, LTC. Networks include BSC (BEP20), Tron (TRC20), Ethereum (ERC20), Solana (SPL), TON Network, and Bitcoin.</div></div>
+      <div class="fi"><div class="fq-q" onclick="faqT(this)">How fast is delivery?<span class="chev">▾</span></div><div class="fa">Stars and Premium are delivered within 1–5 minutes after blockchain confirmation. Unfreeze/Unban take up to 24 hours with email updates throughout.</div></div>
+      <div class="fi"><div class="fq-q" onclick="faqT(this)">What if the 15-minute timer expires?<span class="chev">▾</span></div><div class="fa">If you sent payment but the timer expired, contact support with your Order ID and transaction hash. We track all payments and process within the hour.</div></div>
+      <div class="fi"><div class="fq-q" onclick="faqT(this)">Do you offer refunds?<span class="chev">▾</span></div><div class="fa">All sales are final once initiated. If we fail to deliver, we issue a full crypto refund. Contact support with your Order ID.</div></div>
+      <div class="fi"><div class="fq-q" onclick="faqT(this)">How does VIP Channel Recovery work?<span class="chev">▾</span></div><div class="fa">Our VIP team escalates your channel case through exclusive Telegram appeal channels. We advise you before starting.</div></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="fi2">
-    <a class="logo" href="#" style="text-decoration:none">
-      <div class="logo-gem">✈</div>
-      <div class="logo-word">TG<b>Star</b></div>
-    </a>
+    <a class="logo" href="#" style="text-decoration:none"><div class="logo-gem">✈</div><div class="logo-word">TG<b>Star</b></div></a>
     <div class="fl">
       <a href="#services">Services</a><a href="#faq">FAQ</a>
       <a href="https://wa.me/1234567890" target="_blank">Support</a>
@@ -554,7 +503,7 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
 
 <!-- BOTTOM BAR -->
 <div class="bb">
-  <button class="bb-b on" onclick="openOv('ordersOv')"><span class="bi">📋</span>Orders</button>
+  <button class="bb-b on" onclick="currentUser?openAccountModal():openOv('ordersOv')"><span class="bi">📋</span>Orders</button>
   <button class="bb-b" onclick="g('services')"><span class="bi">✦</span>New Order</button>
   <button class="bb-b" onclick="window.open('https://wa.me/1234567890?text=Hi%2C%20I%20need%20help%20with%20a%20TGStar%20service.','_blank')"><span class="bi">💬</span>Support</button>
 </div>
@@ -581,72 +530,36 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     <button class="mc" onclick="closeOv('orderOv')">✕</button>
     <div class="mt2">Complete Your Order</div>
     <div class="ms">Fill in your details — we'll deliver straight to your account.</div>
-
-    <!-- Service chip -->
-    <div class="chip">
-      <div class="chi" id="ci">⭐</div>
-      <div>
-        <div class="chn" id="cn">—</div>
-        <div class="chp" id="cp">—</div>
-      </div>
-    </div>
-
-    <!-- Email — receipt only -->
+    <div class="chip"><div class="chi" id="ci">⭐</div><div><div class="chn" id="cn">—</div><div class="chp" id="cp">—</div></div></div>
     <div class="f">
-      <label style="display:flex;align-items:center;gap:6px">
-        📧 Email Address
-        <span style="background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.2);color:var(--tg2);font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.4px;font-family:'Outfit',sans-serif">Receipt only</span>
-      </label>
+      <label style="display:flex;align-items:center;gap:6px">📧 Email Address <span style="background:rgba(42,171,238,.1);border:1px solid rgba(42,171,238,.2);color:var(--tg2);font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:99px;text-transform:uppercase;font-family:'Outfit',sans-serif">Receipt only</span></label>
       <input type="email" id="em" placeholder="you@example.com" style="margin-top:6px"/>
-      <div style="font-size:.72rem;color:var(--dim2);margin-top:5px;line-height:1.5">
-        We send your payment confirmation here. We will never share or spam your email.
-      </div>
+      <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">We only use this to send your payment confirmation.</div>
     </div>
-
-    <!-- Toggle: Username vs Phone -->
     <div class="f" style="margin-top:2px">
       <label>Telegram Account</label>
       <div style="display:flex;gap:0;margin:6px 0 10px;border:1px solid var(--line2);border-radius:10px;overflow:hidden">
-        <button id="tabUser" onclick="switchTab('user')"
-          style="flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">
-          @Username
-        </button>
-        <button id="tabPhone" onclick="switchTab('phone')"
-          style="flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">
-          📞 Phone Number
-        </button>
+        <button id="tabUser" onclick="switchTab('user')" style="flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">@Username</button>
+        <button id="tabPhone" onclick="switchTab('phone')" style="flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s">📞 Phone Number</button>
       </div>
-
-      <!-- Username input -->
       <div id="inputUser">
         <input type="text" id="un" placeholder="@yourusername" oninput="onUname(this)"/>
-        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">Enter your Telegram @username exactly as it appears on your profile.</div>
+        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">Enter your Telegram @username exactly as it appears.</div>
       </div>
-
-      <!-- Phone input -->
       <div id="inputPhone" style="display:none">
         <input type="tel" id="ph" placeholder="+1 234 567 8900" oninput="onUname(this)"/>
-        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px">
-          <strong style="color:var(--tg2)">Must include country code</strong> — e.g. +44 for UK, +1 for US, +234 for Nigeria.
-        </div>
+        <div style="font-size:.72rem;color:var(--dim2);margin-top:5px"><strong style="color:var(--tg2)">Must include country code</strong> — e.g. +44 UK · +1 US · +234 Nigeria</div>
       </div>
     </div>
-
-    <!-- Warning -->
-    <div class="uname-warn" id="uwarn">
-      ⚠️ <strong>Double-check your details.</strong> We deliver directly to <span id="uprv">your account</span> — a wrong entry <strong>cannot be reversed</strong> after payment.
-    </div>
-
-    <!-- Promo code — only shown for Unfreeze -->
+    <div class="uname-warn" id="uwarn">⚠️ <strong>Double-check your details.</strong> We deliver to <span id="uprv">your account</span> — wrong entry <strong>cannot be reversed</strong> after payment.</div>
     <div id="promoSection" style="display:none;margin-bottom:14px">
       <div style="font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:7px">🎟 Promo Code</div>
       <div class="promo-row">
-        <input class="promo-input" id="promoInputOrder" placeholder="Enter promo code" maxlength="20"/>
-        <button class="promo-btn" onclick="applyPromoOrder()">Apply</button>
+        <input class="promo-input" id="promoInput" placeholder="Enter promo code" maxlength="20"/>
+        <button class="promo-btn" onclick="applyPromo()">Apply</button>
       </div>
-      <div class="promo-result" id="promoResultOrder"></div>
+      <div class="promo-result" id="promoResult"></div>
     </div>
-
     <button class="btn-tg full mt12" onclick="proceed()">Continue to Payment →</button>
   </div>
 </div>
@@ -660,55 +573,24 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     <div class="mt2">Send Payment</div>
     <div class="ms">Select your token and network, then send the exact amount shown.</div>
     <div class="timer-row"><span class="tl">⏱ Session expires in</span><span class="tv" id="tv">15:00</span></div>
-
-    <!-- LIVE RATE BAR -->
-    <div class="rate-bar">
-      <div class="rate-live"><span class="rate-dot" id="rateDot"></span><span id="rateLabel">Fetching live rates…</span></div>
-      <span class="rate-val" id="rateVal"></span>
-    </div>
-
-    <!-- POLYMARKET PILLS -->
+    <div class="rate-bar"><div class="rate-live"><span class="rate-dot" id="rateDot"></span><span id="rateLabel">Fetching live rates…</span></div><span class="rate-val" id="rateVal"></span></div>
     <div class="pay-select-header">Choose how you want to pay</div>
-    <div class="pay-select-hint">Select any token below, then pick your preferred network. Tap to change.</div>
+    <div class="pay-select-hint">Tap a token or network to change it.</div>
     <div class="selector-row">
       <div class="selector-pill" id="tokPill" onclick="toggleDrop('tokDrop','tokPill')">
-        <span class="pill-icon" id="tokIcon">
-          <svg viewBox="0 0 32 32" style="width:22px;height:22px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg>
-        </span>
+        <span id="tokIcon"><svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg></span>
         <span class="pill-label" id="tokLabel">USDT</span>
         <span class="pill-arrow">▾</span>
         <div class="drop-list" id="tokDrop">
-          <div class="drop-item chosen" onclick="selTok(event,'USDT')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg></span>
-            <div><div class="d-main">USDT</div><div class="d-sub">Tether</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'USDC')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5zM15.5 9v2.084c-1.617.376-2.834 1.83-2.834 3.566 0 1.737 1.217 3.19 2.834 3.566V20h1v-1.784c1.617-.376 2.834-1.83 2.834-3.566 0-1.737-1.217-3.19-2.834-3.566V9h-1zm0 3.166v4.918c-.963-.34-1.668-1.245-1.668-2.334 0-1.09.705-1.994 1.668-2.334v-.25-.334zm1 0v.584c.963.34 1.668 1.245 1.668 2.334 0 1.09-.705 1.994-1.668 2.334v-4.918l-.001-.334z" fill="#fff"/></svg></span>
-            <div><div class="d-main">USDC</div><div class="d-sub">USD Coin</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'BTC')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427zm-3.783 5.303c-.511 2.054-3.97.944-5.09.665l.909-3.643c1.12.28 4.71.833 4.181 2.978zm.512-5.332c-.467 1.873-3.349.921-4.284.688l.823-3.302c.935.233 3.946.667 3.461 2.614z" fill="#fff"/></svg></span>
-            <div><div class="d-main">BTC</div><div class="d-sub">Bitcoin</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'ETH')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M16.498 20.573l7.497-4.353-7.497-3.348z" fill="#fff" opacity=".2"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg></span>
-            <div><div class="d-main">ETH</div><div class="d-sub">Ethereum</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'BNB')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144-.002-.003 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16zm-3.188-.002h.002L16 13.706l-1.71 1.71-.197.197-.393.393.002.002-.002.003L16 18.294l2.294-2.294.002-.002-.004-.002z" fill="#fff"/></svg></span>
-            <div><div class="d-main">BNB</div><div class="d-sub">BNB Chain</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'TON')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44h-.19z" fill="#fff"/></svg></span>
-            <div><div class="d-main">TON</div><div class="d-sub">Toncoin</div></div><span class="d-check">✓</span>
-          </div>
-          <div class="drop-item" onclick="selTok(event,'LTC')">
-            <span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg></span>
-            <div><div class="d-main">LTC</div><div class="d-sub">Litecoin</div></div><span class="d-check">✓</span>
-          </div>
+          <div class="drop-item chosen" onclick="selTok(event,'USDT')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg></span><div><div class="d-main">USDT</div><div class="d-sub">Tether</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'USDC')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5z" fill="#fff"/></svg></span><div><div class="d-main">USDC</div><div class="d-sub">USD Coin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'BTC')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427z" fill="#fff"/></svg></span><div><div class="d-main">BTC</div><div class="d-sub">Bitcoin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'ETH')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg></span><div><div class="d-main">ETH</div><div class="d-sub">Ethereum</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'BNB')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16z" fill="#fff"/></svg></span><div><div class="d-main">BNB</div><div class="d-sub">BNB Chain</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'TON')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44z" fill="#fff"/></svg></span><div><div class="d-main">TON</div><div class="d-sub">Toncoin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="selTok(event,'LTC')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg></span><div><div class="d-main">LTC</div><div class="d-sub">Litecoin</div></div><span class="d-check">✓</span></div>
         </div>
       </div>
-
       <div class="selector-pill" id="netPill" onclick="toggleDrop('netDrop','netPill')">
         <span class="pill-icon">🔗</span>
         <span class="pill-label" id="netLabel">BSC (BEP20)</span>
@@ -716,244 +598,234 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
         <div class="drop-list" id="netDrop"></div>
       </div>
     </div>
-
-    <div class="warn-note">⚠️ Always send on the correct network. Wrong chain = lost funds. Send the exact amount shown.</div>
-
+    <div class="warn-note">⚠️ Always send on the correct network. Wrong chain = lost funds. Send the exact amount.</div>
     <div class="amtcard">
       <div class="amtr"><span class="amtl">Amount to send</span><span class="amtv" id="pamtv">—</span></div>
       <div class="amtu" id="pamtu">Fetching rate…</div>
-      <div class="discount-row" id="discountRow" style="display:none">
-        <span class="discount-label">🎉 FLASH20 applied (20% off)</span>
-        <span class="discount-val" id="discountVal"></span>
-      </div>
+      <div class="discount-row" id="discountRow" style="display:none"><span class="discount-label">🎉 FLASH20 applied (20% off)</span><span class="discount-val" id="discountVal"></span></div>
     </div>
-
     <div class="acard">
       <div class="albl">Deposit Address</div>
       <div class="aval" id="paddr">—</div>
       <div class="aact"><button class="cbtn" onclick="copyA()">📋 Copy Address</button></div>
     </div>
-
-    <!-- PROMO NOTE if discount already applied -->
-    <div id="promoAppliedNote" style="display:none;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);border-radius:9px;padding:9px 13px;margin-bottom:14px;font-size:.76rem;color:#4ade80">
-      🎉 <strong>FLASH20 applied</strong> — 20% discount is reflected in the amount above.
-    </div>
-
+    <div id="promoAppliedNote" style="display:none;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);border-radius:9px;padding:9px 13px;margin-bottom:14px;font-size:.76rem;color:#4ade80">🎉 <strong>FLASH20 applied</strong> — 20% discount reflected above.</div>
     <button class="btn-tg full" onclick="confirmPay()">✅ I Have Made Payment</button>
   </div>
 </div>
 
 <!-- CONFIRMATION -->
 <div class="ov" id="confOv">
-  <div class="m">
-    <div class="drag"></div>
+  <div class="m"><div class="drag"></div>
     <div class="cw">
       <div class="cring">⏳</div>
       <div class="ct">Payment Pending Verification</div>
       <div class="cd">Your transaction is awaiting blockchain confirmation. This usually takes <strong>5–15 minutes</strong>. A receipt will be sent to your email once confirmed.</div>
       <div class="oidb"><div class="oidl">Order ID</div><div class="oidv" id="oidv">#TGS-000000</div></div>
       <p style="color:var(--dim2);font-size:.72rem;margin-bottom:14px">Save this ID to track or dispute your order.</p>
-      <a href="https://wa.me/1234567890?text=Hi%2C%20my%20Order%20ID%20is%20TGS-%20and%20I%20have%20an%20inquiry." target="_blank" class="sl2">💬 For inquiries — contact Support on WhatsApp</a>
+      <a href="https://wa.me/1234567890" target="_blank" class="sl2">💬 For inquiries — contact Support on WhatsApp</a>
     </div>
     <button class="btn-o full mt16" onclick="closeOv('confOv')">Close</button>
   </div>
 </div>
 
-<!-- ORDERS -->
+<!-- ORDERS (guest) -->
 <div class="ov" id="ordersOv">
-  <div class="m">
-    <div class="drag"></div>
+  <div class="m"><div class="drag"></div>
     <button class="mc" onclick="closeOv('ordersOv')">✕</button>
     <div class="mt2">My Orders</div>
-    <div class="ms">Your recent orders placed in this browser.</div>
+    <div class="ms">Live status pulled from our system.</div>
     <div id="olist" style="margin-top:8px"></div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="ov" id="authOv">
+  <div class="m"><div class="drag"></div>
+    <button class="mc" onclick="closeOv('authOv')">✕</button>
+    <div class="mt2" id="authTitle">Welcome to TGStar</div>
+    <div class="ms" id="authSub">Sign in or create an account to track your orders.</div>
+
+    <!-- Forgot password view -->
+    <div id="forgotView" style="display:none">
+      <div class="auth-msg" id="forgotMsg"></div>
+      <div class="f"><label>Email Address</label><input type="email" id="forgotEmail" placeholder="you@example.com"/></div>
+      <button class="btn-tg full" onclick="doForgot()">Send Reset Link</button>
+      <div class="auth-switch" style="margin-top:12px"><a onclick="showForgot(false)">← Back to Sign In</a></div>
+    </div>
+
+    <!-- Sign in / Sign up view -->
+    <div id="mainAuthView">
+      <div class="auth-mode-row">
+        <button class="auth-mode-btn active" id="tabSignin" onclick="switchAuth('signin')">Sign In</button>
+        <button class="auth-mode-btn" id="tabSignup" onclick="switchAuth('signup')">Create Account</button>
+      </div>
+
+      <div class="auth-msg" id="authMsg"></div>
+
+      <!-- Google login (uses Supabase OAuth — free) -->
+      <button class="auth-google" onclick="doGoogle()">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider">or with email</div>
+
+      <div id="authNameWrap" style="display:none" class="f"><label>Your Name</label><input type="text" id="authName" placeholder="John Doe"/></div>
+      <div class="f"><label>Email Address</label><input type="email" id="authEmail" placeholder="you@example.com"/></div>
+      <div class="f"><label>Password</label><input type="password" id="authPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAuth()"/></div>
+
+      <div class="auth-row" id="signinExtras">
+        <label class="auth-remember"><input type="checkbox" id="rememberMe"/> Remember me</label>
+        <span class="auth-forgot" onclick="showForgot(true)">Forgot password?</span>
+      </div>
+
+      <button class="btn-tg full" id="authBtn" onclick="doAuth()">Sign In</button>
+      <div class="auth-switch" id="authSwitch">Don't have an account? <a onclick="switchAuth('signup')">Create one →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT MODAL -->
+<div class="ov" id="accountOv">
+  <div class="m"><div class="drag"></div>
+    <button class="mc" onclick="closeOv('accountOv')">✕</button>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--tg);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff" id="acctAv">?</div>
+      <div><div style="font-weight:700;font-size:.95rem" id="acctName">—</div><div style="color:var(--dim2);font-size:.76rem" id="acctEmail">—</div></div>
+    </div>
+    <div style="font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:10px">My Orders</div>
+    <div id="acctOrders"><div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">Loading…</div></div>
+    <button class="btn-o full mt16" onclick="doSignOut()">Sign Out</button>
   </div>
 </div>
 
 <!-- SUPPORT -->
 <div class="ov" id="supportOv">
-  <div class="m">
-    <div class="drag"></div>
+  <div class="m"><div class="drag"></div>
     <button class="mc" onclick="closeOv('supportOv')">✕</button>
     <div class="mt2">Support</div>
     <div class="ms">Our team is available 24/7 on WhatsApp. Average response under 5 minutes.</div>
-    <!-- Replace 1234567890 with your real WhatsApp number -->
     <a href="https://wa.me/1234567890?text=Hi%2C%20I%20need%20help%20with%20a%20TGStar%20service." target="_blank" class="btn-wa" style="margin-top:6px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#fff;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Chat on WhatsApp
     </a>
-    <div style="text-align:center;margin-top:10px;color:var(--dim2);font-size:.74rem">Tap to open WhatsApp</div>
   </div>
 </div>
 
-<!-- TERMS OF SERVICE -->
+<!-- TERMS -->
 <div class="ov" id="termsOv">
-  <div class="m" style="max-width:520px">
-    <div class="drag"></div>
+  <div class="m" style="max-width:520px"><div class="drag"></div>
     <button class="mc" onclick="closeOv('termsOv')">✕</button>
     <div class="mt2">Terms of Service</div>
     <div class="ms">Last updated: January 2025</div>
     <div style="color:var(--dim2);font-size:.82rem;line-height:1.8;display:flex;flex-direction:column;gap:14px">
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">1. Service Agreement</div>
-        By placing an order on TGStar.me, you agree to these terms. All services are provided as-is. You must be 18 years or older to use this platform.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">2. Payments</div>
-        All payments are made in cryptocurrency and are non-reversible once sent on-chain. You are responsible for sending the correct amount to the correct address and network. TGStar.me is not liable for funds lost due to incorrect network selection.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Delivery</div>
-        Delivery times are estimates. Stars and Premium are typically delivered within minutes of confirmation. VIP services (Unfreeze, Unban) may take up to 24 hours. We will communicate delays via the email provided at checkout.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Refunds</div>
-        All sales are final once an order is initiated. If we are unable to fulfil your order, a full crypto refund will be issued to the sending address. Contact support with your Order ID.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Account Information</div>
-        You are solely responsible for providing the correct Telegram username or phone number. We cannot reverse deliveries made to incorrectly entered accounts.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">6. Prohibited Use</div>
-        You may not use our services for any unlawful purpose. We reserve the right to refuse service to anyone at our discretion.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">7. Changes</div>
-        We reserve the right to update these terms at any time. Continued use of the platform constitutes acceptance of the revised terms.
-      </div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">1. Service Agreement</div>By placing an order on TGStar.me, you agree to these terms. You must be 18 or older.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">2. Payments</div>All payments are in cryptocurrency and non-reversible. You are responsible for sending the correct amount to the correct network.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Delivery</div>Stars and Premium are delivered within minutes of confirmation. VIP services take up to 24 hours. We communicate delays via your email.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Refunds</div>All sales are final once initiated. If we fail to deliver, a full crypto refund will be issued.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Account Information</div>You are responsible for providing correct Telegram details. We cannot reverse deliveries to wrong accounts.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">6. Prohibited Use</div>You may not use our services for any unlawful purpose.</div>
     </div>
     <button class="btn-o full mt16" onclick="closeOv('termsOv')">Close</button>
   </div>
 </div>
 
-<!-- PRIVACY POLICY -->
+<!-- PRIVACY -->
 <div class="ov" id="privacyOv">
-  <div class="m" style="max-width:520px">
-    <div class="drag"></div>
+  <div class="m" style="max-width:520px"><div class="drag"></div>
     <button class="mc" onclick="closeOv('privacyOv')">✕</button>
     <div class="mt2">Privacy Policy</div>
     <div class="ms">Last updated: January 2025</div>
     <div style="color:var(--dim2);font-size:.82rem;line-height:1.8;display:flex;flex-direction:column;gap:14px">
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">1. Information We Collect</div>
-        We collect only what is necessary to process your order: your email address (for receipt delivery) and your Telegram username or phone number (for service delivery). We do not collect passwords, payment card details, or personal identification documents.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">2. How We Use Your Information</div>
-        Your email is used exclusively to send your payment receipt and order updates. Your Telegram username or phone number is used solely to deliver the service you purchased. We do not use your information for marketing without consent.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Data Sharing</div>
-        We do not sell, trade, or rent your personal information to third parties. Your data is never shared with advertisers or external platforms.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Crypto Transactions</div>
-        Blockchain transactions are public by nature. We do not store your wallet address beyond what is needed to verify payment. We do not link wallet addresses to personal identities.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Cookies</div>
-        This website uses minimal local storage to save your order history in your browser. No tracking cookies or third-party analytics are used.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">6. Data Retention</div>
-        Order records are retained for up to 90 days for dispute resolution purposes, then deleted. You may request deletion at any time by contacting support.
-      </div>
-      <div>
-        <div style="color:var(--white);font-weight:600;margin-bottom:4px">7. Contact</div>
-        For any privacy concerns or data deletion requests, contact us via WhatsApp support.
-      </div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">1. What We Collect</div>Only your email (for receipts) and Telegram username or phone (for delivery). No passwords or payment card details.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">2. How We Use It</div>Your email sends payment confirmations only. Your Telegram details deliver your service. No marketing without consent.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">3. Data Sharing</div>We never sell, trade, or rent your data to third parties.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">4. Cookies</div>We use minimal localStorage to save order history in your browser. No tracking cookies.</div>
+      <div><div style="color:var(--white);font-weight:600;margin-bottom:4px">5. Retention</div>Order records are kept up to 90 days for disputes, then deleted. Request deletion anytime via support.</div>
     </div>
     <button class="btn-o full mt16" onclick="closeOv('privacyOv')">Close</button>
   </div>
 </div>
 
 <script>
-// ── YOUR WALLET ADDRESSES ──────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// CONFIG
+// ─────────────────────────────────────────────────────────────────────
+const SB_URL = 'https://rlxiybhykwrdlyuapntr.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJseGl5Ymh5a3dyZGx5dWFwbnRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzgxOTYsImV4cCI6MjA5MjExNDE5Nn0.n_MOyjue5PIHvOHd0nmpp6R2LoJdb0Av84x9HXTsw4Y';
+const WA = '1234567890'; // ← replace with your real WhatsApp number
+
+// ─────────────────────────────────────────────────────────────────────
+// WALLET ADDRESSES
+// ─────────────────────────────────────────────────────────────────────
 const CHAINS = {
-  USDT: [
-    {id:'bep20', l:'BSC (BEP20)',  n:'BNB Smart Chain',  a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
-    {id:'trc20', l:'TRC20',        n:'Tron Network',      a:'TBqSY68d1jkwiT4oQHesCSH8oP6scc364D'},
-    {id:'erc20', l:'ERC20',        n:'Ethereum',          a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
-    {id:'spl',   l:'SPL',          n:'Solana',             a:'GaApPvgfBW5rytyxqHS859zS3oUfY2jT9HWVpfMVSnHM'},
+  USDT:[
+    {id:'bep20',l:'BSC (BEP20)',n:'BNB Smart Chain',a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
+    {id:'trc20',l:'TRC20',n:'Tron Network',a:'TBqSY68d1jkwiT4oQHesCSH8oP6scc364D'},
+    {id:'erc20',l:'ERC20',n:'Ethereum',a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
+    {id:'spl',l:'SPL',n:'Solana',a:'GaApPvgfBW5rytyxqHS859zS3oUfY2jT9HWVpfMVSnHM'},
   ],
-  USDC: [
-    {id:'bep20', l:'BSC (BEP20)',  n:'BNB Smart Chain',  a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
-    {id:'erc20', l:'ERC20',        n:'Ethereum',          a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
+  USDC:[
+    {id:'bep20',l:'BSC (BEP20)',n:'BNB Smart Chain',a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
+    {id:'erc20',l:'ERC20',n:'Ethereum',a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
   ],
-  BTC: [
-    {id:'btc',   l:'Bitcoin',      n:'Bitcoin Network',   a:'bc1qjp4lz7h0aehfzjawgxmcnzdegqp3tt95w70clp'},
-  ],
-  ETH: [
-    {id:'erc20', l:'ERC20',        n:'Ethereum',          a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'},
-  ],
-  BNB: [
-    {id:'bep20', l:'BSC (BEP20)',  n:'BNB Smart Chain',  a:'0x33db969740fd2e4b260b6f9b13e8be861f86cf56'},
-  ],
-  TON: [
-    {id:'ton',   l:'TON',          n:'TON Network',       a:'UQAhFZvOMDeSX9s9xdcoMBtQjQ2l4saBrcIQxDY4CCBJluB_'},
-  ],
-  LTC: [
-    {id:'ltc',   l:'Litecoin',     n:'Litecoin Network',  a:'ltc1qd7ez7n3edrz6chqthsxpvvhgrf8lvqty6nzyml'},
-  ],
+  BTC:[{id:'btc',l:'Bitcoin',n:'Bitcoin Network',a:'bc1qjp4lz7h0aehfzjawgxmcnzdegqp3tt95w70clp'}],
+  ETH:[{id:'erc20',l:'ERC20',n:'Ethereum',a:'0x33DB969740fd2E4B260b6F9b13e8Be861f86cF56'}],
+  BNB:[{id:'bep20',l:'BSC (BEP20)',n:'BNB Smart Chain',a:'0x33db969740fd2e4b260b6f9b13e8be861f86cf56'}],
+  TON:[{id:'ton',l:'TON',n:'TON Network',a:'UQAhFZvOMDeSX9s9xdcoMBtQjQ2l4saBrcIQxDY4CCBJluB_'}],
+  LTC:[{id:'ltc',l:'Litecoin',n:'Litecoin Network',a:'ltc1qd7ez7n3edrz6chqthsxpvvhgrf8lvqty6nzyml'}],
 };
 
-// ── LIVE RATES ──────────────────────────────────────────────────────
-// Rates keyed by token symbol → price in USD (1 USD = ? token)
-// Stablecoins are always 1:1; others fetched from CoinGecko
+// ─────────────────────────────────────────────────────────────────────
+// LIVE RATES
+// ─────────────────────────────────────────────────────────────────────
 const FALLBACK = {USDT:1,USDC:1,BTC:0.0000155,ETH:0.00038,BNB:0.0017,TON:0.145,LTC:0.012};
 let liveRates = {...FALLBACK};
 let ratesFetched = false;
-
-const CG_IDS = {BTC:'bitcoin',ETH:'ethereum',BNB:'binancecoin',TON:'the-open-network',LTC:'litecoin'};
+const CG = {BTC:'bitcoin',ETH:'ethereum',BNB:'binancecoin',TON:'the-open-network',LTC:'litecoin'};
 
 async function fetchRates(){
-  const rateDot = document.getElementById('rateDot');
-  const rateLabel = document.getElementById('rateLabel');
-  rateDot.classList.add('loading');
-  rateLabel.textContent = 'Fetching live rates…';
-  try {
-    const ids = Object.values(CG_IDS).join(',');
-    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`,{signal:AbortSignal.timeout(8000)});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const data = await res.json();
-    // Convert: 1 USD = X token  →  rate = 1 / priceInUSD
-    for(const [sym,cgId] of Object.entries(CG_IDS)){
-      if(data[cgId]?.usd) liveRates[sym] = 1 / data[cgId].usd;
-    }
-    ratesFetched = true;
-    rateDot.classList.remove('loading');
-    rateLabel.textContent = 'Live rate';
-    updateAmt();
-    updateRateBar();
+  const dot=document.getElementById('rateDot'), lbl=document.getElementById('rateLabel');
+  dot.classList.add('loading'); lbl.textContent='Fetching live rates…';
+  try{
+    const ids=Object.values(CG).join(',');
+    const r=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`,{signal:AbortSignal.timeout(8000)});
+    const data=await r.json();
+    for(const [sym,id] of Object.entries(CG)) if(data[id]?.usd) liveRates[sym]=1/data[id].usd;
+    ratesFetched=true; dot.classList.remove('loading'); lbl.textContent='Live rate';
+    updateAmt(); updateRateBar();
   } catch(e){
-    rateDot.classList.remove('loading');
-    rateDot.style.background = '#f59e0b';
-    rateLabel.textContent = 'Estimated rate (offline)';
-    updateAmt();
-    updateRateBar();
+    dot.classList.remove('loading'); dot.style.background='#f59e0b';
+    lbl.textContent='Estimated rate'; updateAmt(); updateRateBar();
   }
 }
 
 function updateRateBar(){
-  const tok = curTok;
-  const rv = document.getElementById('rateVal');
-  if(tok === 'USDT' || tok === 'USDC'){
-    rv.textContent = '1 '+tok+' = $1.00';
-  } else {
-    const priceUSD = 1 / liveRates[tok];
-    rv.textContent = '1 '+tok+' = $'+priceUSD.toLocaleString('en-US',{maximumFractionDigits:2});
-  }
+  const rv=document.getElementById('rateVal');
+  if(curTok==='USDT'||curTok==='USDC'){ rv.textContent='1 '+curTok+' = $1.00'; }
+  else { rv.textContent='1 '+curTok+' = $'+(1/liveRates[curTok]).toLocaleString('en-US',{maximumFractionDigits:2}); }
 }
 
-// ── STATE ───────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────────────
 let svc={}, curTok='USDT', curChain=CHAINS.USDT[0], timerI=null;
+let activeDiscount=0, activeTab='user';
+let currentUser=null, currentSession=null;
 let orders=[]; try{orders=JSON.parse(localStorage.getItem('tgs')||'[]')}catch(e){}
 
-// ── HELPERS ─────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────────────────
 function g(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
-function faq(el){el.parentElement.classList.toggle('open')}
-function openOv(id){document.getElementById(id).classList.add('open');if(id==='ordersOv')renderOrders()}
+function faqT(el){el.parentElement.classList.toggle('open')}
+
+function openOv(id){
+  document.getElementById(id).classList.add('open');
+  if(id==='ordersOv') loadGuestOrders();
+  if(id==='authOv'){switchAuth('signin');document.getElementById('authEmail').value='';document.getElementById('authPass').value='';}
+}
 function closeOv(id){document.getElementById(id).classList.remove('open')}
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
 document.addEventListener('click',e=>{
@@ -963,7 +835,44 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── DROPDOWN TOGGLE ─────────────────────────────────────────────────
+function copyA(){
+  navigator.clipboard.writeText(document.getElementById('paddr').textContent).catch(()=>{});
+  const b=event.target; b.textContent='✅ Copied!'; setTimeout(()=>b.textContent='📋 Copy Address',2200);
+}
+function copyCode(el,code){
+  navigator.clipboard.writeText(code).catch(()=>{});
+  const o=el.textContent; el.textContent='✅ Copied!'; setTimeout(()=>el.textContent=o,2000);
+}
+function copyWelcomeCode(){
+  navigator.clipboard.writeText('FLASH20').catch(()=>{});
+  document.querySelectorAll('.w-promo-code,.w-copy').forEach(el=>{
+    const o=el.textContent; el.textContent='✅ Copied!'; setTimeout(()=>el.textContent=o,2000);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// WELCOME POPUP
+// ─────────────────────────────────────────────────────────────────────
+function closeWelcome(){
+  document.getElementById('welcomeOv').classList.remove('open');
+  sessionStorage.setItem('tgs_welcomed','1');
+}
+function welcomeGo(){closeWelcome();openOrder('Telegram Unfreeze','Account Restoration','🔓','29.99','unfreeze')}
+function welcomeAuth(mode){closeWelcome();switchAuth(mode);openOv('authOv')}
+
+// ─────────────────────────────────────────────────────────────────────
+// TOKEN / NETWORK
+// ─────────────────────────────────────────────────────────────────────
+const TOK_SVG={
+  USDT:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg>',
+  USDC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5z" fill="#fff"/></svg>',
+  BTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427z" fill="#fff"/></svg>',
+  ETH:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg>',
+  BNB:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16z" fill="#fff"/></svg>',
+  TON:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44z" fill="#fff"/></svg>',
+  LTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg>',
+};
+
 function toggleDrop(did,pid){
   event.stopPropagation();
   const d=document.getElementById(did),p=document.getElementById(pid),was=d.classList.contains('open');
@@ -972,21 +881,10 @@ function toggleDrop(did,pid){
   if(!was){d.classList.add('open');p.classList.add('active-drop')}
 }
 
-// ── TOKEN SELECT ─────────────────────────────────────────────────────
-const TOK_ICONS = {
-  USDT:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg>',
-  USDC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#2775CA"/><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm-.5 2.084v1.5c-3.86.44-6.834 3.7-6.834 7.666S11.64 22.976 15.5 23.416v1.5C10.44 24.474 6.5 20.7 6.5 16c0-4.7 3.94-8.474 9-8.916zm1 0C21.56 6.526 25.5 10.3 25.5 15c0 4.7-3.94 8.474-9 8.916v-1.5c3.86-.44 6.834-3.7 6.834-7.666S20.36 7.524 16.5 7.084v-1.5zM15.5 9v2.084c-1.617.376-2.834 1.83-2.834 3.566 0 1.737 1.217 3.19 2.834 3.566V20h1v-1.784c1.617-.376 2.834-1.83 2.834-3.566 0-1.737-1.217-3.19-2.834-3.566V9h-1zm0 3.166v4.918c-.963-.34-1.668-1.245-1.668-2.334 0-1.09.705-1.994 1.668-2.334zm1 0v.584c.963.34 1.668 1.245 1.668 2.334 0 1.09-.705 1.994-1.668 2.334v-4.918z" fill="#fff"/></svg>',
-  BTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427zm-3.783 5.303c-.511 2.054-3.97.944-5.09.665l.909-3.643c1.12.28 4.71.833 4.181 2.978zm.512-5.332c-.467 1.873-3.349.921-4.284.688l.823-3.302c.935.233 3.946.667 3.461 2.614z" fill="#fff"/></svg>',
-  ETH:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M16.498 21.968v6.027L24 17.616z" fill="#fff" opacity=".6"/><path d="M16.498 27.995v-6.028L9 17.616z" fill="#fff"/><path d="M16.498 20.573l7.497-4.353-7.497-3.348z" fill="#fff" opacity=".2"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg>',
-  BNB:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144-.002-.003 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16zm-3.188-.002h.002L16 13.706l-1.71 1.71-.197.197-.393.393.002.002-.002.003L16 18.294l2.294-2.294.002-.002-.004-.002z" fill="#fff"/></svg>',
-  TON:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5zM8 13.75l3.07 5.06L8 21.19v-7.44zm1.19 8.56l3.5-2.81h6.62l3.5 2.81L16 24.69l-6.81-2.38zm13.62-.12l-3.07-2.38L23 13.75v8.44h-.19z" fill="#fff"/></svg>',
-  LTC:'<svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#BFBBBB"/><path d="M10 22.678l.9-3.744-1.08.432.54-2.106 1.08-.414 1.8-7.524H17.1l-1.242 5.184 1.08-.432-.522 2.088-1.08.432-.414 1.728H21l-.6 2.556z" fill="#fff"/></svg>',
-};
-
 function selTok(e,tok){
   e.stopPropagation();
   curTok=tok; curChain=CHAINS[tok][0];
-  document.getElementById('tokIcon').innerHTML = TOK_ICONS[tok] || tok;
+  document.getElementById('tokIcon').innerHTML=TOK_SVG[tok]||tok;
   document.getElementById('tokLabel').textContent=tok;
   document.querySelectorAll('#tokDrop .drop-item').forEach(el=>el.classList.toggle('chosen',el.querySelector('.d-main').textContent===tok));
   renderNetDrop(); updateAmt(); updateAddr(); updateRateBar();
@@ -994,12 +892,12 @@ function selTok(e,tok){
   document.getElementById('tokPill').classList.remove('active-drop');
 }
 
-// ── NETWORK DROPDOWN ─────────────────────────────────────────────────
 function renderNetDrop(){
   const cs=CHAINS[curTok]||[];
   document.getElementById('netDrop').innerHTML=cs.map((c,i)=>`
     <div class="drop-item${i===0?' chosen':''}" onclick="selNet(event,'${c.id}')">
-      <span class="d-icon">🔗</span><div><div class="d-main">${c.l}</div><div class="d-sub">${c.n}</div></div><span class="d-check">✓</span>
+      <span style="font-size:1rem;width:22px;text-align:center;flex-shrink:0">🔗</span>
+      <div><div class="d-main">${c.l}</div><div class="d-sub">${c.n}</div></div><span class="d-check">✓</span>
     </div>`).join('');
   document.getElementById('netLabel').textContent=cs[0]?.l||'—';
 }
@@ -1015,100 +913,78 @@ function selNet(e,id){
   document.getElementById('netPill').classList.remove('active-drop');
 }
 
-// ── AMOUNT (uses live rates + discount) ──────────────────────────────
 function updateAmt(){
-  const basePrice = parseFloat(svc.price || '13.20');
-  const discounted = basePrice * (1 - activeDiscount);
-  const rate  = liveRates[curTok] || FALLBACK[curTok] || 1;
-  const cryptoAmt = discounted * rate;
-  const decimals  = curTok==='BTC'?8 : curTok==='ETH'?6 : curTok==='LTC'?6 : 4;
-  document.getElementById('pamtv').textContent = cryptoAmt.toFixed(decimals)+' '+curTok;
-  document.getElementById('pamtu').textContent = '≈ $'+discounted.toFixed(2)+' USD'+(activeDiscount>0?' (was $'+basePrice.toFixed(2)+')':'')+(ratesFetched?' · Live rate':' · Estimated');
-  if(activeDiscount > 0){
-    const saved = (basePrice * activeDiscount * rate).toFixed(decimals);
-    document.getElementById('discountVal').textContent = '−'+saved+' '+curTok;
-    document.getElementById('discountRow').style.display = 'flex';
+  const base=parseFloat(svc.price||'13.20');
+  const disc=base*(1-activeDiscount);
+  const rate=liveRates[curTok]||FALLBACK[curTok]||1;
+  const dec=curTok==='BTC'?8:curTok==='ETH'?6:4;
+  document.getElementById('pamtv').textContent=(disc*rate).toFixed(dec)+' '+curTok;
+  document.getElementById('pamtu').textContent='≈ $'+disc.toFixed(2)+' USD'+(activeDiscount>0?' (was $'+base.toFixed(2)+')':'')+(ratesFetched?' · Live':' · Est.');
+  if(activeDiscount>0){
+    document.getElementById('discountVal').textContent='−'+(base*activeDiscount*rate).toFixed(dec)+' '+curTok;
+    document.getElementById('discountRow').style.display='flex';
   } else {
-    document.getElementById('discountRow').style.display = 'none';
+    document.getElementById('discountRow').style.display='none';
   }
 }
+function updateAddr(){if(curChain)document.getElementById('paddr').textContent=curChain.a}
 
-function updateAddr(){
-  document.getElementById('paddr').textContent = curChain?.a || '—';
-}
-
-// ── COPY ─────────────────────────────────────────────────────────────
-function copyA(){
-  navigator.clipboard.writeText(document.getElementById('paddr').textContent).catch(()=>{});
-  const b=event.target; b.textContent='✅ Copied!';
-  setTimeout(()=>b.textContent='📋 Copy Address',2200);
-}
-
-// ── TIMER ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// TIMER
+// ─────────────────────────────────────────────────────────────────────
 function startTimer(){
   clearInterval(timerI); let s=900;
   const el=document.getElementById('tv');
-  const tick=()=>{
-    const m=Math.floor(s/60),sc=s%60;
-    el.textContent=String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');
-    el.classList.toggle('red',s<=60);
-    if(s--<=0)clearInterval(timerI);
-  };
+  const tick=()=>{const m=Math.floor(s/60),sc=s%60;el.textContent=String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');el.classList.toggle('red',s<=60);if(s--<=0)clearInterval(timerI)};
   tick(); timerI=setInterval(tick,1000);
 }
 
-// ── USERNAME WARNING ──────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// FORM HELPERS
+// ─────────────────────────────────────────────────────────────────────
 function onUname(inp){
   const v=inp.value.trim(),w=document.getElementById('uwarn'),pv=document.getElementById('uprv');
-  if(v.length>=2){
-    pv.textContent = v.startsWith('@') ? v : v.startsWith('+') ? v : '@'+v;
-    w.classList.add('show'); inp.classList.add('warn-b');
-  } else { w.classList.remove('show'); inp.classList.remove('warn-b') }
+  if(v.length>=2){pv.textContent=v.startsWith('@')?v:v.startsWith('+')?v:'@'+v;w.classList.add('show');inp.classList.add('warn-b')}
+  else{w.classList.remove('show');inp.classList.remove('warn-b')}
 }
 
-// ── TAB SWITCH ────────────────────────────────────────────────────────
-let activeTab='user';
 function switchTab(tab){
-  activeTab=tab;
-  const u=tab==='user';
-  document.getElementById('tabUser').style.cssText  = u ? 'flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s' : 'flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s';
-  document.getElementById('tabPhone').style.cssText = u ? 'flex:1;padding:9px;background:transparent;color:var(--dim2);border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s' : 'flex:1;padding:9px;background:var(--tg);color:#fff;border:none;cursor:pointer;font-family:Outfit,sans-serif;font-size:.8rem;font-weight:600;transition:all .2s';
-  document.getElementById('inputUser').style.display  = u ? 'block' : 'none';
-  document.getElementById('inputPhone').style.display = u ? 'none'  : 'block';
+  activeTab=tab; const u=tab==='user';
+  document.getElementById('tabUser').style.background=u?'var(--tg)':'transparent';
+  document.getElementById('tabUser').style.color=u?'#fff':'var(--dim2)';
+  document.getElementById('tabPhone').style.background=u?'transparent':'var(--tg)';
+  document.getElementById('tabPhone').style.color=u?'var(--dim2)':'#fff';
+  document.getElementById('inputUser').style.display=u?'block':'none';
+  document.getElementById('inputPhone').style.display=u?'none':'block';
   document.getElementById('uwarn').classList.remove('show');
 }
 
-// ── PROMO CODE (Unfreeze only) ────────────────────────────────────────
-const PROMOS = {'FLASH20':0.20};
-let activeDiscount = 0;
-function applyPromoOrder(){
-  const code = document.getElementById('promoInputOrder').value.trim().toUpperCase();
-  const res  = document.getElementById('promoResultOrder');
-  const inp  = document.getElementById('promoInputOrder');
+const PROMOS={'FLASH20':0.20};
+function applyPromo(){
+  const code=document.getElementById('promoInput').value.trim().toUpperCase();
+  const res=document.getElementById('promoResult'),inp=document.getElementById('promoInput');
   if(PROMOS[code]!==undefined){
-    activeDiscount = PROMOS[code];
-    inp.classList.add('valid'); inp.classList.remove('invalid');
-    res.className='promo-result ok';
-    res.textContent='🎉 '+(activeDiscount*100)+'% off applied! Discount shown at payment.';
+    activeDiscount=PROMOS[code]; inp.classList.add('valid'); inp.classList.remove('invalid');
+    res.className='promo-result ok'; res.textContent='🎉 '+(activeDiscount*100)+'% off applied! Shown at payment.';
   } else {
-    activeDiscount=0;
-    inp.classList.add('invalid'); inp.classList.remove('valid');
-    res.className='promo-result err';
-    res.textContent='✕ Invalid promo code. Please try again.';
+    activeDiscount=0; inp.classList.add('invalid'); inp.classList.remove('valid');
+    res.className='promo-result err'; res.textContent='✕ Invalid promo code. Please try again.';
   }
 }
 
-// ── PREMIUM PICKER ────────────────────────────────────────────────────
-function openPremiumPicker(){openOv('premiumOv')}
-
-// ── VIP SERVICES → WhatsApp ───────────────────────────────────────────
-const WA_NUMBER = '1234567890'; // ← replace with your real number
+// ─────────────────────────────────────────────────────────────────────
+// VIP → WHATSAPP
+// ─────────────────────────────────────────────────────────────────────
 function openVIP(service,icon,price){
   const msg=encodeURIComponent(`Hi, I'm interested in the ${service} service (${price}). Please assist me.`);
-  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
+  window.open(`https://wa.me/${WA}?text=${msg}`,'_blank');
 }
 
-// ── OPEN ORDER FORM ───────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// OPEN ORDER
+// ─────────────────────────────────────────────────────────────────────
+function openPremiumPicker(){openOv('premiumOv')}
+
 function openOrder(name,variant,icon,price,type){
   svc={name,variant,icon,price,type};
   document.getElementById('ci').textContent=icon;
@@ -1120,120 +996,208 @@ function openOrder(name,variant,icon,price,type){
   document.getElementById('uwarn').classList.remove('show');
   document.getElementById('un').classList.remove('warn-b');
   document.getElementById('ph').classList.remove('warn-b');
-  // reset to username tab
   switchTab('user');
-  // reset promo
   activeDiscount=0;
-  document.getElementById('promoInputOrder').value='';
-  document.getElementById('promoInputOrder').classList.remove('valid','invalid');
-  document.getElementById('promoResultOrder').className='promo-result';
-  document.getElementById('promoResultOrder').textContent='';
-  // show promo ONLY for Unfreeze
-  document.getElementById('promoSection').style.display = type==='unfreeze' ? 'block' : 'none';
+  document.getElementById('promoInput').value='';
+  document.getElementById('promoInput').classList.remove('valid','invalid');
+  document.getElementById('promoResult').className='promo-result';
+  document.getElementById('promoResult').textContent='';
+  document.getElementById('promoSection').style.display=type==='unfreeze'?'block':'none';
   closeOv('premiumOv'); openOv('orderOv');
 }
 
-// ── CONFIG ────────────────────────────────────────────────────────────
-const SUPABASE_URL = 'https://rlxiybhykwrdlyuapntr.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJseGl5Ymh5a3dyZGx5dWFwbnRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzgxOTYsImV4cCI6MjA5MjExNDE5Nn0.n_MOyjue5PIHvOHd0nmpp6R2LoJdb0Av84x9HXTsw4Y';
-
-async function saveToSupabase(data){
-  try{
-    await fetch(SUPABASE_URL+'/rest/v1/orders',{
-      method:'POST',
-      headers:{
-        'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+SUPABASE_KEY,
-        'Content-Type':'application/json',
-        'Prefer':'return=minimal'
-      },
-      body:JSON.stringify(data)
-    });
-  } catch(e){ console.log('Supabase save failed',e); }
-}
-
-// ── PROCEED TO PAYMENT ────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// PROCEED → SAVE TO SUPABASE
+// ─────────────────────────────────────────────────────────────────────
 function proceed(){
-  const em = document.getElementById('em').value.trim();
-  const accountVal = activeTab==='user'
-    ? document.getElementById('un').value.trim()
-    : document.getElementById('ph').value.trim();
+  const em=document.getElementById('em').value.trim();
+  const acc=activeTab==='user'?document.getElementById('un').value.trim():document.getElementById('ph').value.trim();
   if(!em||!em.includes('@')){alert('Please enter a valid email address.');return}
-  if(!accountVal){
-    alert(activeTab==='user'?'Please enter your Telegram username.':'Please enter your phone number with country code.');return;
-  }
-  if(activeTab==='phone'&&!accountVal.startsWith('+')){
-    alert('Phone number must start with your country code.\nExample: +1 234 567 8900 (US), +44 7911 123456 (UK)');return;
-  }
-  svc.email=em; svc.user=accountVal;
-  svc.orderId = '#TGS-' + Math.floor(100000 + Math.random() * 900000);
-
-  const promoUsed   = activeDiscount > 0 ? 'FLASH20' : 'None';
-  const finalPrice  = '$'+(parseFloat(svc.price)*(1-activeDiscount)).toFixed(2);
-
-  // Save order to Supabase
-  saveToSupabase({
-    order_id:        svc.orderId,
-    service:         svc.name,
-    variant:         svc.variant,
-    price:           finalPrice,
-    customer_email:  em,
-    telegram_account: accountVal,
-    account_type:    activeTab==='user' ? 'Username' : 'Phone Number',
-    promo_code:      promoUsed,
-    status:          'Pending Payment'
-  });
-
+  if(!acc){alert(activeTab==='user'?'Please enter your Telegram username.':'Please enter your phone number with country code.');return}
+  if(activeTab==='phone'&&!acc.startsWith('+')){alert('Phone number must include country code.\nExample: +1 234 567 8900');return}
+  svc.email=em; svc.user=acc;
+  svc.orderId='#TGS-'+Math.floor(100000+Math.random()*900000);
+  const finalPrice='$'+(parseFloat(svc.price)*(1-activeDiscount)).toFixed(2);
+  fetch(SB_URL+'/rest/v1/orders',{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({order_id:svc.orderId,service:svc.name,variant:svc.variant,price:finalPrice,customer_email:em,telegram_account:acc,account_type:activeTab==='user'?'Username':'Phone Number',promo_code:activeDiscount>0?'FLASH20':'None',status:'Pending Payment'})
+  }).catch(()=>{});
   closeOv('orderOv'); initPay();
 }
 
-// ── INIT PAYMENT ──────────────────────────────────────────────────────
 function initPay(){
   curTok='USDT'; curChain=CHAINS.USDT[0];
-  document.getElementById('tokIcon').innerHTML=TOK_ICONS['USDT'];
+  document.getElementById('tokIcon').innerHTML=TOK_SVG['USDT'];
   document.getElementById('tokLabel').textContent='USDT';
   document.querySelectorAll('#tokDrop .drop-item').forEach((el,i)=>el.classList.toggle('chosen',i===0));
   renderNetDrop(); updateAmt(); updateAddr(); updateRateBar();
-  // show "discount applied" note if promo was used
-  const note=document.getElementById('promoAppliedNote');
-  if(note) note.style.display = activeDiscount>0 ? 'block' : 'none';
+  document.getElementById('promoAppliedNote').style.display=activeDiscount>0?'block':'none';
   fetchRates(); startTimer(); openOv('payOv');
 }
 
-// ── CONFIRM PAYMENT ───────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────
+// CONFIRM PAYMENT → UPDATE SUPABASE
+// ─────────────────────────────────────────────────────────────────────
 function confirmPay(){
   clearInterval(timerI);
-  const id = svc.orderId || ('#TGS-' + Math.floor(100000 + Math.random() * 900000));
-
-  // Update the Supabase record with payment details
-  fetch(SUPABASE_URL+'/rest/v1/orders?order_id=eq.'+encodeURIComponent(id),{
+  const id=svc.orderId||('#TGS-'+Math.floor(100000+Math.random()*900000));
+  fetch(SB_URL+'/rest/v1/orders?order_id=eq.'+encodeURIComponent(id),{
     method:'PATCH',
-    headers:{
-      'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,
-      'Content-Type':'application/json','Prefer':'return=minimal'
-    },
-    body:JSON.stringify({
-      token:          curTok,
-      network:        curChain?.l || '',
-      wallet_address: curChain?.a || '',
-      crypto_amount:  document.getElementById('pamtv').textContent,
-      status:         'Pending Payment'
-    })
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({token:curTok,network:curChain?.l||'',wallet_address:curChain?.a||'',crypto_amount:document.getElementById('pamtv').textContent})
   }).catch(()=>{});
-
-  orders.unshift({id,service:svc.name,variant:svc.variant,
-    price:'$'+parseFloat(svc.price).toFixed(2),user:svc.user,status:'Pending',time:new Date().toLocaleString()});
+  orders.unshift({id,service:svc.name,variant:svc.variant,price:'$'+parseFloat(svc.price).toFixed(2),user:svc.user,status:'Pending Payment',time:new Date().toLocaleString()});
   try{localStorage.setItem('tgs',JSON.stringify(orders))}catch(e){}
-  document.getElementById('oidv').textContent = id;
+  document.getElementById('oidv').textContent=id;
   closeOv('payOv'); openOv('confOv');
 }
 
-// ── ORDERS LIST ───────────────────────────────────────────────────────
-function renderOrders(){
-  const el=document.getElementById('olist');
-  if(!orders.length){el.innerHTML='<p style="color:var(--dim2);text-align:center;padding:22px 0;font-size:.82rem">No orders yet.</p>';return}
-  el.innerHTML=orders.map(o=>`<div class="or"><div class="ort"><div class="orn">${o.service} — ${o.variant}</div><span class="ost">Pending</span></div><div class="orm">${o.time} · ${o.user} · ${o.price}</div><div class="oid2">${o.id}</div></div>`).join('');
+// ─────────────────────────────────────────────────────────────────────
+// ORDERS — LIVE STATUS FROM SUPABASE
+// ─────────────────────────────────────────────────────────────────────
+function spClass(s){
+  if(!s||s.includes('Pending')) return 'sp-pending';
+  if(s.includes('Confirmed')) return 'sp-confirmed';
+  if(s.includes('Delivered')) return 'sp-delivered';
+  return 'sp-failed';
 }
+function spIcon(s){
+  if(!s||s.includes('Pending')) return '⏳';
+  if(s.includes('Confirmed')) return '✅';
+  if(s.includes('Delivered')) return '🚀';
+  return '✕';
+}
+
+async function loadGuestOrders(){
+  const el=document.getElementById('olist');
+  if(!orders.length){el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:22px 0">No orders yet.<br><span style="font-size:.72rem">Create an account to track across devices.</span></div>';return}
+  el.innerHTML='<div style="color:var(--dim2);font-size:.78rem;text-align:center;padding:10px 0">Fetching live status…</div>';
+  try{
+    const ids=orders.map(o=>o.id).map(i=>encodeURIComponent(i)).join(',');
+    const r=await fetch(SB_URL+'/rest/v1/orders?order_id=in.('+ids+')&select=order_id,status',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const data=await r.json();
+    const map={}; (data||[]).forEach(o=>map[o.order_id]=o.status);
+    el.innerHTML=orders.map(o=>{
+      const status=map[o.id]||o.status||'Pending Payment';
+      return `<div class="or"><div class="ort"><div class="orn">${o.service} — ${o.variant}</div><span class="status-pill ${spClass(status)}">${spIcon(status)} ${status}</span></div><div class="orm">${o.time} · ${o.user} · ${o.price}</div><div class="oid2">${o.id}</div></div>`;
+    }).join('');
+  } catch(e){
+    el.innerHTML=orders.map(o=>`<div class="or"><div class="ort"><div class="orn">${o.service} — ${o.variant}</div><span class="status-pill sp-pending">⏳ Pending</span></div><div class="orm">${o.time} · ${o.user} · ${o.price}</div><div class="oid2">${o.id}</div></div>`).join('');
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────────────────────────────
+let authMode='signin';
+function switchAuth(mode){
+  authMode=mode;
+  document.getElementById('tabSignin').classList.toggle('active',mode==='signin');
+  document.getElementById('tabSignup').classList.toggle('active',mode==='signup');
+  document.getElementById('authBtn').textContent=mode==='signin'?'Sign In':'Create Account';
+  document.getElementById('authTitle').textContent=mode==='signin'?'Welcome Back':'Create Account';
+  document.getElementById('authNameWrap').style.display=mode==='signup'?'block':'none';
+  document.getElementById('authMsg').className='auth-msg';
+}
+
+function showForgot(show){
+  document.getElementById('forgotView').style.display=show?'block':'none';
+  document.getElementById('mainAuthView').style.display=show?'none':'block';
+  if(show){document.getElementById('authTitle').textContent='Reset Password';document.getElementById('authSub').textContent='We\'ll send a reset link to your email.';}
+  else{document.getElementById('authTitle').textContent='Welcome Back';document.getElementById('authSub').textContent='Sign in to track your orders across devices.';}
+  document.getElementById('forgotMsg').className='auth-msg';document.getElementById('forgotMsg').textContent='';
+}
+
+async function doForgot(){
+  const em=document.getElementById('forgotEmail').value.trim();
+  const msg=document.getElementById('forgotMsg');
+  if(!em||!em.includes('@')){msg.className='auth-msg err';msg.textContent='Please enter a valid email.';return}
+  try{
+    await fetch(SB_URL+'/auth/v1/recover',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:em})});
+    msg.className='auth-msg ok';msg.textContent='✅ Reset link sent! Check your inbox.';
+  } catch(e){msg.className='auth-msg err';msg.textContent='Something went wrong. Please try again.'}
+}
+
+function doGoogle(){
+  window.location.href=SB_URL+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(window.location.origin+window.location.pathname);
+}
+
+function updateNavAuth(){
+  const el=document.getElementById('navAuth');
+  if(currentUser){
+    const ini=(currentUser.user_metadata?.name||currentUser.email||'?')[0].toUpperCase();
+    el.innerHTML=`<div class="nav-account"><div class="nav-avatar" onclick="openAccountModal()">${ini}</div><button class="nav-acct-btn" onclick="openAccountModal()">My Orders</button></div>`;
+  } else {
+    el.innerHTML=`<button class="nav-btn" onclick="openOv('authOv')">Sign In</button>`;
+  }
+}
+
+async function doAuth(){
+  const em=document.getElementById('authEmail').value.trim();
+  const pw=document.getElementById('authPass').value;
+  const nm=document.getElementById('authName')?.value.trim()||'';
+  const remember=document.getElementById('rememberMe')?.checked||false;
+  const msg=document.getElementById('authMsg'),btn=document.getElementById('authBtn');
+  msg.className='auth-msg'; msg.textContent='';
+  if(!em||!pw){msg.className='auth-msg err';msg.textContent='Please enter your email and password.';return}
+  if(authMode==='signup'&&pw.length<6){msg.className='auth-msg err';msg.textContent='Password must be at least 6 characters.';return}
+  btn.textContent='Please wait…'; btn.disabled=true;
+  try{
+    const endpoint=authMode==='signup'?'signup':'token?grant_type=password';
+    const body=authMode==='signup'?{email:em,password:pw,data:{name:nm}}:{email:em,password:pw};
+    const r=await fetch(SB_URL+'/auth/v1/'+endpoint,{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const data=await r.json();
+    if(data.error||data.msg){
+      msg.className='auth-msg err'; msg.textContent=data.error_description||data.msg||'Something went wrong.';
+    } else if(authMode==='signup'){
+      msg.className='auth-msg ok'; msg.textContent='✅ Account created! Check your email to confirm, then sign in.';
+      switchAuth('signin');
+    } else {
+      currentUser=data.user; currentSession=data.access_token;
+      if(remember) localStorage.setItem('tgs_session',JSON.stringify({user:data.user,token:data.access_token}));
+      updateNavAuth(); closeOv('authOv'); openAccountModal();
+    }
+  } catch(e){msg.className='auth-msg err';msg.textContent='Connection error. Please try again.'}
+  finally{btn.disabled=false;btn.textContent=authMode==='signin'?'Sign In':'Create Account'}
+}
+
+function doSignOut(){
+  currentUser=null;currentSession=null;
+  localStorage.removeItem('tgs_session');
+  updateNavAuth();closeOv('accountOv');
+}
+
+function restoreSession(){
+  try{
+    const s=JSON.parse(localStorage.getItem('tgs_session')||'null');
+    if(s?.user&&s?.token){currentUser=s.user;currentSession=s.token;}
+  } catch(e){}
+}
+
+async function openAccountModal(){
+  if(!currentUser){openOv('authOv');return}
+  const name=currentUser.user_metadata?.name||currentUser.email?.split('@')[0]||'User';
+  const email=currentUser.email||'';
+  document.getElementById('acctAv').textContent=name[0].toUpperCase();
+  document.getElementById('acctName').textContent=name;
+  document.getElementById('acctEmail').textContent=email;
+  document.getElementById('acctOrders').innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">Loading your orders…</div>';
+  openOv('accountOv');
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/orders?customer_email=eq.'+encodeURIComponent(email)+'&order=created_at.desc&select=*',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const data=await r.json();
+    const el=document.getElementById('acctOrders');
+    if(!data||!data.length){el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">No orders found for this account.</div>';return}
+    el.innerHTML=data.map(o=>`<div class="or"><div class="ort"><div class="orn">${o.service} — ${o.variant}</div><span class="status-pill ${spClass(o.status)}">${spIcon(o.status)} ${o.status}</span></div><div class="orm">${new Date(o.created_at).toLocaleDateString()} · ${o.telegram_account} · ${o.price}</div><div class="oid2">${o.order_id}</div></div>`).join('');
+  } catch(e){document.getElementById('acctOrders').innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:16px 0">Could not load orders.</div>'}
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────────────
+restoreSession();
+updateNavAuth();
 </script>
 </body>
 </html>
