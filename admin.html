@@ -8,7 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#07070f;--s:#0f0f1c;--s2:#161628;--s3:#1c1c34;
+  --bg:#07070f;--s:#0f0f1c;--s2:#161628;
   --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.12);
   --tg:#2AABEE;--tg2:#54C0F7;--tg3:rgba(42,171,238,.12);
   --white:#e8f4ff;--dim:#3d5a7a;--dim2:#7a9bb8;
@@ -17,391 +17,378 @@
   --red:#ef4444;--red2:rgba(239,68,68,.12);
   --purple:#a855f7;--purple2:rgba(168,85,247,.12);
 }
-html,body{height:100%;background:var(--bg);color:var(--white);font-family:'Outfit',sans-serif;overflow-x:hidden}
+/* LIGHT MODE */
+body.light{--bg:#f0f4f8;--s:#e2e8f0;--s2:#d4dde8;--line:rgba(0,0,0,.08);--line2:rgba(0,0,0,.13);--white:#1a2a3a;--dim2:#4a6a8a;--dim:#8aa0b8}
+body.light .topbar{background:rgba(240,244,248,.96)}
 
-/* ── LOGIN ── */
-.login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;background:var(--bg)}
-.login-card{background:var(--s);border:1px solid var(--line2);border-radius:22px;padding:40px 32px;width:100%;max-width:380px;text-align:center}
-.login-brand{font-size:2.2rem;margin-bottom:6px}
+html,body{min-height:100%;background:var(--bg);color:var(--white);font-family:'Outfit',sans-serif}
+
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-card{background:var(--s);border:1px solid var(--line2);border-radius:22px;padding:40px 28px;width:100%;max-width:360px;text-align:center}
+.login-logo{font-size:2.4rem;margin-bottom:8px}
 .login-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;margin-bottom:4px}
 .login-sub{color:var(--dim2);font-size:.82rem;margin-bottom:28px}
-.login-input{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;padding:13px 16px;color:var(--white);font-size:.9rem;font-family:'Outfit',sans-serif;outline:none;margin-bottom:12px;transition:border-color .2s;text-align:center;letter-spacing:2px}
-.login-input:focus{border-color:var(--tg)}
-.login-btn{width:100%;background:linear-gradient(135deg,var(--tg),#1a8fc7);color:#fff;border:none;border-radius:11px;padding:13px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;box-shadow:0 4px 16px rgba(42,171,238,.3)}
+.login-inp{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;padding:13px 16px;color:var(--white);font-size:.95rem;font-family:'Outfit',sans-serif;outline:none;margin-bottom:14px;text-align:center;letter-spacing:3px;transition:border-color .2s}
+.login-inp:focus{border-color:var(--tg)}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--tg),#1a8fc7);color:#fff;border:none;border-radius:11px;padding:13px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;box-shadow:0 4px 16px rgba(42,171,238,.3);transition:all .2s}
 .login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(42,171,238,.4)}
-.login-err{color:#f87171;font-size:.78rem;margin-top:8px;display:none;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:8px;padding:8px 12px}
+.login-err{display:none;color:#f87171;font-size:.78rem;margin-top:10px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:8px;padding:8px 12px}
 
-/* ── LAYOUT ── */
-.dash{display:none;min-height:100vh;flex-direction:column}
+/* DASHBOARD */
+.dash{display:none;flex-direction:column;min-height:100vh}
 
-/* ── TOPBAR ── */
-.topbar{
-  background:rgba(7,7,15,.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
-  padding:0 20px;height:60px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:50;
-}
-.tb-left{display:flex;align-items:center;gap:14px}
-.tb-logo{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem}
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(7,7,15,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.tb-logo{font-family:'Playfair Display',serif;font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:10px}
 .tb-logo span{color:var(--tg)}
-.tb-pill{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.22);color:#4ade80;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.5px}
-.tb-right{display:flex;align-items:center;gap:10px}
-.tb-time{color:var(--dim2);font-size:.75rem;display:none}
-@media(min-width:640px){.tb-time{display:block}}
-.tb-refresh{background:var(--tg3);border:1px solid rgba(42,171,238,.22);color:var(--tg2);padding:7px 14px;border-radius:9px;cursor:pointer;font-size:.78rem;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
-.tb-refresh:hover{background:var(--tg);color:#fff}
-.tb-signout{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--dim2);padding:7px 14px;border-radius:9px;cursor:pointer;font-size:.78rem;font-family:'Outfit',sans-serif;transition:all .2s}
-.tb-signout:hover{color:var(--white);border-color:var(--line2)}
+.tb-live{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.22);color:#4ade80;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:99px;letter-spacing:.5px}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-clock{color:var(--dim2);font-size:.74rem;display:none}
+@media(min-width:600px){.tb-clock{display:block}}
+.tb-btn{background:var(--tg3);border:1px solid rgba(42,171,238,.22);color:var(--tg2);padding:7px 13px;border-radius:9px;cursor:pointer;font-size:.76rem;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
+.tb-btn:hover{background:var(--tg);color:#fff}
+.tb-out{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--dim2);padding:7px 13px;border-radius:9px;cursor:pointer;font-size:.76rem;font-family:'Outfit',sans-serif;transition:all .2s}
+.tb-out:hover{color:var(--white)}
 
-/* ── MAIN ── */
+/* MAIN */
 .main{flex:1;padding:20px;max-width:1240px;margin:0 auto;width:100%}
 
-/* ── GREETING ── */
-.greeting{margin-bottom:22px}
-.greeting-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;margin-bottom:3px}
-.greeting-sub{color:var(--dim2);font-size:.85rem}
-.greeting-sub strong{color:var(--tg2)}
+/* GREETING */
+.greeting{margin-bottom:18px}
+.greeting h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;margin-bottom:2px}
+.greeting p{color:var(--dim2);font-size:.85rem}
+.greeting p strong{color:var(--tg2)}
 
-/* ── STAT CARDS ── */
-.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
-@media(min-width:640px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
-.stat-card{background:var(--s);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:default}
-.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3)}
-.stat-card::before{content:'';position:absolute;inset:0;opacity:.04;border-radius:16px}
-.stat-card.blue::before{background:var(--tg)}
-.stat-card.green::before{background:var(--green)}
-.stat-card.yellow::before{background:var(--yellow)}
-.stat-card.purple::before{background:var(--purple)}
+/* TABS */
+.tabs{display:flex;background:var(--s);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:20px;flex-wrap:wrap}
+.tab{flex:1;min-width:70px;padding:11px 8px;background:transparent;border:none;color:var(--dim2);font-family:'Outfit',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;position:relative;white-space:nowrap}
+.tab.on{background:var(--tg);color:#fff}
+.tab .badge{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#ef4444;display:none}
+.tab .badge.show{display:block}
+
+.pg{display:none}.pg.on{display:block}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px}
+@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--s);border:1px solid var(--line);border-radius:16px;padding:18px;transition:transform .2s}
+.stat:hover{transform:translateY(-2px)}
 .stat-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:12px}
-.stat-icon.blue{background:var(--tg3)}
-.stat-icon.green{background:var(--green2)}
-.stat-icon.yellow{background:var(--yellow2)}
-.stat-icon.purple{background:var(--purple2)}
-.stat-label{font-size:.7rem;color:var(--dim2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;font-weight:600}
-.stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;line-height:1}
-.stat-val.blue{color:var(--tg2)}
-.stat-val.green{color:var(--green)}
-.stat-val.yellow{color:var(--yellow)}
-.stat-val.purple{color:var(--purple)}
-.stat-change{font-size:.72rem;color:var(--dim2);margin-top:5px}
-.stat-bar-wrap{margin-top:10px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.stat-lbl{font-size:.68rem;color:var(--dim2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;font-weight:600}
+.stat-val{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;line-height:1}
+.stat-sub{font-size:.7rem;color:var(--dim2);margin-top:5px}
+.stat-bar{margin-top:10px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
 .stat-bar-fill{height:100%;border-radius:2px;transition:width .8s ease}
 
-/* ── TWO-COL ── */
-.two-col{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
-@media(min-width:900px){.two-col{grid-template-columns:1fr 1fr}}
-.three-col{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
-@media(min-width:700px){.three-col{grid-template-columns:1fr 1fr}}
-@media(min-width:1000px){.three-col{grid-template-columns:1fr 1fr 1fr}}
-
-/* ── PANEL ── */
+/* PANELS */
+.grid2{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+@media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}}
+.grid3{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+@media(min-width:700px){.grid3{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.grid3{grid-template-columns:1fr 1fr 1fr}}
 .panel{background:var(--s);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line)}
-.panel-title{font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:7px}
-.panel-badge{background:var(--tg3);color:var(--tg2);font-size:.66rem;font-weight:700;padding:2px 8px;border-radius:99px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);font-size:.88rem;font-weight:700}
 .panel-body{padding:16px 18px}
+.panel-body-np{padding:0}
 
-/* ── MINI CHART (CSS bar chart) ── */
-.bar-chart{display:flex;align-items:flex-end;gap:5px;height:70px;padding-top:4px}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
-.bar-fill{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:height .6s ease;background:linear-gradient(180deg,var(--tg2),var(--tg))}
-.bar-label{font-size:.6rem;color:var(--dim2);white-space:nowrap}
+/* BAR CHART */
+.bar-chart{display:flex;align-items:flex-end;gap:5px;height:70px}
+.bc{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bc-fill{width:100%;border-radius:4px 4px 0 0;min-height:4px;background:linear-gradient(180deg,var(--tg2),var(--tg));transition:height .6s ease}
+.bc-lbl{font-size:.6rem;color:var(--dim2)}
 
-/* ── REVENUE WIDGET ── */
-.revenue-big{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:var(--green);margin-bottom:3px}
-.revenue-sub{font-size:.75rem;color:var(--dim2);margin-bottom:14px}
-.rev-breakdown{display:flex;flex-direction:column;gap:8px}
-.rev-row{display:flex;align-items:center;gap:10px}
-.rev-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.rev-name{font-size:.78rem;flex:1}
-.rev-bar-bg{flex:2;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
-.rev-bar{height:100%;border-radius:3px;transition:width .8s ease}
-.rev-amount{font-size:.78rem;font-weight:600;color:var(--white);min-width:46px;text-align:right}
-
-/* ── QUICK ACTIONS ── */
+/* QUICK ACTIONS */
 .qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.qa-btn{background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:13px 10px;cursor:pointer;text-align:center;transition:all .2s;font-family:'Outfit',sans-serif}
-.qa-btn:hover{border-color:rgba(42,171,238,.35);background:var(--tg3);transform:translateY(-1px)}
-.qa-icon{font-size:1.3rem;margin-bottom:5px}
-.qa-label{font-size:.72rem;font-weight:600;color:var(--dim2)}
-.qa-btn:hover .qa-label{color:var(--tg2)}
+.qa{background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:13px 8px;cursor:pointer;text-align:center;transition:all .2s;font-family:'Outfit',sans-serif}
+.qa:hover{border-color:rgba(42,171,238,.35);background:var(--tg3)}
+.qa-i{font-size:1.3rem;margin-bottom:5px}
+.qa-l{font-size:.7rem;font-weight:600;color:var(--dim2)}
+.qa:hover .qa-l{color:var(--tg2)}
 
-/* ── ACTIVITY FEED ── */
-.activity-list{display:flex;flex-direction:column;gap:0}
-.act-item{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid var(--line);position:relative}
+/* ACTIVITY */
+.act-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
 .act-item:last-child{border-bottom:none}
-.act-dot-wrap{display:flex;flex-direction:column;align-items:center;padding-top:2px}
-.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.act-line{width:1px;flex:1;background:var(--line);margin-top:4px}
-.act-content{flex:1;min-width:0}
-.act-title{font-size:.82rem;font-weight:500;line-height:1.3}
+.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.act-body{flex:1}
+.act-title{font-size:.8rem;font-weight:500;line-height:1.3}
 .act-meta{font-size:.7rem;color:var(--dim2);margin-top:2px}
-.act-badge{font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:middle}
 
-/* ── SERVICE PIE (CSS) ── */
-.svc-breakdown{display:flex;flex-direction:column;gap:10px}
-.svc-row{display:flex;align-items:center;gap:10px}
-.svc-icon{font-size:1rem;width:22px;text-align:center}
-.svc-name{font-size:.8rem;flex:1}
-.svc-bar-bg{flex:2;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
-.svc-bar-fill{height:100%;border-radius:3px;transition:width .8s ease}
-.svc-count{font-size:.75rem;font-weight:600;color:var(--white);min-width:28px;text-align:right}
-.svc-pct{font-size:.68rem;color:var(--dim2);min-width:30px;text-align:right}
+/* SVC BREAKDOWN */
+.svc-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.svc-row:last-child{margin-bottom:0}
+.svc-lbl{font-size:.78rem;flex:1}
+.svc-bar-bg{flex:2;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.svc-bar-f{height:100%;border-radius:3px;transition:width .8s ease}
+.svc-cnt{font-size:.74rem;font-weight:600;min-width:24px;text-align:right}
+.svc-pct{font-size:.68rem;color:var(--dim2);min-width:28px;text-align:right}
 
-/* ── ORDERS TABLE ── */
-.controls{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
-.search-box{flex:1;min-width:160px;background:var(--s);border:1px solid var(--line2);border-radius:10px;padding:9px 14px;color:var(--white);font-size:.82rem;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
-.search-box:focus{border-color:var(--tg)}
-.search-box::placeholder{color:var(--dim2)}
-.filter-sel{background:var(--s);border:1px solid var(--line2);border-radius:10px;padding:9px 12px;color:var(--white);font-size:.78rem;font-family:'Outfit',sans-serif;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%233d5a7a' d='M5 6L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
-.table-wrap{background:var(--s);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.t-head{display:none;padding:11px 16px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--line);font-size:.67rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);gap:0}
-@media(min-width:800px){.t-head{display:grid;grid-template-columns:130px 1fr 160px 90px 90px 120px 110px}}
-.o-row{padding:14px 16px;border-bottom:1px solid var(--line);transition:background .15s}
+/* REV BREAKDOWN */
+.rev-big{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:800;color:var(--green);margin-bottom:3px}
+.rev-sub{font-size:.74rem;color:var(--dim2);margin-bottom:12px}
+.rev-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rev-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rev-lbl{font-size:.76rem;flex:1}
+.rev-bar-bg{flex:2;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.rev-bar-f{height:100%;border-radius:3px;transition:width .8s ease}
+.rev-amt{font-size:.76rem;font-weight:600;min-width:44px;text-align:right}
+
+/* ORDERS TABLE */
+.controls{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.s-inp{flex:1;min-width:150px;background:var(--s);border:1px solid var(--line2);border-radius:10px;padding:9px 14px;color:var(--white);font-size:.82rem;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.s-inp:focus{border-color:var(--tg)}
+.s-inp::placeholder{color:var(--dim2)}
+.f-sel{background:var(--s);border:1px solid var(--line2);border-radius:10px;padding:9px 12px;color:var(--white);font-size:.78rem;font-family:'Outfit',sans-serif;outline:none;cursor:pointer;-webkit-appearance:none}
+.tbl{background:var(--s);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.tbl-head{display:none;padding:10px 16px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--line);font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2)}
+@media(min-width:800px){.tbl-head{display:grid;grid-template-columns:130px 1fr 160px 90px 90px 120px 110px}}
+.o-row{padding:13px 16px;border-bottom:1px solid var(--line);transition:background .15s}
 .o-row:last-child{border-bottom:none}
 .o-row:hover{background:rgba(255,255,255,.02)}
 @media(min-width:800px){.o-row{display:grid;grid-template-columns:130px 1fr 160px 90px 90px 120px 110px;align-items:center}}
-.cell{font-size:.8rem;margin-bottom:5px}
+.cell{font-size:.8rem;margin-bottom:4px}
 .cell:last-child{margin-bottom:0}
 @media(min-width:800px){.cell{margin-bottom:0}}
-.cell-lbl{font-size:.65rem;color:var(--dim2);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:2px}
-@media(min-width:800px){.cell-lbl{display:none}}
-.oid{font-family:monospace;font-size:.73rem;color:var(--tg2);font-weight:600}
-.odate{font-size:.65rem;color:var(--dim2);margin-top:2px}
-.oname{font-weight:600;font-size:.82rem}
-.oemail{font-size:.7rem;color:var(--dim2);margin-top:1px}
-.oacct{font-size:.68rem;color:var(--dim);margin-top:1px}
-.osvc{font-weight:500;font-size:.8rem}
-.ovar{font-size:.7rem;color:var(--dim2);margin-top:1px}
-.oprice{font-weight:700;font-size:.85rem;color:var(--tg2)}
-.opromo{display:inline-block;background:var(--purple2);border:1px solid rgba(168,85,247,.25);color:#c084fc;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:99px;margin-left:3px}
-
-/* ── STATUS BADGE ── */
-.sbadge{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.clbl{font-size:.63rem;color:var(--dim2);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:2px}
+@media(min-width:800px){.clbl{display:none}}
+.oid{font-family:monospace;font-size:.72rem;color:var(--tg2);font-weight:600}
+.sbadge{display:inline-flex;align-items:center;gap:4px;font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:99px;white-space:nowrap}
 .sbadge.pending{background:var(--yellow2);border:1px solid rgba(245,158,11,.25);color:var(--yellow)}
 .sbadge.confirmed{background:var(--tg3);border:1px solid rgba(42,171,238,.25);color:var(--tg2)}
 .sbadge.delivered{background:var(--green2);border:1px solid rgba(34,197,94,.25);color:var(--green)}
 .sbadge.failed{background:var(--red2);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+.acts{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+@media(min-width:800px){.acts{margin-top:0}}
+.ab{font-size:.67rem;font-weight:700;padding:5px 9px;border-radius:7px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.ab-c{background:var(--tg3);color:var(--tg2)}.ab-c:hover{background:var(--tg);color:#fff}
+.ab-d{background:var(--green2);color:var(--green)}.ab-d:hover{background:var(--green);color:#000}
+.ab-e{background:var(--purple2);color:#c084fc}.ab-e:hover{background:var(--purple);color:#fff}
+.ab-f{background:var(--red2);color:var(--red)}.ab-f:hover{background:var(--red);color:#fff}
 
-/* ── ACTION BUTTONS ── */
-.actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
-@media(min-width:800px){.actions{margin-top:0}}
-.ab{font-size:.68rem;font-weight:700;padding:5px 9px;border-radius:7px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
-.ab-confirm{background:var(--tg3);color:var(--tg2)}.ab-confirm:hover{background:var(--tg);color:#fff}
-.ab-deliver{background:var(--green2);color:var(--green)}.ab-deliver:hover{background:var(--green);color:#000}
-.ab-email{background:var(--purple2);color:#c084fc}.ab-email:hover{background:var(--purple);color:#fff}
-.ab-fail{background:var(--red2);color:var(--red)}.ab-fail:hover{background:var(--red);color:#fff}
+/* WALLETS */
+.w-row{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.w-row:last-child{border-bottom:none}
+.w-email{flex:1;font-size:.8rem;min-width:120px;word-break:break-all}
+.w-bal{font-family:'Playfair Display',serif;font-weight:800;font-size:.95rem;color:var(--green);min-width:70px;text-align:right}
+.w-acts{display:flex;gap:6px;align-items:center;margin-top:6px;flex-wrap:wrap}
+@media(min-width:700px){.w-acts{margin-top:0}}
+.w-inp{background:var(--s2);border:1px solid var(--line2);border-radius:8px;padding:6px 10px;color:var(--white);font-size:.78rem;width:75px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.w-inp:focus{border-color:var(--tg)}
+.wab{font-size:.72rem;font-weight:700;padding:6px 10px;border-radius:7px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.wab-cr{background:var(--green2);color:var(--green)}.wab-cr:hover{background:var(--green);color:#000}
+.wab-db{background:var(--red2);color:var(--red)}.wab-db:hover{background:var(--red);color:#fff}
 
-/* ── EMPTY ── */
-.empty-state{text-align:center;padding:44px 20px;color:var(--dim2)}
-.empty-icon{font-size:2.5rem;margin-bottom:10px;display:block}
+/* WITHDRAWAL REQUESTS */
+.wit-card{background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.wit-card:last-child{margin-bottom:0}
+.wit-top{margin-bottom:8px}
+.wit-email{font-weight:600;font-size:.82rem}
+.wit-info{font-size:.72rem;color:var(--dim2);margin-top:3px}
+.wit-addr{font-family:monospace;font-size:.69rem;color:var(--tg2);margin-top:3px;word-break:break-all}
+.wit-btns{display:flex;gap:7px}
+.w-app{background:var(--green2);color:var(--green);border:none;border-radius:8px;padding:7px 13px;font-size:.74rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.w-app:hover{background:var(--green);color:#000}
+.w-rej{background:var(--red2);color:var(--red);border:none;border-radius:8px;padding:7px 13px;font-size:.74rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.w-rej:hover{background:var(--red);color:#fff}
 
-/* ── EMAIL MODAL ── */
+/* SERVICES */
+.svc-mgr-row{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.svc-mgr-row:last-child{border-bottom:none}
+.svc-mgr-name{flex:1;font-size:.8rem;min-width:120px}
+.svc-cur-price{font-weight:700;color:var(--tg2);font-size:.82rem;min-width:55px}
+.sm-inp{background:var(--s2);border:1px solid var(--line2);border-radius:8px;padding:6px 9px;color:var(--white);font-size:.76rem;width:68px;font-family:'Outfit',sans-serif;outline:none}
+.sm-save{background:var(--tg3);border:1px solid rgba(42,171,238,.25);color:var(--tg2);padding:6px 11px;border-radius:7px;font-size:.71rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.sm-save:hover{background:var(--tg);color:#fff}
+.sm-tog{font-size:.71rem;font-weight:700;padding:5px 10px;border-radius:7px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.sm-on{background:var(--green2);color:var(--green)}.sm-on:hover{background:var(--green);color:#000}
+.sm-off{background:var(--red2);color:var(--red)}.sm-off:hover{background:var(--red);color:#fff}
+.disc-badge{background:var(--purple2);border:1px solid rgba(168,85,247,.25);color:#c084fc;font-size:.62rem;font-weight:700;padding:1px 7px;border-radius:99px;margin-left:4px}
+
+/* PROOFS */
+.proof-add{background:var(--s2);border:1px solid var(--line2);border-radius:14px;padding:16px;margin-bottom:16px;display:flex;flex-direction:column;gap:10px}
+.p-inp{width:100%;background:var(--s);border:1px solid var(--line2);border-radius:9px;padding:10px 13px;color:var(--white);font-size:.82rem;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.p-inp:focus{border-color:var(--tg)}
+.p-inp::placeholder{color:var(--dim2)}
+.p-add-btn{background:var(--tg);color:#fff;border:none;border-radius:9px;padding:10px 20px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;align-self:flex-start}
+.p-add-btn:hover{background:var(--tg2)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.proof-item{border-radius:12px;overflow:hidden;background:var(--s2);border:1px solid var(--line);position:relative}
+.proof-item img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.proof-item-lbl{padding:6px 8px;font-size:.68rem;color:var(--dim2)}
+.proof-del{position:absolute;top:6px;right:6px;background:rgba(239,68,68,.85);border:none;color:#fff;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.proof-del:hover{background:var(--red)}
+
+/* NOTIFICATIONS */
+.notif-form{background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px}
+.n-inp{width:100%;background:var(--s);border:1px solid var(--line2);border-radius:9px;padding:10px 13px;color:var(--white);font-size:.82rem;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.n-inp:focus{border-color:var(--tg)}
+.n-inp::placeholder{color:var(--dim2)}
+.n-ta{width:100%;background:var(--s);border:1px solid var(--line2);border-radius:9px;padding:10px 13px;color:var(--white);font-size:.82rem;font-family:'Outfit',sans-serif;outline:none;resize:vertical;min-height:80px;transition:border-color .2s}
+.n-ta:focus{border-color:var(--tg)}
+.n-row{display:flex;gap:8px}
+.n-sel{flex:1;background:var(--s);border:1px solid var(--line2);border-radius:9px;padding:9px 12px;color:var(--white);font-size:.78rem;font-family:'Outfit',sans-serif;outline:none;cursor:pointer}
+.n-send{flex:2;background:var(--tg);color:#fff;border:none;border-radius:9px;padding:10px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.n-send:hover{background:var(--tg2)}
+.notif-hist-item{background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.notif-hist-item:last-child{margin-bottom:0}
+.nh-title{font-size:.82rem;font-weight:600;margin-bottom:3px}
+.nh-to{font-size:.72rem;color:var(--dim2)}
+.nh-msg{font-size:.76rem;color:var(--dim2);margin-top:3px;line-height:1.5}
+.nh-time{font-size:.67rem;color:var(--dim);margin-top:4px}
+
+/* EMAIL MODAL */
 .modal-bg{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.72);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:20px}
 .modal-bg.open{display:flex}
 .modal-box{background:var(--s);border:1px solid var(--line2);border-radius:18px;padding:26px;width:100%;max-width:440px;position:relative}
-.modal-close{position:absolute;top:14px;right:14px;background:var(--line);border:none;color:var(--dim2);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--line);border:none;color:var(--dim2);width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .2s}
 .modal-close:hover{background:var(--line2);color:var(--white)}
 .modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;margin-bottom:3px;padding-right:36px}
 .modal-sub{color:var(--dim2);font-size:.78rem;margin-bottom:18px}
-.modal-label{font-size:.68rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:5px;display:block}
-.modal-input,.modal-ta{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:10px;padding:11px 14px;color:var(--white);font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;margin-bottom:13px;transition:border-color .2s}
-.modal-input:focus,.modal-ta:focus{border-color:var(--tg)}
-.modal-ta{resize:vertical;min-height:100px}
-.modal-send{width:100%;background:var(--tg);color:#fff;border:none;border-radius:10px;padding:12px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
-.modal-send:hover{background:var(--tg2)}
-.modal-send:disabled{opacity:.5;cursor:not-allowed}
+.m-lbl{display:block;font-size:.68rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:5px}
+.m-inp{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:10px;padding:11px 14px;color:var(--white);font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;margin-bottom:12px;transition:border-color .2s}
+.m-inp:focus{border-color:var(--tg)}
+.m-ta{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:10px;padding:11px 14px;color:var(--white);font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;margin-bottom:12px;resize:vertical;min-height:100px;transition:border-color .2s}
+.m-ta:focus{border-color:var(--tg)}
+.m-send{width:100%;background:var(--tg);color:#fff;border:none;border-radius:10px;padding:12px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
+.m-send:hover{background:var(--tg2)}
+.m-send:disabled{opacity:.5;cursor:not-allowed}
 
-/* ── NOTES ── */
-.note-area{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:var(--white);font-size:.8rem;font-family:'Outfit',sans-serif;outline:none;resize:none;min-height:70px;transition:border-color .2s}
-.note-area:focus{border-color:var(--tg)}
-.note-save{background:var(--tg3);border:1px solid rgba(42,171,238,.22);color:var(--tg2);padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;margin-top:7px}
-.note-save:hover{background:var(--tg);color:#fff}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
-  background:var(--s2);border:1px solid var(--line2);border-radius:10px;
-  padding:10px 20px;font-size:.82rem;font-weight:500;z-index:999;
-  opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+/* TOAST */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--s2);border:1px solid var(--line2);border-radius:10px;padding:10px 20px;font-size:.82rem;font-weight:500;z-index:999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.ok{border-color:rgba(34,197,94,.3);color:var(--green)}
 .toast.err{border-color:rgba(239,68,68,.3);color:var(--red)}
 
-/* ── ORDER DETAIL MODAL ── */
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.detail-item{background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
-.detail-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;color:var(--dim2);margin-bottom:3px;font-weight:600}
-.detail-val{font-size:.82rem;font-weight:500;word-break:break-all}
+/* EMPTY */
+.empty{text-align:center;padding:40px 20px;color:var(--dim2);font-size:.84rem}
+.empty-icon{font-size:2.2rem;display:block;margin-bottom:10px}
+
+.full{width:100%}
 </style>
 </head>
 <body>
 
-<!-- LOGIN PAGE -->
-<div class="login-page" id="loginPage">
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
   <div class="login-card">
-    <div class="login-brand">✈</div>
+    <div class="login-logo">✈</div>
     <div class="login-title">TGStar Admin</div>
-    <div class="login-sub">Enter your password to access the dashboard</div>
-    <input class="login-input" type="password" id="loginPass" placeholder="• • • • • • • •" onkeydown="if(event.key==='Enter')doLogin()"/>
-    <button class="login-btn" onclick="doLogin()">Sign In to Dashboard</button>
-    <div class="login-err" id="loginErr">Incorrect password. Please try again.</div>
+    <div class="login-sub">Enter your password to continue</div>
+    <input class="login-inp" type="password" id="loginPass" placeholder="• • • • • • • •" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
   </div>
 </div>
 
 <!-- DASHBOARD -->
 <div class="dash" id="dash">
   <div class="topbar">
-    <div class="tb-left">
-      <div class="tb-logo">TG<span>Star</span> Admin</div>
-      <div class="tb-pill">● Live</div>
-    </div>
+    <div class="tb-logo">✈ TG<span>Star</span> Admin <span class="tb-live">● Live</span></div>
     <div class="tb-right">
-      <div class="tb-time" id="tbTime"></div>
-      <button class="tb-refresh" onclick="loadAll()">↻ Refresh</button>
-      <button class="tb-signout" onclick="doLogout()">Sign Out</button>
+      <div class="tb-clock" id="clock"></div>
+      <button class="tb-btn" onclick="loadAll()">↻ Refresh</button>
+      <button class="tb-btn" onclick="toggleDark()" id="dmBtn">🌙</button>
+      <button class="tb-out" onclick="doLogout()">Sign Out</button>
     </div>
   </div>
 
   <div class="main">
-
-    <!-- GREETING -->
     <div class="greeting">
-      <div class="greeting-title" id="greetingText">Good morning 👋</div>
-      <div class="greeting-sub">Here's what's happening with <strong>TGStar</strong> today.</div>
+      <h2 id="greeting">Good morning 👋</h2>
+      <p>Here's what's happening with <strong>TGStar</strong> today.</p>
     </div>
 
-    <!-- STAT CARDS -->
-    <div class="stats-grid">
-      <div class="stat-card blue">
-        <div class="stat-icon blue">📦</div>
-        <div class="stat-label">Total Orders</div>
-        <div class="stat-val blue" id="stTotal">—</div>
-        <div class="stat-change" id="stTotalSub">All time</div>
-        <div class="stat-bar-wrap"><div class="stat-bar-fill" id="sbTotal" style="background:linear-gradient(90deg,var(--tg),var(--tg2));width:0%"></div></div>
-      </div>
-      <div class="stat-card yellow">
-        <div class="stat-icon yellow">⏳</div>
-        <div class="stat-label">Pending</div>
-        <div class="stat-val yellow" id="stPending">—</div>
-        <div class="stat-change">Awaiting verification</div>
-        <div class="stat-bar-wrap"><div class="stat-bar-fill" id="sbPending" style="background:var(--yellow);width:0%"></div></div>
-      </div>
-      <div class="stat-card green">
-        <div class="stat-icon green">🚀</div>
-        <div class="stat-label">Delivered</div>
-        <div class="stat-val green" id="stDelivered">—</div>
-        <div class="stat-change" id="stDeliveredPct">—% success rate</div>
-        <div class="stat-bar-wrap"><div class="stat-bar-fill" id="sbDelivered" style="background:var(--green);width:0%"></div></div>
-      </div>
-      <div class="stat-card purple">
-        <div class="stat-icon purple">💰</div>
-        <div class="stat-label">Revenue</div>
-        <div class="stat-val purple" id="stRevenue">—</div>
-        <div class="stat-change">From delivered orders</div>
-        <div class="stat-bar-wrap"><div class="stat-bar-fill" id="sbRevenue" style="background:var(--purple);width:0%"></div></div>
-      </div>
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab on" id="t0" onclick="goTab(0)">📊 Dashboard</button>
+      <button class="tab"    id="t1" onclick="goTab(1)">💰 Wallets</button>
+      <button class="tab"    id="t2" onclick="goTab(2)">🛍️ Services</button>
+      <button class="tab"    id="t3" onclick="goTab(3)">📸 Proofs</button>
+      <button class="tab"    id="t4" onclick="goTab(4)">🔔 Notifs<span class="badge" id="newBadge"></span></button>
     </div>
 
-    <!-- WIDGETS ROW 1 -->
-    <div class="three-col">
-
-      <!-- ORDERS THIS WEEK CHART -->
-      <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title">📈 Orders This Week</span>
+    <!-- ── PAGE 0: DASHBOARD ── -->
+    <div class="pg on" id="pg0">
+      <!-- STAT CARDS -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--tg3)">📦</div>
+          <div class="stat-lbl">Total Orders</div>
+          <div class="stat-val" style="color:var(--tg2)" id="sTotal">—</div>
+          <div class="stat-sub">All time</div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="sbTotal" style="background:var(--tg);width:0%"></div></div>
         </div>
-        <div class="panel-body">
-          <div class="bar-chart" id="weekChart">
-            <div style="color:var(--dim2);font-size:.78rem;text-align:center;width:100%">Loading…</div>
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--yellow2)">⏳</div>
+          <div class="stat-lbl">Pending</div>
+          <div class="stat-val" style="color:var(--yellow)" id="sPending">—</div>
+          <div class="stat-sub">Awaiting action</div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="sbPending" style="background:var(--yellow);width:0%"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--green2)">🚀</div>
+          <div class="stat-lbl">Delivered</div>
+          <div class="stat-val" style="color:var(--green)" id="sDelivered">—</div>
+          <div class="stat-sub" id="sDelivPct">—% success</div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="sbDelivered" style="background:var(--green);width:0%"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon" style="background:var(--purple2)">💵</div>
+          <div class="stat-lbl">Revenue</div>
+          <div class="stat-val" style="color:var(--purple)" id="sRevenue">—</div>
+          <div class="stat-sub">Delivered orders</div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="sbRevenue" style="background:var(--purple);width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <!-- WEEK CHART -->
+        <div class="panel">
+          <div class="panel-head">📈 Orders This Week</div>
+          <div class="panel-body"><div class="bar-chart" id="weekChart"></div></div>
+        </div>
+        <!-- REVENUE -->
+        <div class="panel">
+          <div class="panel-head">💵 Revenue Breakdown</div>
+          <div class="panel-body">
+            <div class="rev-big" id="revBig">$0.00</div>
+            <div class="rev-sub">From delivered orders</div>
+            <div id="revBreak"></div>
+          </div>
+        </div>
+        <!-- QUICK ACTIONS -->
+        <div class="panel">
+          <div class="panel-head">⚡ Quick Actions</div>
+          <div class="panel-body">
+            <div class="qa-grid">
+              <div class="qa" onclick="filterSet('Pending Payment')"><div class="qa-i">⏳</div><div class="qa-l">Pending</div></div>
+              <div class="qa" onclick="filterSet('Payment Confirmed')"><div class="qa-i">✅</div><div class="qa-l">To Deliver</div></div>
+              <div class="qa" onclick="openEmailBlast()"><div class="qa-i">📧</div><div class="qa-l">Broadcast</div></div>
+              <div class="qa" onclick="exportCSV()"><div class="qa-i">📥</div><div class="qa-l">Export CSV</div></div>
+              <div class="qa" onclick="filterSet('')"><div class="qa-i">📋</div><div class="qa-l">All Orders</div></div>
+              <div class="qa" onclick="loadAll()"><div class="qa-i">↻</div><div class="qa-l">Refresh</div></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- REVENUE BREAKDOWN -->
-      <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title">💵 Revenue Breakdown</span>
+      <div class="grid2">
+        <!-- SERVICE BREAKDOWN -->
+        <div class="panel">
+          <div class="panel-head">🛍️ Orders by Service</div>
+          <div class="panel-body"><div id="svcBreak"></div></div>
         </div>
-        <div class="panel-body">
-          <div class="revenue-big" id="revBig">$0.00</div>
-          <div class="revenue-sub">Total from delivered orders</div>
-          <div class="rev-breakdown" id="revBreakdown">
-            <div style="color:var(--dim2);font-size:.78rem">Loading…</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- QUICK ACTIONS -->
-      <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title">⚡ Quick Actions</span>
-        </div>
-        <div class="panel-body">
-          <div class="qa-grid">
-            <div class="qa-btn" onclick="filterAndScroll('Pending Payment')">
-              <div class="qa-icon">⏳</div>
-              <div class="qa-label">View Pending</div>
-            </div>
-            <div class="qa-btn" onclick="filterAndScroll('Payment Confirmed')">
-              <div class="qa-icon">✅</div>
-              <div class="qa-label">To Deliver</div>
-            </div>
-            <div class="qa-btn" onclick="openBlastModal()">
-              <div class="qa-icon">📧</div>
-              <div class="qa-label">Broadcast</div>
-            </div>
-            <div class="qa-btn" onclick="exportCSV()">
-              <div class="qa-icon">📥</div>
-              <div class="qa-label">Export CSV</div>
-            </div>
-            <div class="qa-btn" onclick="filterAndScroll('')">
-              <div class="qa-icon">📋</div>
-              <div class="qa-label">All Orders</div>
-            </div>
-            <div class="qa-btn" onclick="loadAll()">
-              <div class="qa-icon">↻</div>
-              <div class="qa-label">Refresh</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- WIDGETS ROW 2 -->
-    <div class="two-col">
-
-      <!-- SERVICE BREAKDOWN -->
-      <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title">🛍️ Orders by Service</span>
-        </div>
-        <div class="panel-body">
-          <div class="svc-breakdown" id="svcBreakdown">
-            <div style="color:var(--dim2);font-size:.78rem">Loading…</div>
-          </div>
+        <!-- ACTIVITY FEED -->
+        <div class="panel">
+          <div class="panel-head">🔔 Recent Activity</div>
+          <div class="panel-body" style="padding-top:8px"><div id="actFeed"></div></div>
         </div>
       </div>
 
-      <!-- ACTIVITY FEED -->
-      <div class="panel">
-        <div class="panel-head">
-          <span class="panel-title">🔔 Recent Activity</span>
-          <span class="panel-badge" id="actBadge">—</span>
-        </div>
-        <div class="panel-body" style="padding-top:8px">
-          <div class="activity-list" id="activityFeed">
-            <div style="color:var(--dim2);font-size:.78rem;padding:12px 0">Loading…</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ORDERS TABLE -->
-    <div style="margin-bottom:10px">
+      <!-- ORDERS TABLE -->
       <div class="controls">
-        <input class="search-box" id="searchBox" placeholder="🔍  Search order, email, username…" oninput="filterOrders()"/>
-        <select class="filter-sel" id="filterSel" onchange="filterOrders()">
+        <input class="s-inp" id="searchInp" placeholder="🔍  Search order, email, username…" oninput="filterOrders()"/>
+        <select class="f-sel" id="filterSel" onchange="filterOrders()">
           <option value="">All Statuses</option>
           <option value="Pending Payment">⏳ Pending</option>
           <option value="Payment Confirmed">✅ Confirmed</option>
@@ -409,13 +396,69 @@ html,body{height:100%;background:var(--bg);color:var(--white);font-family:'Outfi
           <option value="Failed">✕ Failed</option>
         </select>
       </div>
-      <div class="table-wrap">
-        <div class="t-head">
-          <div>Order ID</div><div>Customer</div><div>Service</div>
-          <div>Price</div><div>Crypto</div><div>Status</div><div>Actions</div>
+      <div class="tbl">
+        <div class="tbl-head"><div>Order ID</div><div>Customer</div><div>Service</div><div>Price</div><div>Crypto</div><div>Status</div><div>Actions</div></div>
+        <div id="ordersBody"><div class="empty"><span class="empty-icon">⏳</span>Loading orders…</div></div>
+      </div>
+    </div>
+
+    <!-- ── PAGE 1: WALLETS ── -->
+    <div class="pg" id="pg1">
+      <div class="grid2">
+        <div class="panel">
+          <div class="panel-head">💰 User Balances <button class="tb-btn" style="font-size:.7rem;padding:4px 10px" onclick="loadWallets()">↻</button></div>
+          <div class="panel-body-np"><div id="walletsList"><div class="empty">Loading…</div></div></div>
         </div>
-        <div id="ordersBody">
-          <div style="text-align:center;padding:32px;color:var(--dim2);font-size:.85rem">Loading orders…</div>
+        <div class="panel">
+          <div class="panel-head">⬆ Withdrawal Requests <button class="tb-btn" style="font-size:.7rem;padding:4px 10px" onclick="loadWithdrawals()">↻</button></div>
+          <div class="panel-body"><div id="witList"><div class="empty">Loading…</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE 2: SERVICES ── -->
+    <div class="pg" id="pg2">
+      <div class="panel">
+        <div class="panel-head">🛍️ Manage Services <span style="font-size:.72rem;color:var(--dim2);font-weight:400">Edit price, discount, toggle on/off</span></div>
+        <div class="panel-body-np"><div id="svcList"><div class="empty">Loading…</div></div></div>
+      </div>
+    </div>
+
+    <!-- ── PAGE 3: PROOFS ── -->
+    <div class="pg" id="pg3">
+      <div class="panel">
+        <div class="panel-head">📸 Proof Screenshots</div>
+        <div class="panel-body">
+          <div class="proof-add">
+            <input class="p-inp" id="pTitle" placeholder="Title — e.g. Account Unfrozen ✅"/>
+            <input class="p-inp" id="pUrl" placeholder="Image URL — e.g. https://i.imgur.com/abc.jpg"/>
+            <button class="p-add-btn" onclick="addProof()">+ Add Proof</button>
+          </div>
+          <div class="proof-grid" id="proofGrid"><div class="empty" style="grid-column:1/-1">Loading…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE 4: NOTIFICATIONS ── -->
+    <div class="pg" id="pg4">
+      <div class="grid2">
+        <div class="panel">
+          <div class="panel-head">📤 Send Notification</div>
+          <div class="panel-body">
+            <div class="notif-form">
+              <input class="n-inp" id="nEmail" placeholder="Customer email  or  all"/>
+              <input class="n-inp" id="nTitle" placeholder="Title — e.g. Order Delivered 🚀"/>
+              <textarea class="n-ta" id="nMsg" placeholder="Message…"></textarea>
+              <div class="n-row">
+                <select class="n-sel" id="nType"><option value="info">ℹ️ Info</option><option value="success">✅ Success</option><option value="warning">⚠️ Warning</option></select>
+                <button class="n-send" onclick="sendNotif()">Send →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">📜 Sent Notifications</div>
+          <div class="panel-body"><div id="notifHist"><div class="empty">Loading…</div></div></div>
         </div>
       </div>
     </div>
@@ -426,392 +469,427 @@ html,body{height:100%;background:var(--bg);color:var(--white);font-family:'Outfi
 <!-- EMAIL MODAL -->
 <div class="modal-bg" id="emailModal">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('emailModal')">✕</button>
+    <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-title">📧 Send Email</div>
     <div class="modal-sub" id="emailModalSub">—</div>
-    <label class="modal-label">To</label>
-    <input class="modal-input" id="emailTo" readonly/>
-    <label class="modal-label">Subject</label>
-    <input class="modal-input" id="emailSubject"/>
-    <label class="modal-label">Message</label>
-    <textarea class="modal-ta" id="emailBody"></textarea>
-    <button class="modal-send" id="emailSendBtn" onclick="sendEmail()">Send Email →</button>
+    <label class="m-lbl">To</label><input class="m-inp" id="emailTo" readonly/>
+    <label class="m-lbl">Subject</label><input class="m-inp" id="emailSubj"/>
+    <label class="m-lbl">Message</label><textarea class="m-ta" id="emailBody"></textarea>
+    <button class="m-send" id="emailSendBtn" onclick="sendEmail()">Send Email →</button>
   </div>
 </div>
 
-<!-- ORDER DETAIL MODAL -->
-<div class="modal-bg" id="detailModal">
-  <div class="modal-box" style="max-width:520px">
-    <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
-    <div class="modal-title">Order Details</div>
-    <div class="modal-sub" id="detailOrderId">—</div>
-    <div class="detail-grid" id="detailGrid"></div>
-    <label class="modal-label">Internal Notes</label>
-    <textarea class="note-area" id="noteArea" placeholder="Add notes about this order…"></textarea>
-    <button class="note-save" onclick="saveNote()">Save Note</button>
-  </div>
-</div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────
-const SB_URL = 'https://rlxiybhykwrdlyuapntr.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJseGl5Ymh5a3dyZGx5dWFwbnRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzgxOTYsImV4cCI6MjA5MjExNDE5Nn0.n_MOyjue5PIHvOHd0nmpp6R2LoJdb0Av84x9HXTsw4Y';
-const RESEND_KEY = 're_GWMoqmTv_FRiHExrNNzzTezHS8GL2JTji';
-const ADMIN_PASS = 'TGStar2025!'; // ← change this
+// ── CONFIG ────────────────────────────────────────────────────────────
+const SB  = 'https://rlxiybhykwrdlyuapntr.supabase.co';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJseGl5Ymh5a3dyZGx5dWFwbnRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzgxOTYsImV4cCI6MjA5MjExNDE5Nn0.n_MOyjue5PIHvOHd0nmpp6R2LoJdb0Av84x9HXTsw4Y';
+const RESEND = 're_GWMoqmTv_FRiHExrNNzzTezHS8GL2JTji';
+const PASS = 'TGStar2025!'; // ← change this to your own password
 
-// ── STATE ────────────────────────────────────────────────────────────
-let allOrders = [];
-let filteredOrders = [];
-let emailTargetOrder = null;
-let detailOrder = null;
+const H = {'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'};
 
-// ── LOGIN ────────────────────────────────────────────────────────────
+// ── STATE ─────────────────────────────────────────────────────────────
+let allOrders=[], filtered=[], emailTarget=null;
+
+// ── LOGIN ─────────────────────────────────────────────────────────────
 function doLogin(){
-  const p = document.getElementById('loginPass').value;
-  if(p === ADMIN_PASS){
-    document.getElementById('loginPage').style.display = 'none';
-    document.getElementById('dash').style.display = 'flex';
-    sessionStorage.setItem('tgs_admin','1');
-    loadAll();
-    startClock();
+  if(document.getElementById('loginPass').value===PASS){
+    document.getElementById('loginWrap').style.display='none';
+    document.getElementById('dash').style.display='flex';
+    sessionStorage.setItem('adm','1');
+    init();
   } else {
-    document.getElementById('loginErr').style.display = 'block';
-    document.getElementById('loginPass').value = '';
+    document.getElementById('loginErr').style.display='block';
+    document.getElementById('loginPass').value='';
   }
 }
-function doLogout(){
-  sessionStorage.removeItem('tgs_admin');
-  location.reload();
-}
-if(sessionStorage.getItem('tgs_admin')){
-  document.getElementById('loginPage').style.display = 'none';
-  document.getElementById('dash').style.display = 'flex';
-  loadAll(); startClock();
+function doLogout(){ sessionStorage.removeItem('adm'); location.reload(); }
+if(sessionStorage.getItem('adm')){ document.getElementById('loginWrap').style.display='none'; document.getElementById('dash').style.display='flex'; init(); }
+
+// ── INIT ──────────────────────────────────────────────────────────────
+function init(){
+  startClock(); loadAll();
+  setInterval(()=>{ if(sessionStorage.getItem('adm')){ loadAll(); checkPending(); } },60000);
 }
 
-// ── CLOCK ────────────────────────────────────────────────────────────
 function startClock(){
-  const el = document.getElementById('tbTime');
-  const tick = () => {
-    const now = new Date();
-    el.textContent = now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}) + ' · ' + now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-  };
-  tick(); setInterval(tick, 1000);
-  // Greeting
-  const h = new Date().getHours();
-  document.getElementById('greetingText').textContent = h<12?'Good morning 👋':h<17?'Good afternoon 👋':'Good evening 👋';
+  const el=document.getElementById('clock');
+  const h2=new Date().getHours();
+  document.getElementById('greeting').textContent=(h2<12?'Good morning 👋':h2<17?'Good afternoon 👋':'Good evening 👋');
+  setInterval(()=>{
+    const n=new Date();
+    el.textContent=n.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  },1000);
 }
 
-// ── LOAD ALL ────────────────────────────────────────────────────────
+// ── DARK MODE ─────────────────────────────────────────────────────────
+function toggleDark(){
+  const light=!document.body.classList.contains('light');
+  document.body.classList.toggle('light',light);
+  document.getElementById('dmBtn').textContent=light?'☀️':'🌙';
+  localStorage.setItem('adm_theme',light?'light':'dark');
+}
+(()=>{ if(localStorage.getItem('adm_theme')==='light'){ document.body.classList.add('light'); document.getElementById('dmBtn').textContent='☀️'; } })();
+
+// ── TABS ──────────────────────────────────────────────────────────────
+let curTab=0;
+function goTab(n){
+  [0,1,2,3,4].forEach(i=>{
+    document.getElementById('t'+i).classList.toggle('on',i===n);
+    document.getElementById('pg'+i).classList.toggle('on',i===n);
+  });
+  curTab=n;
+  if(n===1){ loadWallets(); loadWithdrawals(); }
+  if(n===2) loadServices();
+  if(n===3) loadProofs();
+  if(n===4){ loadNotifHist(); }
+}
+
+// ── LOAD ALL ──────────────────────────────────────────────────────────
 async function loadAll(){
   try{
-    const r = await fetch(SB_URL+'/rest/v1/orders?select=*&order=created_at.desc', {
-      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-    });
-    allOrders = await r.json() || [];
-    updateStats();
-    renderWeekChart();
-    renderRevBreakdown();
-    renderSvcBreakdown();
-    renderActivity();
-    filterOrders();
-    document.getElementById('tbTime') && (document.getElementById('tbTime').style.opacity = '1');
-  }catch(e){
-    document.getElementById('ordersBody').innerHTML = '<div style="text-align:center;padding:28px;color:#f87171;font-size:.82rem">Failed to load. Check Supabase setup.</div>';
-  }
+    const r=await fetch(SB+'/rest/v1/orders?select=*&order=created_at.desc',{headers:H});
+    allOrders=await r.json()||[];
+    updateStats(); renderWeek(); renderRevBreak(); renderSvcBreak(); renderActivity(); filterOrders(); checkPending();
+  }catch(e){ document.getElementById('ordersBody').innerHTML='<div class="empty" style="color:#f87171">Failed to load. Check Supabase setup.</div>'; }
 }
 
-// ── STATS ────────────────────────────────────────────────────────────
+async function checkPending(){
+  try{
+    const r=await fetch(SB+'/rest/v1/orders?status=eq.Pending Payment&select=id',{headers:H});
+    const d=await r.json()||[];
+    document.getElementById('newBadge').classList.toggle('show',d.length>0);
+  }catch(e){}
+}
+
+// ── STATS ─────────────────────────────────────────────────────────────
 function updateStats(){
-  const total = allOrders.length;
-  const pending = allOrders.filter(o=>o.status==='Pending Payment').length;
-  const confirmed = allOrders.filter(o=>o.status==='Payment Confirmed').length;
-  const delivered = allOrders.filter(o=>o.status==='Delivered').length;
-  const revenue = allOrders.filter(o=>o.status==='Delivered').reduce((sum,o)=>{
-    return sum + parseFloat((o.price||'0').replace('$','').replace(',',''));
-  }, 0);
-
-  document.getElementById('stTotal').textContent = total;
-  document.getElementById('stPending').textContent = pending + confirmed;
-  document.getElementById('stDelivered').textContent = delivered;
-  document.getElementById('stRevenue').textContent = '$' + revenue.toFixed(2);
-  document.getElementById('stDeliveredPct').textContent = total > 0 ? Math.round(delivered/total*100) + '% success rate' : '0% success rate';
-
-  // progress bars
-  const pct = v => Math.min(100, total > 0 ? Math.round(v/total*100) : 0);
-  document.getElementById('sbTotal').style.width = '100%';
-  document.getElementById('sbPending').style.width = pct(pending+confirmed) + '%';
-  document.getElementById('sbDelivered').style.width = pct(delivered) + '%';
-  document.getElementById('sbRevenue').style.width = Math.min(100, (revenue/500)*100) + '%';
+  const t=allOrders.length;
+  const p=allOrders.filter(o=>o.status==='Pending Payment').length;
+  const c=allOrders.filter(o=>o.status==='Payment Confirmed').length;
+  const d=allOrders.filter(o=>o.status==='Delivered').length;
+  const rev=allOrders.filter(o=>o.status==='Delivered').reduce((s,o)=>s+parseFloat((o.price||'0').replace('$','')),0);
+  document.getElementById('sTotal').textContent=t;
+  document.getElementById('sPending').textContent=p+c;
+  document.getElementById('sDelivered').textContent=d;
+  document.getElementById('sRevenue').textContent='$'+rev.toFixed(2);
+  document.getElementById('sDelivPct').textContent=(t>0?Math.round(d/t*100):0)+'% success';
+  const pct=v=>Math.min(100,t>0?Math.round(v/t*100):0);
+  document.getElementById('sbTotal').style.width='100%';
+  document.getElementById('sbPending').style.width=pct(p+c)+'%';
+  document.getElementById('sbDelivered').style.width=pct(d)+'%';
+  document.getElementById('sbRevenue').style.width=Math.min(100,(rev/500)*100)+'%';
 }
 
-// ── WEEK CHART ───────────────────────────────────────────────────────
-function renderWeekChart(){
-  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const counts = Array(7).fill(0);
-  const today = new Date();
-  allOrders.forEach(o=>{
-    const d = new Date(o.created_at);
-    const diff = Math.floor((today - d) / 86400000);
-    if(diff < 7) counts[6 - diff]++;
-  });
-  const max = Math.max(...counts, 1);
-  // rotate to start from today-6
-  const todayIdx = today.getDay();
-  const ordered = Array.from({length:7},(_,i)=>{
-    const di = (todayIdx - 6 + i + 7) % 7;
-    return {day:days[di], count:counts[i]};
-  });
-  document.getElementById('weekChart').innerHTML = ordered.map(d=>`
-    <div class="bar-col">
-      <div style="font-size:.68rem;color:var(--dim2);margin-bottom:3px">${d.count||''}</div>
-      <div class="bar-fill" style="height:${Math.round((d.count/max)*56)+4}px;width:100%"></div>
-      <div class="bar-label">${d.day}</div>
-    </div>`).join('');
+// ── WEEK CHART ────────────────────────────────────────────────────────
+function renderWeek(){
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const counts=Array(7).fill(0);
+  const today=new Date();
+  allOrders.forEach(o=>{ const diff=Math.floor((today-new Date(o.created_at))/86400000); if(diff<7) counts[6-diff]++; });
+  const max=Math.max(...counts,1);
+  const todayIdx=today.getDay();
+  const ordered=Array.from({length:7},(_,i)=>{ const di=(todayIdx-6+i+7)%7; return {day:days[di],cnt:counts[i]}; });
+  document.getElementById('weekChart').innerHTML=ordered.map(d=>`<div class="bc"><div style="font-size:.65rem;color:var(--dim2);margin-bottom:3px">${d.cnt||''}</div><div class="bc-fill" style="height:${Math.round(d.cnt/max*56)+4}px"></div><div class="bc-lbl">${d.day}</div></div>`).join('');
 }
 
-// ── REVENUE BREAKDOWN ────────────────────────────────────────────────
-function renderRevBreakdown(){
-  const svcRevenue = {};
-  allOrders.filter(o=>o.status==='Delivered').forEach(o=>{
-    const amt = parseFloat((o.price||'0').replace('$','').replace(',',''));
-    svcRevenue[o.service] = (svcRevenue[o.service]||0) + amt;
-  });
-  const total = Object.values(svcRevenue).reduce((a,b)=>a+b,0);
-  document.getElementById('revBig').textContent = '$' + total.toFixed(2);
-  const colors = ['#2AABEE','#22c55e','#a855f7','#f59e0b','#ef4444','#54C0F7'];
-  const entries = Object.entries(svcRevenue).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  if(!entries.length){document.getElementById('revBreakdown').innerHTML='<div style="color:var(--dim2);font-size:.78rem">No delivered orders yet.</div>';return}
-  document.getElementById('revBreakdown').innerHTML = entries.map(([name,amt],i)=>`
-    <div class="rev-row">
-      <div class="rev-dot" style="background:${colors[i%colors.length]}"></div>
-      <div class="rev-name">${name.replace('Telegram ','')}</div>
-      <div class="rev-bar-bg"><div class="rev-bar" style="width:${total>0?Math.round(amt/total*100):0}%;background:${colors[i%colors.length]}"></div></div>
-      <div class="rev-amount">$${amt.toFixed(2)}</div>
-    </div>`).join('');
+// ── REVENUE BREAKDOWN ─────────────────────────────────────────────────
+function renderRevBreak(){
+  const map={};
+  allOrders.filter(o=>o.status==='Delivered').forEach(o=>{ const a=parseFloat((o.price||'0').replace('$','')); map[o.service]=(map[o.service]||0)+a; });
+  const total=Object.values(map).reduce((a,b)=>a+b,0);
+  document.getElementById('revBig').textContent='$'+total.toFixed(2);
+  const colors=['#2AABEE','#22c55e','#a855f7','#f59e0b','#ef4444'];
+  const entries=Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  document.getElementById('revBreak').innerHTML=entries.length?entries.map(([n,a],i)=>`<div class="rev-row"><div class="rev-dot" style="background:${colors[i%5]}"></div><div class="rev-lbl">${n.replace('Telegram ','')}</div><div class="rev-bar-bg"><div class="rev-bar-f" style="width:${total>0?Math.round(a/total*100):0}%;background:${colors[i%5]}"></div></div><div class="rev-amt">$${a.toFixed(2)}</div></div>`).join(''):'<div style="color:var(--dim2);font-size:.78rem">No delivered orders yet.</div>';
 }
 
-// ── SERVICE BREAKDOWN ────────────────────────────────────────────────
-function renderSvcBreakdown(){
-  const counts = {};
-  allOrders.forEach(o=>{ counts[o.service] = (counts[o.service]||0) + 1; });
-  const total = allOrders.length;
-  const icons = {'Telegram Stars':'⭐','Telegram Premium':'💎','Telegram Unfreeze':'🔓','Telegram Unban':'🛡️','Recover Channel':'📢'};
-  const colors = ['#2AABEE','#22c55e','#a855f7','#f59e0b','#ef4444'];
-  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  if(!entries.length){document.getElementById('svcBreakdown').innerHTML='<div style="color:var(--dim2);font-size:.78rem">No orders yet.</div>';return}
-  document.getElementById('svcBreakdown').innerHTML = entries.map(([name,cnt],i)=>`
-    <div class="svc-row">
-      <div class="svc-icon">${icons[name]||'📦'}</div>
-      <div class="svc-name">${name}</div>
-      <div class="svc-bar-bg"><div class="svc-bar-fill" style="width:${total>0?Math.round(cnt/total*100):0}%;background:${colors[i%colors.length]}"></div></div>
-      <div class="svc-count">${cnt}</div>
-      <div class="svc-pct">${total>0?Math.round(cnt/total*100):0}%</div>
-    </div>`).join('');
+// ── SVC BREAKDOWN ─────────────────────────────────────────────────────
+function renderSvcBreak(){
+  const map={},icons={'Telegram Stars':'⭐','Telegram Premium':'💎','Telegram Unfreeze':'🔓','Telegram Unban':'🛡️','Recover Channel':'📢'};
+  allOrders.forEach(o=>map[o.service]=(map[o.service]||0)+1);
+  const t=allOrders.length,colors=['#2AABEE','#22c55e','#a855f7','#f59e0b','#ef4444'];
+  const entries=Object.entries(map).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('svcBreak').innerHTML=entries.length?entries.map(([n,c],i)=>`<div class="svc-row"><span style="font-size:.95rem;width:20px">${icons[n]||'📦'}</span><div class="svc-lbl">${n}</div><div class="svc-bar-bg"><div class="svc-bar-f" style="width:${t>0?Math.round(c/t*100):0}%;background:${colors[i%5]}"></div></div><div class="svc-cnt">${c}</div><div class="svc-pct">${t>0?Math.round(c/t*100):0}%</div></div>`).join(''):'<div style="color:var(--dim2);font-size:.78rem">No orders yet.</div>';
 }
 
-// ── ACTIVITY FEED ────────────────────────────────────────────────────
+// ── ACTIVITY FEED ─────────────────────────────────────────────────────
 function renderActivity(){
-  const recent = allOrders.slice(0, 8);
-  document.getElementById('actBadge').textContent = recent.length;
-  if(!recent.length){document.getElementById('activityFeed').innerHTML='<div style="color:var(--dim2);font-size:.78rem;padding:8px 0">No activity yet.</div>';return}
-  const dotColor = s => s.includes('Pending')?'var(--yellow)':s.includes('Confirmed')?'var(--tg)':s.includes('Delivered')?'var(--green)':'var(--red)';
-  document.getElementById('activityFeed').innerHTML = recent.map((o,i)=>`
-    <div class="act-item">
-      <div class="act-dot-wrap">
-        <div class="act-dot" style="background:${dotColor(o.status)}"></div>
-        ${i<recent.length-1?'<div class="act-line"></div>':''}
-      </div>
-      <div class="act-content">
-        <div class="act-title">${o.service} — ${o.variant} <span class="act-badge sbadge ${sClass(o.status)}" style="font-size:.6rem">${sIcon(o.status)} ${o.status}</span></div>
-        <div class="act-meta">${o.telegram_account} · ${timeAgo(o.created_at)}</div>
-      </div>
-    </div>`).join('');
+  const recent=allOrders.slice(0,8);
+  const dc=s=>s.includes('Pending')?'var(--yellow)':s.includes('Confirmed')?'var(--tg)':s.includes('Delivered')?'var(--green)':'var(--red)';
+  document.getElementById('actFeed').innerHTML=recent.length?recent.map(o=>`<div class="act-item"><div class="act-dot" style="background:${dc(o.status)};margin-top:4px;flex-shrink:0"></div><div class="act-body"><div class="act-title">${o.service} — ${o.variant}</div><div class="act-meta">${o.telegram_account} · ${timeAgo(o.created_at)}</div></div></div>`).join(''):'<div style="color:var(--dim2);font-size:.78rem">No activity yet.</div>';
 }
+function timeAgo(iso){ const d=(Date.now()-new Date(iso))/1000; return d<60?'just now':d<3600?Math.floor(d/60)+'m ago':d<86400?Math.floor(d/3600)+'h ago':Math.floor(d/86400)+'d ago'; }
 
-function timeAgo(iso){
-  const diff = (Date.now() - new Date(iso)) / 1000;
-  if(diff < 60) return 'just now';
-  if(diff < 3600) return Math.floor(diff/60) + 'm ago';
-  if(diff < 86400) return Math.floor(diff/3600) + 'h ago';
-  return Math.floor(diff/86400) + 'd ago';
-}
-
-// ── ORDER TABLE ───────────────────────────────────────────────────────
+// ── ORDERS TABLE ──────────────────────────────────────────────────────
 function filterOrders(){
-  const q = document.getElementById('searchBox').value.toLowerCase();
-  const st = document.getElementById('filterSel').value;
-  filteredOrders = allOrders.filter(o=>{
-    const mq = !q || [o.order_id,o.customer_email,o.telegram_account,o.service,o.variant].join(' ').toLowerCase().includes(q);
-    const ms = !st || o.status === st;
-    return mq && ms;
-  });
+  const q=document.getElementById('searchInp').value.toLowerCase();
+  const st=document.getElementById('filterSel').value;
+  filtered=allOrders.filter(o=>(!q||[o.order_id,o.customer_email,o.telegram_account,o.service].join(' ').toLowerCase().includes(q))&&(!st||o.status===st));
   renderOrders();
 }
-
-function filterAndScroll(status){
-  document.getElementById('filterSel').value = status;
-  filterOrders();
-  document.getElementById('ordersBody').scrollIntoView({behavior:'smooth'});
-}
+function filterSet(st){ document.getElementById('filterSel').value=st; filterOrders(); document.getElementById('ordersBody').scrollIntoView({behavior:'smooth'}); }
 
 function renderOrders(){
-  if(!filteredOrders.length){
-    document.getElementById('ordersBody').innerHTML = `<div class="empty-state"><span class="empty-icon">📭</span>No orders found.</div>`;
-    return;
-  }
-  document.getElementById('ordersBody').innerHTML = filteredOrders.map(o=>`
+  if(!filtered.length){ document.getElementById('ordersBody').innerHTML='<div class="empty"><span class="empty-icon">📭</span>No orders found.</div>'; return; }
+  document.getElementById('ordersBody').innerHTML=filtered.map(o=>`
     <div class="o-row">
-      <div class="cell"><span class="cell-lbl">Order ID</span><div class="oid">${o.order_id}</div><div class="odate">${new Date(o.created_at).toLocaleDateString()}</div></div>
-      <div class="cell"><span class="cell-lbl">Customer</span><div class="oname">${o.telegram_account}</div><div class="oemail">${o.customer_email}</div><div class="oacct">${o.account_type||''}</div></div>
-      <div class="cell"><span class="cell-lbl">Service</span><div class="osvc">${o.service}</div><div class="ovar">${o.variant}</div></div>
-      <div class="cell"><span class="cell-lbl">Price</span><div class="oprice">${o.price}${o.promo_code&&o.promo_code!=='None'?`<span class="opromo">${o.promo_code}</span>`:''}</div></div>
-      <div class="cell"><span class="cell-lbl">Crypto</span><div style="font-size:.78rem">${o.token||'—'}</div><div style="font-size:.67rem;color:var(--dim2)">${o.network||'—'}</div></div>
-      <div class="cell"><span class="cell-lbl">Status</span><span class="sbadge ${sClass(o.status)}">${sIcon(o.status)} ${o.status}</span></div>
+      <div class="cell"><span class="clbl">Order ID</span><div class="oid">${o.order_id}</div><div style="font-size:.63rem;color:var(--dim2)">${new Date(o.created_at).toLocaleDateString()}</div></div>
+      <div class="cell"><span class="clbl">Customer</span><div style="font-weight:600;font-size:.8rem">${o.telegram_account}</div><div style="font-size:.7rem;color:var(--dim2)">${o.customer_email}</div></div>
+      <div class="cell"><span class="clbl">Service</span><div style="font-weight:500;font-size:.8rem">${o.service}</div><div style="font-size:.7rem;color:var(--dim2)">${o.variant}</div></div>
+      <div class="cell"><span class="clbl">Price</span><div style="font-weight:700;color:var(--tg2)">${o.price}${o.promo_code&&o.promo_code!=='None'?`<span style="background:var(--purple2);color:#c084fc;font-size:.6rem;font-weight:700;padding:1px 5px;border-radius:99px;margin-left:3px">${o.promo_code}</span>`:''}</div></div>
+      <div class="cell"><span class="clbl">Crypto</span><div style="font-size:.76rem">${o.token||'—'}</div><div style="font-size:.66rem;color:var(--dim2)">${o.network||'—'}</div></div>
+      <div class="cell"><span class="clbl">Status</span><span class="sbadge ${sc(o.status)}">${si(o.status)} ${o.status}</span></div>
       <div class="cell">
-        <div class="actions">
-          <button class="ab ab-confirm" onclick="event.stopPropagation();updateStatus('${o.id}','Payment Confirmed','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')" ${o.status==='Pending Payment'?'':'style="display:none"'}>✓ Confirm</button>
-          <button class="ab ab-deliver" onclick="event.stopPropagation();updateStatus('${o.id}','Delivered','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')" ${o.status==='Payment Confirmed'?'':'style="display:none"'}>🚀 Deliver</button>
-          <button class="ab ab-email" onclick="event.stopPropagation();openEmailModal('${o.id}')">✉ Email</button>
-          <button class="ab ab-fail" onclick="event.stopPropagation();updateStatus('${o.id}','Failed','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')" ${o.status==='Failed'?'style="display:none"':''}>✕</button>
+        <div class="acts">
+          ${o.status==='Pending Payment'?`<button class="ab ab-c" onclick="updStatus('${o.id}','Payment Confirmed','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')">✓</button>`:''}
+          ${o.status==='Payment Confirmed'?`<button class="ab ab-d" onclick="updStatus('${o.id}','Delivered','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')">🚀</button>`:''}
+          <button class="ab ab-e" onclick="openEmail('${o.id}')">✉</button>
+          ${o.status!=='Failed'?`<button class="ab ab-f" onclick="updStatus('${o.id}','Failed','${o.order_id}','${o.customer_email}','${o.telegram_account}','${o.service}')">✕</button>`:''}
         </div>
       </div>
     </div>`).join('');
 }
 
-function sClass(s){
-  if(!s||s.includes('Pending')) return 'pending';
-  if(s.includes('Confirmed')) return 'confirmed';
-  if(s.includes('Delivered')) return 'delivered';
-  return 'failed';
-}
-function sIcon(s){
-  if(!s||s.includes('Pending')) return '⏳';
-  if(s.includes('Confirmed')) return '✅';
-  if(s.includes('Delivered')) return '🚀';
-  return '✕';
+function sc(s){ if(!s||s.includes('Pending'))return'pending'; if(s.includes('Confirmed'))return'confirmed'; if(s.includes('Delivered'))return'delivered'; return'failed'; }
+function si(s){ if(!s||s.includes('Pending'))return'⏳'; if(s.includes('Confirmed'))return'✅'; if(s.includes('Delivered'))return'🚀'; return'✕'; }
+
+async function updStatus(id,ns,oid,email,account,service){
+  try{
+    await fetch(SB+'/rest/v1/orders?id=eq.'+id,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({status:ns})});
+    if(ns==='Payment Confirmed') await autoEmail(email,oid,account,service,'✅ Payment Confirmed — '+oid,`Hi,\n\nYour payment for ${service} (${oid}) is confirmed.\nAccount: ${account}\n\nWe are now processing your order.\n\nTGStar Support`);
+    if(ns==='Delivered') await autoEmail(email,oid,account,service,'🚀 Order Delivered — '+oid,`Hi,\n\nYour order has been delivered!\n\nService: ${service}\nOrder ID: ${oid}\nAccount: ${account}\n\nThank you for choosing TGStar!\n\nTGStar Support`);
+    toast('Updated to "'+ns+'"','ok'); loadAll();
+  }catch(e){ toast('Update failed','err'); }
 }
 
-// ── UPDATE STATUS ────────────────────────────────────────────────────
-async function updateStatus(id, newStatus, orderId, email, account, service){
-  try{
-    await fetch(SB_URL+'/rest/v1/orders?id=eq.'+id,{
-      method:'PATCH',
-      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({status:newStatus})
-    });
-    if(newStatus==='Payment Confirmed'){
-      await sendAutoEmail(email,orderId,account,service,'✅ Payment Confirmed — '+orderId,
-        `Hi,\n\nYour payment for ${service} (${orderId}) has been confirmed.\nWe are now processing your order.\n\nAccount: ${account}\n\nYou'll receive another update once delivered.\n\nTGStar Support`);
-    }
-    if(newStatus==='Delivered'){
-      await sendAutoEmail(email,orderId,account,service,'🚀 Order Delivered — '+orderId,
-        `Hi,\n\nYour order has been successfully delivered!\n\nService: ${service}\nOrder ID: ${orderId}\nAccount: ${account}\n\nThank you for choosing TGStar!\n\nFor questions, contact us on WhatsApp.\n\nTGStar Support`);
-    }
-    toast('Status updated to "'+newStatus+'"','ok');
-    loadAll();
-  }catch(e){ toast('Failed to update status','err') }
-}
-
-async function sendAutoEmail(to,orderId,account,service,subject,body){
-  try{
-    await fetch('https://api.resend.com/emails',{
-      method:'POST',
-      headers:{'Authorization':'Bearer '+RESEND_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({from:'TGStar <onboarding@resend.dev>',to:[to],subject,text:body})
-    });
-  }catch(e){}
+async function autoEmail(to,oid,account,service,subject,body){
+  try{ await fetch('https://api.resend.com/emails',{method:'POST',headers:{'Authorization':'Bearer '+RESEND,'Content-Type':'application/json'},body:JSON.stringify({from:'TGStar <onboarding@resend.dev>',to:[to],subject,text:body})}); }catch(e){}
 }
 
 // ── EMAIL MODAL ───────────────────────────────────────────────────────
-function openEmailModal(orderId){
-  const o = allOrders.find(x=>x.id===orderId);
-  if(!o) return;
-  emailTargetOrder = o;
-  document.getElementById('emailModalSub').textContent = 'To: '+o.customer_email+' · '+o.order_id;
-  document.getElementById('emailTo').value = o.customer_email;
-  document.getElementById('emailSubject').value = 'Re: Your TGStar Order '+o.order_id;
-  document.getElementById('emailBody').value = `Hi,\n\nThank you for your order with TGStar.\n\nOrder ID: ${o.order_id}\nService: ${o.service} — ${o.variant}\nAccount: ${o.telegram_account}\n\n[Write your message here]\n\nTGStar Support`;
-  openModal('emailModal');
+function openEmail(id){
+  const o=allOrders.find(x=>x.id===id); if(!o) return;
+  emailTarget=o;
+  document.getElementById('emailModalSub').textContent='To: '+o.customer_email+' · '+o.order_id;
+  document.getElementById('emailTo').value=o.customer_email;
+  document.getElementById('emailSubj').value='Re: Your TGStar Order '+o.order_id;
+  document.getElementById('emailBody').value=`Hi,\n\nThank you for your order.\n\nOrder ID: ${o.order_id}\nService: ${o.service} — ${o.variant}\nAccount: ${o.telegram_account}\n\n[Write your message here]\n\nTGStar Support`;
+  document.getElementById('emailModal').classList.add('open');
 }
-
+function openEmailBlast(){
+  emailTarget=null;
+  document.getElementById('emailModalSub').textContent='Broadcast to all customers';
+  document.getElementById('emailTo').value='(all customers)';
+  document.getElementById('emailSubj').value='Update from TGStar';
+  document.getElementById('emailBody').value='Hi,\n\n[Your message here]\n\nTGStar Support';
+  document.getElementById('emailModal').classList.add('open');
+}
 async function sendEmail(){
-  const to = document.getElementById('emailTo').value.trim();
-  const subject = document.getElementById('emailSubject').value.trim();
-  const body = document.getElementById('emailBody').value.trim();
-  if(!subject||!body){toast('Subject and message required','err');return}
-  const btn = document.getElementById('emailSendBtn');
-  btn.disabled=true; btn.textContent='Sending…';
+  const to=document.getElementById('emailTo').value;
+  const subj=document.getElementById('emailSubj').value.trim();
+  const body=document.getElementById('emailBody').value.trim();
+  if(!subj||!body){ toast('Fill in subject and message','err'); return; }
+  const btn=document.getElementById('emailSendBtn'); btn.disabled=true; btn.textContent='Sending…';
   try{
-    const r = await fetch('https://api.resend.com/emails',{
-      method:'POST',
-      headers:{'Authorization':'Bearer '+RESEND_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({from:'TGStar <onboarding@resend.dev>',to:[to],subject,text:body})
-    });
-    if(!r.ok) throw new Error();
-    toast('Email sent ✓','ok');
-    closeModal('emailModal');
-  }catch(e){ toast('Failed to send email','err') }
-  finally{btn.disabled=false;btn.textContent='Send Email →'}
+    await fetch('https://api.resend.com/emails',{method:'POST',headers:{'Authorization':'Bearer '+RESEND,'Content-Type':'application/json'},body:JSON.stringify({from:'TGStar <onboarding@resend.dev>',to:[emailTarget?.customer_email||'support@tgstar.me'],subject:subj,text:body})});
+    toast('Email sent ✓','ok'); closeModal();
+  }catch(e){ toast('Email failed','err'); }
+  finally{ btn.disabled=false; btn.textContent='Send Email →'; }
 }
+function closeModal(){ document.getElementById('emailModal').classList.remove('open'); emailTarget=null; }
+document.getElementById('emailModal').addEventListener('click',e=>{ if(e.target===document.getElementById('emailModal')) closeModal(); });
 
 // ── EXPORT CSV ────────────────────────────────────────────────────────
 function exportCSV(){
-  const headers = ['Order ID','Service','Variant','Price','Email','Account','Account Type','Promo','Token','Network','Status','Created'];
-  const rows = allOrders.map(o=>[
-    o.order_id,o.service,o.variant,o.price,o.customer_email,
-    o.telegram_account,o.account_type,o.promo_code,
-    o.token,o.network,o.status,new Date(o.created_at).toLocaleString()
-  ].map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
-  const csv = [headers.join(','),...rows].join('\n');
-  const blob = new Blob([csv],{type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'tgstar_orders_'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click();
+  const h=['Order ID','Service','Variant','Price','Email','Account','Account Type','Promo','Token','Network','Status','Date'];
+  const rows=allOrders.map(o=>[o.order_id,o.service,o.variant,o.price,o.customer_email,o.telegram_account,o.account_type,o.promo_code,o.token,o.network,o.status,new Date(o.created_at).toLocaleString()].map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(','));
+  const csv=[h.join(','),...rows].join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='tgstar_orders_'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
   toast('CSV exported ✓','ok');
 }
 
-// ── NOTES ────────────────────────────────────────────────────────────
-async function saveNote(){
-  if(!detailOrder) return;
-  const note = document.getElementById('noteArea').value;
+// ── WALLETS ───────────────────────────────────────────────────────────
+async function loadWallets(){
   try{
-    await fetch(SB_URL+'/rest/v1/orders?id=eq.'+detailOrder.id,{
-      method:'PATCH',
-      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({notes:note})
-    });
-    toast('Note saved ✓','ok');
-  }catch(e){toast('Failed to save note','err')}
+    const r=await fetch(SB+'/rest/v1/wallets?select=*&order=balance_usdt.desc',{headers:H});
+    const data=await r.json()||[];
+    const el=document.getElementById('walletsList');
+    if(!data.length){ el.innerHTML='<div class="empty">No wallets yet. Users appear here after signing in.</div>'; return; }
+    el.innerHTML=data.map(w=>`
+      <div class="w-row">
+        <div class="w-email">${w.email}</div>
+        <div class="w-bal">$${parseFloat(w.balance_usdt).toFixed(2)}</div>
+        <div class="w-acts">
+          <input class="w-inp" id="wa-${w.id}" type="number" placeholder="$" min="0.01" step="0.01"/>
+          <button class="wab wab-cr" onclick="adjWallet('${w.id}','${w.user_id}','${w.email}','credit')">+ Credit</button>
+          <button class="wab wab-db" onclick="adjWallet('${w.id}','${w.user_id}','${w.email}','debit')">− Debit</button>
+        </div>
+      </div>`).join('');
+  }catch(e){ document.getElementById('walletsList').innerHTML='<div class="empty" style="color:#f87171">Failed to load wallets.</div>'; }
 }
 
-// ── MODALS ────────────────────────────────────────────────────────────
-function openModal(id){document.getElementById(id).classList.add('open')}
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+async function adjWallet(wid,uid,email,type){
+  const amt=parseFloat(document.getElementById('wa-'+wid)?.value||0);
+  if(!amt||amt<=0){ toast('Enter a valid amount','err'); return; }
+  try{
+    const r=await fetch(SB+'/rest/v1/wallets?id=eq.'+wid+'&select=balance_usdt',{headers:H});
+    const cur=parseFloat((await r.json())?.[0]?.balance_usdt||0);
+    const newBal=type==='credit'?cur+amt:Math.max(0,cur-amt);
+    await fetch(SB+'/rest/v1/wallets?id=eq.'+wid,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({balance_usdt:newBal})});
+    await fetch(SB+'/rest/v1/transactions',{method:'POST',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({user_id:uid,email,type,amount_usdt:amt,description:'Admin '+(type==='credit'?'credit':'debit')+' — $'+amt.toFixed(2),status:'approved'})});
+    await sendNotifDB(uid,email,type==='credit'?'success':'info',type==='credit'?'Balance Credited 💰':'Balance Adjusted',type==='credit'?`$${amt.toFixed(2)} USDT has been credited to your account. New balance: $${newBal.toFixed(2)} USDT.`:`$${amt.toFixed(2)} USDT has been debited from your account. New balance: $${newBal.toFixed(2)} USDT.`);
+    toast(type==='credit'?'+$'+amt.toFixed(2)+' credited':'-$'+amt.toFixed(2)+' debited','ok');
+    loadWallets();
+  }catch(e){ toast('Failed to adjust wallet','err'); }
+}
 
-function openBlastModal(){
-  document.getElementById('emailModalSub').textContent='Broadcast to all customers';
-  document.getElementById('emailTo').value='(all customers)';
-  document.getElementById('emailSubject').value='Update from TGStar';
-  document.getElementById('emailBody').value='Hi,\n\n[Your message here]\n\nTGStar Support';
-  openModal('emailModal');
+async function loadWithdrawals(){
+  try{
+    const r=await fetch(SB+'/rest/v1/transactions?type=eq.withdrawal&status=eq.pending&select=*&order=created_at.desc',{headers:H});
+    const data=await r.json()||[];
+    const el=document.getElementById('witList');
+    if(!data.length){ el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">No pending withdrawals. 🎉</div>'; return; }
+    el.innerHTML=data.map(w=>`
+      <div class="wit-card">
+        <div class="wit-top">
+          <div class="wit-email">${w.email}</div>
+          <div class="wit-info">$${parseFloat(w.amount_usdt).toFixed(2)} USDT → ${w.crypto_token} (${w.crypto_network})</div>
+          <div class="wit-addr">${w.crypto_address}</div>
+        </div>
+        <div class="wit-btns">
+          <button class="w-app" onclick="approveWit('${w.id}','${w.user_id}','${w.email}',${w.amount_usdt})">✓ Approve & Send</button>
+          <button class="w-rej" onclick="rejectWit('${w.id}','${w.user_id}','${w.email}',${w.amount_usdt})">✕ Reject</button>
+        </div>
+      </div>`).join('');
+  }catch(e){}
+}
+
+async function approveWit(id,uid,email,amt){
+  if(!confirm('Approve $'+amt+' withdrawal for '+email+'?\n\nMake sure you have already sent the crypto!')) return;
+  const r=await fetch(SB+'/rest/v1/wallets?user_id=eq.'+uid+'&select=balance_usdt',{headers:H});
+  const cur=parseFloat((await r.json())?.[0]?.balance_usdt||0);
+  const newBal=Math.max(0,cur-amt);
+  await fetch(SB+'/rest/v1/wallets?user_id=eq.'+uid,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({balance_usdt:newBal})});
+  await fetch(SB+'/rest/v1/transactions?id=eq.'+id,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({status:'approved'})});
+  await sendNotifDB(uid,email,'success','Withdrawal Sent 🚀',`Your withdrawal of $${parseFloat(amt).toFixed(2)} USDT has been approved and sent. New balance: $${newBal.toFixed(2)} USDT.`);
+  toast('Withdrawal approved & balance deducted','ok'); loadWithdrawals(); loadWallets();
+}
+
+async function rejectWit(id,uid,email,amt){
+  if(!confirm('Reject this withdrawal?')) return;
+  await fetch(SB+'/rest/v1/transactions?id=eq.'+id,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({status:'rejected'})});
+  await sendNotifDB(uid,email,'warning','Withdrawal Rejected',`Your withdrawal of $${parseFloat(amt).toFixed(2)} USDT was rejected. Contact support for details.`);
+  toast('Withdrawal rejected','ok'); loadWithdrawals();
+}
+
+// ── SERVICES ──────────────────────────────────────────────────────────
+async function loadServices(){
+  try{
+    const r=await fetch(SB+'/rest/v1/services?select=*&order=sort_order.asc',{headers:H});
+    const data=await r.json()||[];
+    const el=document.getElementById('svcList');
+    if(!data.length){ el.innerHTML='<div class="empty">No services. Run wallet_tables.sql in Supabase first.</div>'; return; }
+    el.innerHTML=data.map(s=>`
+      <div class="svc-mgr-row">
+        <div class="svc-mgr-name">${s.icon} ${s.name}<br/><span style="font-size:.68rem;color:var(--dim2)">${s.variant}</span></div>
+        <div class="svc-cur-price">$${parseFloat(s.price).toFixed(2)}${s.discount_pct>0?`<span class="disc-badge">${s.discount_pct}% off</span>`:''}</div>
+        <input class="sm-inp" id="sp-${s.id}" type="number" value="${s.price}" step="0.01" title="New price"/>
+        <input class="sm-inp" id="sd-${s.id}" type="number" value="${s.discount_pct||0}" min="0" max="100" style="width:55px" title="Discount %"/> <span style="font-size:.7rem;color:var(--dim2)">%</span>
+        <button class="sm-save" onclick="saveService('${s.id}')">Save</button>
+        <button class="sm-tog ${s.active?'sm-on':'sm-off'}" onclick="toggleSvc('${s.id}',${s.active})">${s.active?'ON':'OFF'}</button>
+      </div>`).join('');
+  }catch(e){ document.getElementById('svcList').innerHTML='<div class="empty" style="color:#f87171">Failed to load services.</div>'; }
+}
+
+async function saveService(id){
+  const price=parseFloat(document.getElementById('sp-'+id)?.value||0);
+  const disc=parseInt(document.getElementById('sd-'+id)?.value||0);
+  if(!price||price<=0){ toast('Enter a valid price','err'); return; }
+  await fetch(SB+'/rest/v1/services?id=eq.'+id,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({price,discount_pct:disc})});
+  toast('Saved ✓','ok'); loadServices();
+}
+
+async function toggleSvc(id,cur){
+  await fetch(SB+'/rest/v1/services?id=eq.'+id,{method:'PATCH',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({active:!cur})});
+  toast('Service '+(cur?'disabled':'enabled'),'ok'); loadServices();
+}
+
+// ── PROOFS ────────────────────────────────────────────────────────────
+async function loadProofs(){
+  try{
+    const r=await fetch(SB+'/rest/v1/proofs?select=*&order=created_at.desc',{headers:H});
+    const data=await r.json()||[];
+    const el=document.getElementById('proofGrid');
+    if(!data.length){ el.innerHTML='<div class="empty" style="grid-column:1/-1">No proofs yet. Add one above.</div>'; return; }
+    el.innerHTML=data.map(p=>`<div class="proof-item"><img src="${p.image_url}" alt="${p.title}" loading="lazy" onerror="this.style.background='#1a1a2e'"/><button class="proof-del" onclick="delProof('${p.id}')">✕</button><div class="proof-item-lbl">${p.title}</div></div>`).join('');
+  }catch(e){}
+}
+
+async function addProof(){
+  const title=document.getElementById('pTitle').value.trim();
+  const url=document.getElementById('pUrl').value.trim();
+  if(!title||!url){ toast('Enter title and image URL','err'); return; }
+  await fetch(SB+'/rest/v1/proofs',{method:'POST',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({title,image_url:url})});
+  document.getElementById('pTitle').value=''; document.getElementById('pUrl').value='';
+  toast('Proof added ✓','ok'); loadProofs();
+}
+
+async function delProof(id){
+  if(!confirm('Delete this proof?')) return;
+  await fetch(SB+'/rest/v1/proofs?id=eq.'+id,{method:'DELETE',headers:H});
+  toast('Deleted','ok'); loadProofs();
+}
+
+// ── NOTIFICATIONS ────────────────────────────────────────────────────
+async function sendNotifDB(uid,email,type,title,message){
+  await fetch(SB+'/rest/v1/notifications',{method:'POST',headers:{...H,'Prefer':'return=minimal'},body:JSON.stringify({user_id:uid,email,type,title,message,read:false})}).catch(()=>{});
+}
+
+async function sendNotif(){
+  const email=document.getElementById('nEmail').value.trim();
+  const title=document.getElementById('nTitle').value.trim();
+  const msg=document.getElementById('nMsg').value.trim();
+  const type=document.getElementById('nType').value;
+  if(!email||!title||!msg){ toast('Fill in all fields','err'); return; }
+  try{
+    if(email==='all'){
+      const r=await fetch(SB+'/rest/v1/wallets?select=user_id,email',{headers:H});
+      const users=await r.json()||[];
+      for(const u of users) await sendNotifDB(u.user_id,u.email,type,title,msg);
+      toast('Sent to all '+users.length+' users ✓','ok');
+    } else {
+      const r=await fetch(SB+'/rest/v1/wallets?email=eq.'+encodeURIComponent(email)+'&select=user_id,email',{headers:H});
+      const users=await r.json()||[];
+      if(!users.length){ toast('User not found','err'); return; }
+      await sendNotifDB(users[0].user_id,users[0].email,type,title,msg);
+      toast('Notification sent ✓','ok');
+    }
+    document.getElementById('nEmail').value='';
+    document.getElementById('nTitle').value='';
+    document.getElementById('nMsg').value='';
+    loadNotifHist();
+  }catch(e){ toast('Failed to send','err'); }
+}
+
+async function loadNotifHist(){
+  try{
+    const r=await fetch(SB+'/rest/v1/notifications?select=*&order=created_at.desc&limit=20',{headers:H});
+    const data=await r.json()||[];
+    const el=document.getElementById('notifHist');
+    if(!data.length){ el.innerHTML='<div class="empty">No notifications sent yet.</div>'; return; }
+    el.innerHTML=data.map(n=>`<div class="notif-hist-item"><div class="nh-title">${n.type==='success'?'✅':n.type==='warning'?'⚠️':'ℹ️'} ${n.title}</div><div class="nh-to">To: ${n.email||'—'}</div><div class="nh-msg">${n.message}</div><div class="nh-time">${new Date(n.created_at).toLocaleString()}</div></div>`).join('');
+  }catch(e){}
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────
-function toast(msg, type='ok'){
+function toast(msg,type='ok'){
   const t=document.getElementById('toast');
   t.textContent=msg; t.className='toast '+(type==='ok'?'ok':'err');
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000);
 }
-
-// Auto-refresh every 60s
-setInterval(()=>{if(sessionStorage.getItem('tgs_admin'))loadAll()},60000);
 </script>
 </body>
 </html>
