@@ -376,6 +376,87 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
 /* ── WHATSAPP BUTTON ── */
 .btn-wa{display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;padding:14px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;width:100%;transition:all .2s;box-shadow:0 4px 16px rgba(37,211,102,.3)}
 .btn-wa:hover{background:#1ebe5d;transform:translateY(-1px)}
+/* ── DARK MODE ── */
+body.light{
+  --ink:#f0f4f8;--ink2:#e2e8f0;--ink3:#d1dbe8;
+  --line:rgba(0,0,0,.08);--line2:rgba(0,0,0,.12);
+  --white:#1a2a3a;--dim:#7a9bb8;--dim2:#4a6a8a;
+  --tg4:rgba(42,171,238,.08);
+}
+body.light .amb{display:none}
+.dm-toggle{background:rgba(255,255,255,.08);border:1px solid var(--line2);color:var(--dim2);
+  padding:6px 12px;border-radius:99px;cursor:pointer;font-size:.75rem;font-weight:600;
+  font-family:'Outfit',sans-serif;transition:all .2s;display:flex;align-items:center;gap:5px}
+.dm-toggle:hover{color:var(--white);border-color:var(--line2)}
+
+/* ── WALLET ── */
+.wallet-card{
+  background:linear-gradient(135deg,rgba(42,171,238,.18),rgba(42,171,238,.06));
+  border:1px solid rgba(42,171,238,.3);border-radius:16px;
+  padding:20px;margin-bottom:16px;
+}
+.wallet-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.8px;color:var(--dim2);margin-bottom:4px;font-weight:600}
+.wallet-bal{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--white);line-height:1}
+.wallet-bal span{font-size:.9rem;color:var(--tg2);margin-left:4px;font-family:'Outfit',sans-serif;font-weight:600}
+.wallet-actions{display:flex;gap:8px;margin-top:14px}
+.w-act-btn{flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;transition:all .2s}
+.w-dep{background:var(--tg);color:#fff;box-shadow:0 3px 12px rgba(42,171,238,.3)}
+.w-dep:hover{background:var(--tg2)}
+.w-wit{background:rgba(255,255,255,.08);border:1px solid var(--line2);color:var(--dim2)}
+.w-wit:hover{color:var(--white);border-color:var(--line2)}
+
+/* ── TRANSACTION LIST ── */
+.txn-item{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
+.txn-item:last-child{border-bottom:none}
+.txn-icon{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.txn-icon.credit{background:rgba(34,197,94,.12)}
+.txn-icon.debit{background:rgba(239,68,68,.12)}
+.txn-icon.pending{background:rgba(245,158,11,.12)}
+.txn-info{flex:1;min-width:0}
+.txn-desc{font-size:.82rem;font-weight:500}
+.txn-date{font-size:.7rem;color:var(--dim2);margin-top:1px}
+.txn-amt{font-weight:700;font-size:.85rem;white-space:nowrap}
+.txn-amt.credit{color:#4ade80}
+.txn-amt.debit{color:#f87171}
+.txn-amt.pending{color:#fbbf24}
+
+/* ── WITHDRAW FORM ── */
+.wit-min-note{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);
+  border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:.76rem;color:#fbbf24;line-height:1.5}
+
+/* ── PROOFS GALLERY ── */
+#proofs{position:relative;z-index:1;padding:72px 20px;background:var(--ink2)}
+.proofs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:36px}
+@media(min-width:560px){.proofs-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.proofs-grid{grid-template-columns:repeat(4,1fr)}}
+.proof-card{border-radius:14px;overflow:hidden;background:var(--ink3);border:1px solid var(--line);
+  cursor:pointer;transition:all .25s;position:relative}
+.proof-card:hover{transform:scale(1.02);border-color:rgba(42,171,238,.3);box-shadow:0 8px 28px rgba(0,0,0,.4)}
+.proof-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.proof-card-label{padding:8px 10px;font-size:.72rem;font-weight:600;color:var(--dim2)}
+
+/* proof lightbox */
+.lightbox{display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:20px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:90vh;border-radius:14px;object-fit:contain}
+.lightbox-close{position:fixed;top:16px;right:16px;background:rgba(255,255,255,.12);
+  border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;
+  font-size:1rem;display:flex;align-items:center;justify-content:center}
+
+/* ── NOTIFICATIONS ── */
+.notif-dot{width:8px;height:8px;border-radius:50%;background:#ef4444;
+  position:absolute;top:-2px;right:-2px;display:none}
+.notif-dot.show{display:block;animation:blink 1.5s infinite}
+.notif-item{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.notif-item:last-child{border-bottom:none}
+.notif-item.unread{background:rgba(42,171,238,.04);border-radius:8px;padding:11px 8px;margin:0 -8px}
+.notif-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.notif-title{font-size:.82rem;font-weight:600;margin-bottom:2px}
+.notif-msg{font-size:.76rem;color:var(--dim2);line-height:1.5}
+.notif-time{font-size:.68rem;color:var(--dim);margin-top:3px}
+
 .full{width:100%}.mt12{margin-top:12px}.mt16{margin-top:16px}
 </style>
 </head>
@@ -408,8 +489,10 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
   <a class="logo" href="#"><div class="logo-gem">✈</div><div class="logo-word">TG<b>Star</b></div></a>
   <div class="nav-r">
     <a class="nav-a" href="#services">Services</a>
+    <a class="nav-a" href="#proofs">Proofs</a>
     <a class="nav-a" href="#reviews">Reviews</a>
     <a class="nav-a" href="#faq">FAQ</a>
+    <button class="dm-toggle" onclick="toggleDark()" id="dmBtn">🌙 Dark</button>
     <div id="navAuth"><button class="nav-btn" onclick="openOv('authOv')">Sign In</button></div>
   </div>
 </nav>
@@ -549,6 +632,24 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
     </div>
   </div>
 </section>
+
+<!-- PROOFS -->
+<section id="proofs">
+  <div class="w">
+    <p class="sl">Real Results</p>
+    <h2 class="st">Proof of Work</h2>
+    <p class="ss">Screenshots from real customers whose accounts we've restored and services we've delivered.</p>
+    <div class="proofs-grid" id="proofsGrid">
+      <div style="color:var(--dim2);font-size:.82rem;padding:20px 0;grid-column:1/-1">Loading proofs…</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="Proof"/>
+</div>
 
 <!-- FAQ -->
 <section id="faq">
@@ -771,15 +872,133 @@ footer{position:relative;z-index:1;background:var(--ink2);border-top:1px solid v
 
 <!-- ACCOUNT MODAL -->
 <div class="ov" id="accountOv">
-  <div class="m"><div class="drag"></div>
+  <div class="m" style="max-width:480px"><div class="drag"></div>
     <button class="mc" onclick="closeOv('accountOv')">✕</button>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-      <div style="width:44px;height:44px;border-radius:50%;background:var(--tg);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff" id="acctAv">?</div>
-      <div><div style="font-weight:700;font-size:.95rem" id="acctName">—</div><div style="color:var(--dim2);font-size:.76rem" id="acctEmail">—</div></div>
+
+    <!-- Profile header -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--tg);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0" id="acctAv">?</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:.95rem" id="acctName">—</div>
+        <div style="color:var(--dim2);font-size:.76rem" id="acctEmail">—</div>
+      </div>
+      <div style="position:relative">
+        <button style="background:transparent;border:none;color:var(--dim2);font-size:1.2rem;cursor:pointer;padding:4px" onclick="openOv('notifOv')">🔔</button>
+        <span class="notif-dot" id="notifDot"></span>
+      </div>
     </div>
-    <div style="font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim2);margin-bottom:10px">My Orders</div>
-    <div id="acctOrders"><div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">Loading…</div></div>
+
+    <!-- WALLET CARD -->
+    <div class="wallet-card">
+      <div class="wallet-label">Available Balance</div>
+      <div class="wallet-bal" id="walletBal">$0.00 <span>USDT</span></div>
+      <div class="wallet-actions">
+        <button class="w-act-btn w-dep" onclick="closeOv('accountOv');openOv('depositOv')">⬇ Deposit</button>
+        <button class="w-act-btn w-wit" onclick="closeOv('accountOv');openOv('withdrawOv')">⬆ Withdraw</button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div style="display:flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden;margin-bottom:14px">
+      <button class="auth-mode-btn active" id="tabOrders" onclick="acctTab('orders')" style="flex:1;padding:9px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:600;transition:all .2s;background:var(--tg);color:#fff">Orders</button>
+      <button class="auth-mode-btn" id="tabTxns" onclick="acctTab('txns')" style="flex:1;padding:9px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:600;transition:all .2s;background:transparent;color:var(--dim2)">Transactions</button>
+    </div>
+
+    <div id="acctOrders"></div>
+    <div id="acctTxns" style="display:none"></div>
+
     <button class="btn-o full mt16" onclick="doSignOut()">Sign Out</button>
+  </div>
+</div>
+
+<!-- DEPOSIT MODAL -->
+<div class="ov" id="depositOv">
+  <div class="m"><div class="drag"></div>
+    <button class="mc" onclick="closeOv('depositOv')">✕</button>
+    <div class="mt2">⬇ Deposit USDT</div>
+    <div class="ms">Send crypto to deposit funds into your TGStar balance.</div>
+
+    <div class="timer-row"><span class="tl">⏱ Session expires in</span><span class="tv" id="depTimer">15:00</span></div>
+    <div class="rate-bar"><div class="rate-live"><span class="rate-dot" id="depRateDot"></span><span id="depRateLabel">—</span></div><span class="rate-val" id="depRateVal"></span></div>
+
+    <div class="f">
+      <label>Amount to deposit (USD)</label>
+      <input type="number" id="depAmount" placeholder="e.g. 50" min="1" oninput="updateDepositCalc()"/>
+    </div>
+    <div id="depCalcCard" style="display:none" class="amtcard">
+      <div class="amtr"><span class="amtl">You send</span><span class="amtv" id="depCryptoAmt">—</span></div>
+      <div class="amtu" id="depUsdAmt">—</div>
+    </div>
+
+    <div class="pay-select-header">Choose payment method</div>
+    <div class="pay-select-hint">Select token then network.</div>
+    <div class="selector-row">
+      <div class="selector-pill" id="depTokPill" onclick="toggleDrop('depTokDrop','depTokPill')">
+        <span id="depTokIcon"><svg viewBox="0 0 32 32" style="width:20px;height:20px;vertical-align:middle"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg></span>
+        <span class="pill-label" id="depTokLabel">USDT</span>
+        <span class="pill-arrow">▾</span>
+        <div class="drop-list" id="depTokDrop">
+          <div class="drop-item chosen" onclick="depSelTok(event,'USDT')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M17.922 17.383v-.002c-.11.008-.677.042-1.942.042-1.01 0-1.721-.03-1.971-.042v.003c-3.888-.171-6.79-.848-6.79-1.658 0-.809 2.902-1.486 6.79-1.66v2.644c.254.018.982.061 1.988.061 1.207 0 1.812-.05 1.925-.06v-2.643c3.88.173 6.775.85 6.775 1.658 0 .81-2.895 1.485-6.775 1.657m0-3.59v-2.366h5.414V7.819H8.595v3.608h5.414v2.365c-4.4.202-7.709 1.074-7.709 2.126 0 1.051 3.309 1.923 7.709 2.125v7.608h3.913v-7.61c4.393-.202 7.694-1.073 7.694-2.124 0-1.051-3.301-1.922-7.694-2.125" fill="#fff"/></svg></span><div><div class="d-main">USDT</div><div class="d-sub">Tether</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="depSelTok(event,'BTC')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M22.41 13.852c.3-2.007-1.228-3.085-3.317-3.804l.677-2.716-1.653-.412-.66 2.645c-.434-.108-.88-.21-1.324-.311l.665-2.663-1.652-.412-.678 2.715c-.36-.082-.713-.163-1.056-.248l.002-.008-2.28-.569-.44 1.765s1.228.281 1.202.299c.67.167.791.61.771.961l-1.855 7.437c-.064.16-.227.4-.594.308.013.019-1.202-.3-1.202-.3l-.822 1.89 2.151.536c.4.1.793.205 1.18.303l-.685 2.747 1.651.412.678-2.717c.452.122.89.235 1.32.341l-.676 2.706 1.653.412.685-2.742c2.823.534 4.947.319 5.84-2.235.72-2.054-.036-3.24-1.52-4.013 1.081-.249 1.895-.96 2.112-2.427z" fill="#fff"/></svg></span><div><div class="d-main">BTC</div><div class="d-sub">Bitcoin</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="depSelTok(event,'ETH')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16.498 4v8.87l7.497 3.35z" fill="#fff" opacity=".6"/><path d="M16.498 4L9 16.22l7.498-3.35z" fill="#fff"/><path d="M9 16.22l7.498 4.353v-7.701z" fill="#fff" opacity=".6"/></svg></span><div><div class="d-main">ETH</div><div class="d-sub">Ethereum</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="depSelTok(event,'BNB')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6l-6.144 6.144 2.26 2.26zM6 16l2.26-2.26L10.52 16l-2.26 2.26L6 16zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.259L16 26l-6.144-6.144 2.262-2.257zM21.48 16l2.26-2.26L26 16l-2.26 2.26L21.48 16z" fill="#fff"/></svg></span><div><div class="d-main">BNB</div><div class="d-sub">BNB Chain</div></div><span class="d-check">✓</span></div>
+          <div class="drop-item" onclick="depSelTok(event,'TON')"><span class="coin-logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M16 5L5 11.5v9L16 27l11-6.5v-9L16 5zm0 2.31l8.5 5-3.58 5.9H11.08L7.5 12.31l8.5-5z" fill="#fff"/></svg></span><div><div class="d-main">TON</div><div class="d-sub">Toncoin</div></div><span class="d-check">✓</span></div>
+        </div>
+      </div>
+      <div class="selector-pill" id="depNetPill" onclick="toggleDrop('depNetDrop','depNetPill')">
+        <span class="pill-icon">🔗</span>
+        <span class="pill-label" id="depNetLabel">BSC (BEP20)</span>
+        <span class="pill-arrow">▾</span>
+        <div class="drop-list" id="depNetDrop"></div>
+      </div>
+    </div>
+
+    <div class="acard">
+      <div class="albl">Send to Address</div>
+      <div class="aval" id="depAddr">—</div>
+      <div class="aact"><button class="cbtn" onclick="copyDepAddr()">📋 Copy Address</button></div>
+    </div>
+    <div class="warn-note">⚠️ Your balance will be credited in USDT after we verify your deposit on-chain. This takes 5–15 minutes.</div>
+    <button class="btn-tg full" onclick="claimDeposit()">✅ I Have Sent the Deposit</button>
+  </div>
+</div>
+
+<!-- WITHDRAW MODAL -->
+<div class="ov" id="withdrawOv">
+  <div class="m"><div class="drag"></div>
+    <button class="mc" onclick="closeOv('withdrawOv')">✕</button>
+    <div class="mt2">⬆ Withdraw</div>
+    <div class="ms">Request a withdrawal to your crypto wallet. Minimum $40 USDT.</div>
+    <div class="wit-min-note">⚠️ Minimum withdrawal is <strong>$40.00 USDT</strong>. Withdrawals are processed manually within 24 hours.</div>
+    <div style="background:rgba(42,171,238,.07);border:1px solid rgba(42,171,238,.18);border-radius:10px;padding:12px 15px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">
+      <span style="color:var(--dim2);font-size:.8rem">Your balance</span>
+      <span style="font-weight:800;font-size:1rem;color:var(--tg2)" id="witBalDisplay">$0.00 USDT</span>
+    </div>
+    <div class="f"><label>Amount to Withdraw (USD)</label><input type="number" id="witAmount" placeholder="Minimum $40.00" min="40"/></div>
+    <div class="f">
+      <label>Select Token to Receive</label>
+      <select id="witToken" style="width:100%;background:var(--ink3);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;color:var(--white);font-size:.88rem;font-family:'Outfit',sans-serif;outline:none">
+        <option value="USDT">USDT (Tether)</option>
+        <option value="BTC">BTC (Bitcoin)</option>
+        <option value="ETH">ETH (Ethereum)</option>
+        <option value="BNB">BNB (BNB Chain)</option>
+        <option value="TON">TON (Toncoin)</option>
+        <option value="LTC">LTC (Litecoin)</option>
+      </select>
+    </div>
+    <div class="f"><label>Select Network</label><input type="text" id="witNetwork" placeholder="e.g. BSC (BEP20), TRC20, ERC20…"/></div>
+    <div class="f"><label>Your Wallet Address</label><input type="text" id="witAddress" placeholder="Paste your receiving address"/></div>
+    <button class="btn-tg full mt12" onclick="submitWithdraw()">Submit Withdrawal Request</button>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS MODAL -->
+<div class="ov" id="notifOv">
+  <div class="m"><div class="drag"></div>
+    <button class="mc" onclick="closeOv('notifOv')">✕</button>
+    <div class="mt2">🔔 Notifications</div>
+    <div class="ms">Updates about your orders and account.</div>
+    <div id="notifList" style="margin-top:4px"></div>
   </div>
 </div>
 
@@ -1251,6 +1470,12 @@ async function verifyOtp(){
       currentUser = data.user;
       currentSession = data.access_token;
       localStorage.setItem('tgs_session', JSON.stringify({user:data.user, token:data.access_token}));
+      // Auto-create wallet if first time (ignore if already exists)
+      fetch(SB_URL+'/rest/v1/wallets', {
+        method:'POST',
+        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+data.access_token,'Content-Type':'application/json','Prefer':'return=minimal,resolution=ignore-duplicates'},
+        body:JSON.stringify({user_id:data.user.id, email:data.user.email, balance_usdt:0})
+      }).catch(()=>{});
       updateNavAuth();
       closeOv('authOv');
       openAccountModal();
@@ -1316,6 +1541,7 @@ const _origOpenOv = openOv;
 function openOv(id){
   document.getElementById(id).classList.add('open');
   if(id==='ordersOv') loadGuestOrders();
+  if(id==='depositOv') openOvDeposit();
   if(id==='authOv'){
     document.getElementById('authStep1').style.display='block';
     document.getElementById('authStep2').style.display='none';
@@ -1361,11 +1587,288 @@ async function openAccountModal(){
   }catch(e){ document.getElementById('acctOrders').innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:16px 0">Could not load orders.</div>'; }
 }
 
+async function openAccountModal(){
+  if(!currentUser){ openOv('authOv'); return; }
+  const name = currentUser.user_metadata?.name||currentUser.email?.split('@')[0]||'User';
+  const email = currentUser.email||'';
+  document.getElementById('acctAv').textContent = name[0].toUpperCase();
+  document.getElementById('acctName').textContent = name;
+  document.getElementById('acctEmail').textContent = email;
+  openOv('accountOv');
+  acctTab('orders');
+  loadWallet();
+  loadNotifs();
+}
+
+// ── ACCOUNT TABS
+function acctTab(tab){
+  const isOrders = tab==='orders';
+  document.getElementById('tabOrders').style.background = isOrders?'var(--tg)':'transparent';
+  document.getElementById('tabOrders').style.color = isOrders?'#fff':'var(--dim2)';
+  document.getElementById('tabTxns').style.background = isOrders?'transparent':'var(--tg)';
+  document.getElementById('tabTxns').style.color = isOrders?'var(--dim2)':'#fff';
+  document.getElementById('acctOrders').style.display = isOrders?'block':'none';
+  document.getElementById('acctTxns').style.display = isOrders?'none':'block';
+  if(isOrders) loadAcctOrders();
+  else loadTxns();
+}
+
+// ── WALLET
+async function loadWallet(){
+  if(!currentUser) return;
+  try{
+    const r = await fetch(SB_URL+'/rest/v1/wallets?user_id=eq.'+currentUser.id+'&select=balance_usdt',{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY)}
+    });
+    const data = await r.json();
+    const bal = data?.[0]?.balance_usdt || 0;
+    document.getElementById('walletBal').innerHTML = '$'+parseFloat(bal).toFixed(2)+' <span>USDT</span>';
+    document.getElementById('witBalDisplay').textContent = '$'+parseFloat(bal).toFixed(2)+' USDT';
+  }catch(e){}
+}
+
+// ── ACCOUNT ORDERS
+async function loadAcctOrders(){
+  const el = document.getElementById('acctOrders');
+  el.innerHTML = '<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">Loading…</div>';
+  try{
+    const r = await fetch(SB_URL+'/rest/v1/orders?customer_email=eq.'+encodeURIComponent(currentUser.email)+'&order=created_at.desc&select=*',{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY)}
+    });
+    const data = await r.json();
+    if(!data||!data.length){ el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">No orders yet.</div>'; return; }
+    el.innerHTML = data.map(o=>`
+      <div class="or"><div class="ort">
+        <div class="orn">${o.service} — ${o.variant}</div>
+        <span class="status-pill ${spClass(o.status)}">${spIcon(o.status)} ${o.status}</span>
+      </div>
+      <div class="orm">${new Date(o.created_at).toLocaleDateString()} · ${o.telegram_account} · ${o.price}</div>
+      <div class="oid2">${o.order_id}</div></div>`).join('');
+  }catch(e){ el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:16px 0">Could not load orders.</div>'; }
+}
+
+// ── TRANSACTIONS
+async function loadTxns(){
+  const el = document.getElementById('acctTxns');
+  el.innerHTML = '<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">Loading…</div>';
+  try{
+    const r = await fetch(SB_URL+'/rest/v1/transactions?user_id=eq.'+currentUser.id+'&order=created_at.desc&limit=20&select=*',{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY)}
+    });
+    const data = await r.json();
+    if(!data||!data.length){ el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">No transactions yet.</div>'; return; }
+    el.innerHTML = data.map(t=>{
+      const isCredit = t.type==='deposit'||t.type==='credit';
+      const isPending = t.status==='pending';
+      const cls = isPending?'pending':isCredit?'credit':'debit';
+      const icon = t.type==='deposit'?'⬇':t.type==='withdrawal'?'⬆':isCredit?'➕':'➖';
+      const sign = isCredit?'+':'-';
+      return `<div class="txn-item">
+        <div class="txn-icon ${cls}">${icon}</div>
+        <div class="txn-info">
+          <div class="txn-desc">${t.description||t.type}</div>
+          <div class="txn-date">${new Date(t.created_at).toLocaleString()} · <span style="text-transform:capitalize">${t.status}</span></div>
+        </div>
+        <div class="txn-amt ${cls}">${sign}$${parseFloat(t.amount_usdt).toFixed(2)}</div>
+      </div>`;
+    }).join('');
+  }catch(e){ el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:16px 0">Could not load transactions.</div>'; }
+}
+
+// ── DEPOSIT
+let depCurTok='USDT', depCurChain=CHAINS.USDT[0], depTimerI=null;
+
+function openOvDeposit(){
+  depCurTok='USDT'; depCurChain=CHAINS.USDT[0];
+  depRenderNetDrop(); depUpdateAddr();
+  startDepTimer();
+  // fetch rates
+  fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,the-open-network&vs_currencies=usd`,{signal:AbortSignal.timeout(8000)})
+    .then(r=>r.json()).then(data=>{
+      const map={BTC:'bitcoin',ETH:'ethereum',BNB:'binancecoin',TON:'the-open-network'};
+      for(const [sym,id] of Object.entries(map)) if(data[id]?.usd) liveRates[sym]=1/data[id].usd;
+      updateDepositCalc();
+      document.getElementById('depRateDot').style.background='#22c55e';
+      document.getElementById('depRateLabel').textContent='Live rate';
+    }).catch(()=>{
+      document.getElementById('depRateLabel').textContent='Estimated rate';
+    });
+}
+
+function depSelTok(e,tok){
+  e.stopPropagation();
+  depCurTok=tok;
+  depCurChain=CHAINS[tok]?.[0];
+  document.getElementById('depTokLabel').textContent=tok;
+  document.querySelectorAll('#depTokDrop .drop-item').forEach(el=>el.classList.toggle('chosen',el.querySelector('.d-main').textContent===tok));
+  depRenderNetDrop(); depUpdateAddr(); updateDepositCalc();
+  document.getElementById('depTokDrop').classList.remove('open');
+  document.getElementById('depTokPill').classList.remove('active-drop');
+}
+function depRenderNetDrop(){
+  const cs=CHAINS[depCurTok]||[];
+  document.getElementById('depNetDrop').innerHTML=cs.map((c,i)=>`
+    <div class="drop-item${i===0?' chosen':''}" onclick="depSelNet(event,'${c.id}')">
+      <span style="font-size:1rem;width:22px;text-align:center">🔗</span>
+      <div><div class="d-main">${c.l}</div><div class="d-sub">${c.n}</div></div><span class="d-check">✓</span>
+    </div>`).join('');
+  document.getElementById('depNetLabel').textContent=cs[0]?.l||'—';
+}
+function depSelNet(e,id){
+  e.stopPropagation();
+  depCurChain=(CHAINS[depCurTok]||[]).find(c=>c.id===id)||CHAINS[depCurTok]?.[0];
+  document.querySelectorAll('#depNetDrop .drop-item').forEach(el=>el.classList.toggle('chosen',el.querySelector('.d-main').textContent===depCurChain.l));
+  document.getElementById('depNetLabel').textContent=depCurChain.l;
+  depUpdateAddr();
+  document.getElementById('depNetDrop').classList.remove('open');
+  document.getElementById('depNetPill').classList.remove('active-drop');
+}
+function depUpdateAddr(){ document.getElementById('depAddr').textContent=depCurChain?.a||'—'; }
+function updateDepositCalc(){
+  const amt=parseFloat(document.getElementById('depAmount').value)||0;
+  if(!amt){ document.getElementById('depCalcCard').style.display='none'; return; }
+  const rate=liveRates[depCurTok]||FALLBACK[depCurTok]||1;
+  const dec=depCurTok==='BTC'?8:depCurTok==='ETH'?6:4;
+  document.getElementById('depCalcCard').style.display='block';
+  document.getElementById('depCryptoAmt').textContent=(amt*rate).toFixed(dec)+' '+depCurTok;
+  document.getElementById('depUsdAmt').textContent='≈ $'+amt.toFixed(2)+' USD';
+  document.getElementById('depRateVal').textContent='1 '+depCurTok+' = $'+(depCurTok==='USDT'||depCurTok==='USDC'?'1.00':(1/rate).toLocaleString('en-US',{maximumFractionDigits:2}));
+}
+function copyDepAddr(){
+  navigator.clipboard.writeText(document.getElementById('depAddr').textContent).catch(()=>{});
+  const b=event.target; b.textContent='✅ Copied!'; setTimeout(()=>b.textContent='📋 Copy Address',2200);
+}
+function startDepTimer(){
+  clearInterval(depTimerI); let s=900;
+  const el=document.getElementById('depTimer');
+  const tick=()=>{const m=Math.floor(s/60),sc=s%60;el.textContent=String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');el.classList.toggle('red',s<=60);if(s--<=0)clearInterval(depTimerI)};
+  tick(); depTimerI=setInterval(tick,1000);
+}
+async function claimDeposit(){
+  if(!currentUser){ alert('Please sign in first.'); return; }
+  const amt=parseFloat(document.getElementById('depAmount').value)||0;
+  if(!amt||amt<1){ alert('Please enter a deposit amount.'); return; }
+  // Record pending deposit transaction
+  await fetch(SB_URL+'/rest/v1/transactions',{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY),'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({
+      user_id:currentUser.id, email:currentUser.email,
+      type:'deposit', amount_usdt:amt,
+      description:'Deposit via '+depCurTok+' ('+depCurChain?.l+')',
+      status:'pending', crypto_token:depCurTok, crypto_network:depCurChain?.l,
+      crypto_address:depCurChain?.a
+    })
+  }).catch(()=>{});
+  clearInterval(depTimerI);
+  closeOv('depositOv');
+  // Show confirmation
+  alert('✅ Deposit claimed! We will verify your transaction on-chain and credit your balance within 15 minutes.');
+}
+
+// ── WITHDRAW
+async function submitWithdraw(){
+  if(!currentUser){ alert('Please sign in first.'); return; }
+  const amt=parseFloat(document.getElementById('witAmount').value)||0;
+  const tok=document.getElementById('witToken').value;
+  const net=document.getElementById('witNetwork').value.trim();
+  const addr=document.getElementById('witAddress').value.trim();
+  if(amt<40){ alert('Minimum withdrawal is $40.00 USDT.'); return; }
+  if(!net){ alert('Please enter the network.'); return; }
+  if(!addr){ alert('Please enter your wallet address.'); return; }
+  // Check balance
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/wallets?user_id=eq.'+currentUser.id+'&select=balance_usdt',{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY)}
+    });
+    const data=await r.json();
+    const bal=parseFloat(data?.[0]?.balance_usdt||0);
+    if(amt>bal){ alert('Insufficient balance. You have $'+bal.toFixed(2)+' USDT.'); return; }
+  }catch(e){ alert('Could not verify balance. Try again.'); return; }
+  // Record pending withdrawal
+  await fetch(SB_URL+'/rest/v1/transactions',{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY),'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({
+      user_id:currentUser.id, email:currentUser.email,
+      type:'withdrawal', amount_usdt:amt,
+      description:'Withdrawal to '+tok+' ('+net+')',
+      status:'pending', crypto_token:tok, crypto_network:net, crypto_address:addr
+    })
+  }).catch(()=>{});
+  closeOv('withdrawOv');
+  alert('✅ Withdrawal request submitted! We will process it within 24 hours.');
+}
+
+// ── PROOFS GALLERY
+async function loadProofs(){
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/proofs?select=*&order=display_order.asc',{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+    });
+    const data=await r.json();
+    const el=document.getElementById('proofsGrid');
+    if(!data||!data.length){ el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;padding:20px 0;grid-column:1/-1">No proofs uploaded yet. Check back soon!</div>'; return; }
+    el.innerHTML=data.map(p=>`
+      <div class="proof-card" onclick="openLightbox('${p.image_url}')">
+        <img src="${p.image_url}" alt="${p.title}" loading="lazy"/>
+        <div class="proof-card-label">${p.title}</div>
+      </div>`).join('');
+  }catch(e){}
+}
+function openLightbox(url){ document.getElementById('lightboxImg').src=url; document.getElementById('lightbox').classList.add('open'); }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+
+// ── NOTIFICATIONS
+async function loadNotifs(){
+  if(!currentUser) return;
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/notifications?user_id=eq.'+currentUser.id+'&order=created_at.desc&limit=20&select=*',{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY)}
+    });
+    const data=await r.json();
+    const unread=(data||[]).filter(n=>!n.read).length;
+    document.getElementById('notifDot').classList.toggle('show',unread>0);
+    const el=document.getElementById('notifList');
+    if(!data||!data.length){ el.innerHTML='<div style="color:var(--dim2);font-size:.82rem;text-align:center;padding:20px 0">No notifications yet.</div>'; return; }
+    el.innerHTML=data.map(n=>`
+      <div class="notif-item${n.read?'':' unread'}">
+        <div class="notif-icon">${n.type==='success'?'✅':n.type==='warning'?'⚠️':'ℹ️'}</div>
+        <div>
+          <div class="notif-title">${n.title}</div>
+          <div class="notif-msg">${n.message}</div>
+          <div class="notif-time">${new Date(n.created_at).toLocaleString()}</div>
+        </div>
+      </div>`).join('');
+    // Mark all as read
+    if(unread>0){
+      await fetch(SB_URL+'/rest/v1/notifications?user_id=eq.'+currentUser.id+'&read=eq.false',{
+        method:'PATCH',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+(currentSession||SB_KEY),'Content-Type':'application/json','Prefer':'return=minimal'},
+        body:JSON.stringify({read:true})
+      }).catch(()=>{});
+    }
+  }catch(e){}
+}
+
+// ── DARK MODE
+function toggleDark(){
+  const isDark=!document.body.classList.contains('light');
+  document.body.classList.toggle('light',isDark);
+  document.getElementById('dmBtn').textContent=isDark?'☀️ Light':'🌙 Dark';
+  localStorage.setItem('tgs_theme',isDark?'light':'dark');
+}
+function initTheme(){
+  const saved=localStorage.getItem('tgs_theme');
+  if(saved==='light'){ document.body.classList.add('light'); document.getElementById('dmBtn').textContent='☀️ Light'; }
+}
+
 // ─────────────────────────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────────────────────────
 restoreSession();
 updateNavAuth();
+initTheme();
+loadProofs();
 </script>
 </body>
 </html>
